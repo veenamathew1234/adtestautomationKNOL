@@ -20,26 +20,33 @@ public class StartUp {
 	  ObjectMapper mapper = new ObjectMapper();
 	  JsonFactory f = new JsonFactory();
 	  Map<String,Object> DataObj;
-	  String filepath=System.getProperty("user.dir")+"/home/knolly/workspace/adtestautomation/src/main/java/dataRepository/";
+	  String filepath=System.getProperty("user.dir")+"/src/main/java/dataRepository/";
 	  String testCaseName= new Object(){}.getClass().getEnclosingClass().getSimpleName();
 	  public RemoteWebDriver driver;
 	  String chromefilepath=System.getProperty("user.dir")+"/chromedriver";
 	
 	@Before
-	public RemoteWebDriver setUp(){
+	public RemoteWebDriver setUp() throws JsonParseException, IOException{
 		
 		System.setProperty("webdriver.chrome.driver",chromefilepath);
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
-		//beforeClass();
+		beforeClass();
 		return driver;
 		
 	}
-	public void beforeClass() throws JsonParseException, IOException
-	   {
-		  JsonParser jp = f.createParser(new File(filepath+"testData.json"));
-		  jp.nextToken();
-		  DataObj = mapper.readValue(jp, Map.class);
+	public void beforeClass() {
+		  JsonParser jp;
+		try {
+			JsonParser jp = f.createParser(new File(filepath+"testData.json"));
+			jp.nextToken();
+			DataObj = mapper.readValue(jp, Map.class);
+		}
+		catch(){
+			
+		
+		}
+		   
 		  
 
 }

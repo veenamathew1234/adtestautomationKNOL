@@ -20,18 +20,18 @@ public class login {
 	
 	public Properties obj;
  
-	public login(RemoteWebDriver driver){
-		
-		this.obj=new Properties();
-		FileInputStream objfile;
-			try {
-				objfile = new FileInputStream(System.getProperty("user.dir")+"/home/knolly/workspace/adtestautomation/src/main/java/uiMap/Login.properties");
-				obj.load(objfile);
-			} 
-			catch (IOException e) {
-					e.printStackTrace();
-			}
-	}
+//	public login(RemoteWebDriver driver){
+//		
+//		this.obj=new Properties();
+//		FileInputStream objfile;
+//			try {
+//				objfile = new FileInputStream(System.getProperty("user.dir")+"/home/knolly/workspace/adtestautomation/src/main/java/uiMap/Login.properties");
+//				obj.load(objfile);
+//			} 
+//			catch (IOException e) {
+//					e.printStackTrace();
+//			}
+//	}
 		
 	@Given("^User is already in login page$")
 	public void user_is_already_in_login_page(){
