@@ -8,8 +8,7 @@ import cucumber.api.junit.Cucumber;
 @RunWith(Cucumber.class)
 @CucumberOptions(
 		features= "classpath:features"
-		,glue= {"stepDefinitions"},
-		format= {"pretty","html:test-outout"}
+		,glue= {"stepDefinitions"}
 		)
 public class ADRunner {
 

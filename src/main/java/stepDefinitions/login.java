@@ -16,27 +16,15 @@ import utils.StartUp;
 public class login {
 	
 	StartUp st = new StartUp();
-	public RemoteWebDriver driver=st.setUp();
+	private RemoteWebDriver driver=st.setUp();
+	Map<String,Object> DataObj=st.beforeClass();
 	
 	public Properties obj;
- 
-	public login(RemoteWebDriver driver){
-		
-		this.obj=new Properties();
-		FileInputStream objfile;
-			try {
-				objfile = new FileInputStream(System.getProperty("user.dir")+"/home/knolly/workspace/adtestautomation/src/main/java/uiMap/Login.properties");
-				obj.load(objfile);
-			} 
-			catch (IOException e) {
-					e.printStackTrace();
-			}
-	}
 		
 	@Given("^User is already in login page$")
-	public void user_is_already_in_login_page(){
-		
-		//driver.get(dataobj.get("url").toString());
+	public void user_is_already_in_login_page()
+	{
+		driver.get(DataObj.get("url").toString());
 	   
 	}
 	
