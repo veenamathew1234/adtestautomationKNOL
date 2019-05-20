@@ -16,7 +16,7 @@ import utils.StartUp;
 public class login {
 	
 	StartUp st = new StartUp();
-	public RemoteWebDriver driver;
+	public RemoteWebDriver driver=st.setUp();
 	
 	public Properties obj;
  
@@ -36,7 +36,7 @@ public class login {
 	@Given("^User is already in login page$")
 	public void user_is_already_in_login_page(){
 		
-		driver.get(dataobj.get("url").toString());
+		//driver.get(dataobj.get("url").toString());
 	   
 	}
 	

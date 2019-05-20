@@ -7,10 +7,10 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-		 features = "/home/knolly/workspace/adtestautomation/src/main/java/features"
-		,glue={"stepDefinitions"}
-	)
-
+		features= "classpath:features"
+		,glue= {"stepDefinitions"},
+		format= {"pretty","html:test-outout"}
+		)
 public class ADRunner {
 
 }

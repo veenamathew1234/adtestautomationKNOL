@@ -26,12 +26,12 @@ public class StartUp {
 	  String chromefilepath=System.getProperty("user.dir")+"/chromedriver";
 	
 	@Before
-	public RemoteWebDriver setUp() throws JsonParseException, IOException{
+	public RemoteWebDriver setUp(){
 		
 		System.setProperty("webdriver.chrome.driver",chromefilepath);
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
-		beforeClass();
+		//beforeClass();
 		return driver;
 		
 	}
