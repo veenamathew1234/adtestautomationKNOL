@@ -1,4 +1,6 @@
 Feature: Login
+
+@ignore
 Scenario: Successful Login
 After user enters valid credentials he should be landed on Kompass home page
 
