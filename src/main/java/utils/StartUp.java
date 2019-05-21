@@ -20,8 +20,6 @@ import cucumber.api.java.Before;
 
 public class StartUp {
 	
-	  ObjectMapper mapper = new ObjectMapper();
-	  JsonFactory f = new JsonFactory();
 	  Map<String,Object> DataObj;
 	  String filepath=System.getProperty("user.dir")+"/src/main/java/dataRepository/";
 	  public RemoteWebDriver driver;
@@ -34,12 +32,13 @@ public class StartUp {
 		System.setProperty("webdriver.chrome.driver",chromefilepath);
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
+		beforeClass();
 		return driver;
 		
 	}
+
 	public Map<String,Object> beforeClass()
 	{
-		FileInputStream objfile;
 		try 
 		{
 			ObjectMapper mapperForWrite = new ObjectMapper();
@@ -57,4 +56,5 @@ public class StartUp {
 		}
 		return DataObj;
 	}
+
 }
