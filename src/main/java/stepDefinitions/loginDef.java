@@ -1,4 +1,7 @@
 package stepDefinitions;
+import org.openqa.selenium.By;
+
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import cucumber.api.java.en.Given;
@@ -12,34 +15,44 @@ import java.util.Properties;
 
 import org.junit.Assert;
 import utils.StartUp;
+import pageRepository.LoginPage;
 
-public class login {
+public class loginDef {
 	
-	StartUp st = new StartUp();
-	private RemoteWebDriver driver=st.setUp();
-	Map<String,Object> DataObj=st.beforeClass();
+	LoginPage lp=new LoginPage();
 	
-	public Properties obj;
-		
 	@Given("^User is already in login page$")
-	public void user_is_already_in_login_page()
-	{
-		driver.get(DataObj.get("url").toString());
-	   
+	public void user_is_already_in_login_page(){
+	
+		lp.launchPage();
+   
 	}
 	
 	@When("^Title of the page is Login to Kompass$")
 	public void title_of_the_page_is_Login_to_Kompass() {
 	   
-		String title=driver.getTitle();
-		System.out.println("Page title :"+title);
-		Assert.assertEquals("Login to Kompass", title);
+		lp.validateLoginPage();
 	}
 	
 	@Then("^User enters email and password$")
 	public void user_enters_email_and_password(){
-	    
 		
+		lp.enterUserCredentials();
+    
+	}
+	
+	@Then("^User clicks on signin button$")
+	public void user_clicks_on_signin_button(){
+		
+		lp.clickOnSignButton();
+    
+	}
+	
+	@Then("^User is on Kompass home page$")
+	public void user_is_on_Kompass_home_page() {
+		
+		lp.reloadDemographics();
+    
 	}
 	
 
