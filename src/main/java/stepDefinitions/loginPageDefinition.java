@@ -15,21 +15,20 @@ import java.util.Properties;
 
 import org.junit.Assert;
 import utils.StartUp;
-import pageRepository.LoginPage;
+import pageRepository.loginPage;
 
-public class loginDef {
+public class loginPageDefinition{
 	
-	LoginPage lp=new LoginPage();
+	loginPage lp=new loginPage();
 	
 	@Given("^User is already in login page$")
 	public void user_is_already_in_login_page(){
 	
 		lp.launchPage();
-   
-	}
+   	}
 	
-	@When("^Title of the page is Login to Kompass$")
-	public void title_of_the_page_is_Login_to_Kompass() {
+	@When("^Title of the page is Login to AktivLearn Plus$")
+	public void title_of_the_page_is_Login_to_AktivLearnPlus() {
 	   
 		lp.validateLoginPage();
 	}
@@ -38,22 +37,22 @@ public class loginDef {
 	public void user_enters_email_and_password(){
 		
 		lp.enterUserCredentials();
-    
-	}
+    }
 	
 	@Then("^User clicks on signin button$")
 	public void user_clicks_on_signin_button(){
 		
 		lp.clickOnSignButton();
-    
-	}
+    }
 	
-	@Then("^User is on Kompass home page$")
-	public void user_is_on_Kompass_home_page() {
+	@Then("^User is on AktivLearn Plus home page$")
+	public void user_is_on_AktivLearnPlus_home_page() {
 		
 		lp.reloadDemographics();
-    
-	}
+    }
 	
 
 }
+
+
+
