@@ -12,7 +12,9 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(
 		features= "classpath:Features"
 		,glue= {"stepDefinitions"},
-		plugin = { "pretty", "junit:target/cucumber-reports/Cucumber.xml" }
+		monochrome =true,
+		//plugin = { "pretty", "junit:target/cucumber-reports/Cucumber.xml" }
+		plugin = {"pretty" , "html:Reports"}
 		)
 public class ADRunner {
 	

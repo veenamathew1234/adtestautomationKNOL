@@ -51,7 +51,7 @@ public welcomePage(){
 
 		if(isNewUser.equalsIgnoreCase("yes")){
 			System.out.println("User is new user and Accept invitation is found");
-			Thread.sleep(5000);
+			Thread.sleep(6000);
 			e=driver.findElement(By.xpath(prop.getProperty("btn_AcceptInvitation")));
 			e.click();
 			validateJourneyPage();
