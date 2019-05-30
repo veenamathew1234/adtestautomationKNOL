@@ -5,11 +5,14 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Properties;
 
+import org.jsoup.helper.HttpConnection.Response;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import io.restassured.RestAssured;
+
 
 import utils.StartUp;
 
@@ -38,6 +41,13 @@ public class loginPage extends StartUp{
 	public void launchPage(){
 		
 		driver.get(DataObj.get("url").toString());
+		
+//---------To get the response code of current url using RestAssured--------------
+		
+//		String str=DataObj.get("url").toString();
+//		System.out.println("url is:"+str);
+//		System.out.println("status code"+RestAssured.get(str).statusCode());
+//		return RestAssured.get(str).statusCode();
 	}
 	
 	public void validateLoginPage(){

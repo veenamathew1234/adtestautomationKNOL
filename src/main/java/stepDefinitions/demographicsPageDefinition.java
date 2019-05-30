@@ -2,6 +2,9 @@ package stepDefinitions;
 import org.openqa.selenium.JavascriptExecutor;
 
 import org.openqa.selenium.remote.RemoteWebDriver;
+
+
+
 import cucumber.api.java.en.Given;
 
 import cucumber.api.java.en.Then;
@@ -9,7 +12,7 @@ import cucumber.api.java.en.Then;
 import junit.framework.Assert;
 
 public class demographicsPageDefinition {
-
+	
 		public RemoteWebDriver driver;
 
 		String script="";
@@ -88,6 +91,6 @@ public class demographicsPageDefinition {
 
 		
 
-	}
 
 
+}

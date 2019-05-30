@@ -21,12 +21,5 @@ public class welcomePageDefinition {
 		wp.clickAcceptInvitation();
 	}
 
-//	@Then("^User is navigated to Journey Page$")
-//	public void user_is_navigated_to_Journey_Page() throws Throwable {
-//	   
-//		wp.validateJourneyPage();
-//	}
-
-
 
 }

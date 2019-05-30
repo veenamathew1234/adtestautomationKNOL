@@ -47,11 +47,9 @@ public welcomePage(){
  public void clickAcceptInvitation() throws InterruptedException{
 	
 	    isNewUser = DataObj.get("isNewUser").toString();
-		Thread.sleep(5000);
-
 		if(isNewUser.equalsIgnoreCase("yes")){
-			System.out.println("User is new user and Accept invitation is found");
-			Thread.sleep(6000);
+			System.out.println("User is new user and Accept invitation button is found");
+			Thread.sleep(5000);
 			e=driver.findElement(By.xpath(prop.getProperty("btn_AcceptInvitation")));
 			e.click();
 			validateJourneyPage();
@@ -64,13 +62,27 @@ public welcomePage(){
 
  }
  
- public void validateJourneyPage(){
+ public void validateJourneyPage() throws InterruptedException{
 	 
 	 System.out.println("Inside Journey Page");
-	 e=driver.findElement(By.xpath(prop.getProperty("lbl_journeypage")));
-	 System.out.println("Welcome page label is " +e.getText());
-	 if(e.getText().startsWith("Welcome to"))
+	 Thread.sleep(7000);
+	 
+	 //---------------Revisit this as this code is getting duplicated in welcome n journey pages--------------
+	 
+	// e=driver.findElement(By.xpath(prop.getProperty("lbl_journeypage")));
+//	 System.out.println("Welcome page label is " +e.getText());
+//	 if(e.getText().startsWith("Welcome to"))
+//		 System.out.println("Sucessfully landed on journey page");System.out.println("Welcome page label is " +e.getText());
+//	 if(e.getText().startsWith("Welcome to"))
+//	 System.out.println("Sucessfully landed on journey page");
+	 
+	 int count=0;
+	 count=driver.findElements(By.xpath(prop.getProperty("phaseitem_count"))).size();
+	 if(count!=0)
 		 System.out.println("Sucessfully landed on journey page");
+		 
+	 
+	 
 		 
 	 //Assert.assertEquals("Welcome to", e.getText());
  }
