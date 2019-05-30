@@ -4,38 +4,34 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Map;
-
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
-
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-
 import cucumber.api.java.Before;
 
 
 public class StartUp {
 	
 	  Map<String,Object> DataObj;
+	  protected static WebDriver driver;
+		
+	  protected WebDriver getDriver(){
+			
+			if(driver==null){
+				driver=new ChromeDriver();
+				driver.manage().window().maximize();
+			}
+			return driver;
+			
+		}
 	  String filepath=System.getProperty("user.dir")+"/src/main/java/dataRepository/";
-	  public RemoteWebDriver driver;
-	  String chromefilepath=System.getProperty("user.dir")+"/chromedriver";
 	  ObjectWriter writer;
-	
-	@Before
-	public RemoteWebDriver setUp(){
-		
-		System.setProperty("webdriver.chrome.driver",chromefilepath);
-		driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		beforeClass();
-		return driver;
-		
-	}
 
 	public Map<String,Object> beforeClass()
 	{
@@ -58,3 +54,5 @@ public class StartUp {
 	}
 
 }
+
+

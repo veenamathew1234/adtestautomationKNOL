@@ -7,20 +7,22 @@ import java.util.Properties;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import utils.StartUp;
 
-public class LoginPage {
+public class loginPage extends StartUp{
+	
+	WebDriver driver= getDriver();
 	
 	StartUp st = new StartUp();
-	private RemoteWebDriver driver=st.setUp();
 	Map<String,Object> DataObj=st.beforeClass();
 	public Properties prop;
 	WebElement e;
 	
-	public LoginPage(){
+	public loginPage(){
 		
 		this.prop=new Properties();
 		FileInputStream objfile;
@@ -67,3 +69,7 @@ public class LoginPage {
 	}
 
 }
+
+
+
+
