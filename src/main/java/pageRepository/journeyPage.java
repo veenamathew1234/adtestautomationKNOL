@@ -34,12 +34,15 @@ public class journeyPage extends StartUp {
 			}
 	}
 	
-	public void validatingJourneyPage(){
+	public void validateJourneyPage() throws InterruptedException{
 		
-		//-----------Revisit this---------
+		int count=0;
+		Thread.sleep(7000);
+		 count=driver.findElements(By.xpath(prop.getProperty("phaseitem_count"))).size();
+		 if(count!=0)
+			 System.out.println("Sucessfully landed on journey page");
 		
-		System.out.println("duplication of code in both welcome page and journey page");
-	}
+		}
 	
 	public void clickPhaseItem() throws InterruptedException{
 		int count=0,i;

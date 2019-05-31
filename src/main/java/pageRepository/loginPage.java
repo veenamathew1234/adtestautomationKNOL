@@ -70,13 +70,6 @@ public class loginPage extends StartUp{
 		e=driver.findElement(By.xpath(prop.getProperty("btn_Signin")));
 		e.click();
 	}
-	
-	public void reloadDemographics(){
-		String currenturl=driver.getCurrentUrl();
-		
-		if (currenturl.startsWith(DataObj.get("Demographics_url").toString()))
-			driver.get(DataObj.get("url").toString());
-	}
 
 }
 

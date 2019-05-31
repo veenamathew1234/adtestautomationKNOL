@@ -46,19 +46,18 @@ formatter.step({
   "name": "User clicks on signin button",
   "keyword": "Then "
 });
-formatter.step({
-  "line": 10,
-  "name": "User is on AktivLearn Plus home page",
-  "keyword": "Then "
-});
 formatter.match({
   "location": "loginPageDefinition.user_is_already_in_login_page()"
 });
 formatter.result({
 <<<<<<< HEAD
+<<<<<<< HEAD
   "duration": 6372757994,
 =======
   "duration": 4867164230,
+>>>>>>> shalini
+=======
+  "duration": 5794204118,
 >>>>>>> shalini
   "status": "passed"
 });
@@ -67,9 +66,13 @@ formatter.match({
 });
 formatter.result({
 <<<<<<< HEAD
+<<<<<<< HEAD
   "duration": 30806581,
 =======
   "duration": 18788090,
+>>>>>>> shalini
+=======
+  "duration": 14384881,
 >>>>>>> shalini
   "status": "passed"
 });
@@ -78,9 +81,13 @@ formatter.match({
 });
 formatter.result({
 <<<<<<< HEAD
+<<<<<<< HEAD
   "duration": 549147572,
 =======
   "duration": 642340357,
+>>>>>>> shalini
+=======
+  "duration": 640892999,
 >>>>>>> shalini
   "status": "passed"
 });
@@ -89,24 +96,65 @@ formatter.match({
 });
 formatter.result({
 <<<<<<< HEAD
+<<<<<<< HEAD
   "duration": 1357466548,
 =======
   "duration": 1363407871,
 >>>>>>> shalini
+=======
+  "duration": 1815279432,
+  "status": "passed"
+});
+formatter.uri("Features/BDemographics.feature");
+formatter.feature({
+  "line": 1,
+  "name": "Demographics",
+  "description": "",
+  "id": "demographics",
+  "keyword": "Feature"
+});
+formatter.scenario({
+  "line": 3,
+  "name": "Skip demographics page",
+  "description": "",
+  "id": "demographics;skip-demographics-page",
+  "type": "scenario",
+  "keyword": "Scenario"
+});
+formatter.step({
+  "line": 5,
+  "name": "The user has landed on the demographics page",
+  "keyword": "Given "
+});
+formatter.step({
+  "line": 6,
+  "name": "Refresh the demographics page by redirecting again to the same url",
+  "keyword": "Then "
+});
+formatter.match({
+  "location": "demographicsPageDefinition.the_user_has_landed_on_the_demographics_page()"
+});
+formatter.result({
+  "duration": 22201994,
+>>>>>>> shalini
   "status": "passed"
 });
 formatter.match({
-  "location": "loginPageDefinition.user_is_on_AktivLearnPlus_home_page()"
+  "location": "demographicsPageDefinition.refresh_the_demographics_page_by_redirecting_again_to_the_same_url()"
 });
 formatter.result({
+<<<<<<< HEAD
 <<<<<<< HEAD
   "duration": 4754044862,
 =======
   "duration": 2936891575,
 >>>>>>> shalini
+=======
+  "duration": 5165713733,
+>>>>>>> shalini
   "status": "passed"
 });
-formatter.uri("Features/BWelcome.feature");
+formatter.uri("Features/CWelcome.feature");
 formatter.feature({
   "line": 1,
   "name": "Welcome Page",
@@ -124,7 +172,7 @@ formatter.scenario({
 });
 formatter.step({
   "line": 4,
-  "name": "User is on home Page",
+  "name": "User is on welcome Page",
   "keyword": "Given "
 });
 formatter.step({
@@ -133,13 +181,17 @@ formatter.step({
   "keyword": "When "
 });
 formatter.match({
-  "location": "welcomePageDefinition.user_is_on_home_Page()"
+  "location": "welcomePageDefinition.user_is_on_welcome_Page()"
 });
 formatter.result({
+<<<<<<< HEAD
 <<<<<<< HEAD
   "duration": 14954289,
 =======
   "duration": 29939182,
+>>>>>>> shalini
+=======
+  "duration": 33788831,
 >>>>>>> shalini
   "status": "passed"
 });
@@ -148,13 +200,17 @@ formatter.match({
 });
 formatter.result({
 <<<<<<< HEAD
+<<<<<<< HEAD
   "duration": 5083437583,
   "status": "passed"
 =======
   "duration": 7027736994,
+=======
+  "duration": 108076,
+>>>>>>> shalini
   "status": "passed"
 });
-formatter.uri("Features/CJourney.feature");
+formatter.uri("Features/DJourney.feature");
 formatter.feature({
   "line": 1,
   "name": "JourneyPage",
@@ -164,9 +220,9 @@ formatter.feature({
 });
 formatter.scenario({
   "line": 3,
-  "name": "Validate the status of phase items",
+  "name": "Validate journey page",
   "description": "",
-  "id": "journeypage;validate-the-status-of-phase-items",
+  "id": "journeypage;validate-journey-page",
   "type": "scenario",
   "keyword": "Scenario"
 });
@@ -189,23 +245,24 @@ formatter.match({
   "location": "journeyPageDefinition.user_is_already_in_journey_page()"
 });
 formatter.result({
-  "duration": 506799,
+  "duration": 7020257212,
   "status": "passed"
 });
 formatter.match({
   "location": "journeyPageDefinition.user_clicks_on_each_of_the_phase_items()"
 });
 formatter.result({
-  "duration": 5896181294,
+  "duration": 6138230095,
   "status": "passed"
 });
 formatter.match({
   "location": "journeyPageDefinition.user_should_be_displayed_with_correct_page()"
 });
 formatter.result({
-  "duration": 91073,
+  "duration": 75802,
   "status": "passed"
 });
+<<<<<<< HEAD
 formatter.uri("Features/Demographics.feature");
 formatter.feature({
   "line": 1,
@@ -215,4 +272,6 @@ formatter.feature({
   "keyword": "Feature"
 >>>>>>> shalini
 });
+=======
+>>>>>>> shalini
 });

@@ -19,7 +19,6 @@ public class welcomePage extends StartUp {
 	WebDriver driver=getDriver();
 	StartUp st = new StartUp();
 	Map<String,Object> DataObj=st.beforeClass();
-	//Map<String,Object> DataObj;
 	public Properties prop;
 	WebElement e;
 	String isNewUser;
@@ -48,46 +47,18 @@ public welcomePage(){
  }
  
  public void clickAcceptInvitation() throws InterruptedException{
-	
-	    isNewUser = DataObj.get("isNewUser").toString();
+ 
+	 	isNewUser = DataObj.get("isNewUser").toString();
 		if(isNewUser.equalsIgnoreCase("yes")){
 			System.out.println("User is new user and Accept invitation button is found");
-			Thread.sleep(5000);
+			Thread.sleep(7000);
 			e=driver.findElement(By.xpath(prop.getProperty("btn_AcceptInvitation")));
 			e.click();
-			validateJourneyPage();
-		}
-		else{
-			System.out.println("User is an old user and Accept invitation button is not found");
-			validateJourneyPage();
 		}
 		
-
- }
- 
- public void validateJourneyPage() throws InterruptedException{
-	 
-	 System.out.println("Inside Journey Page");
-	 Thread.sleep(7000);
-	 
-	 //---------------Revisit this as this code is getting duplicated in welcome n journey pages--------------
-	 
-	// e=driver.findElement(By.xpath(prop.getProperty("lbl_journeypage")));
-//	 System.out.println("Welcome page label is " +e.getText());
-//	 if(e.getText().startsWith("Welcome to"))
-//		 System.out.println("Sucessfully landed on journey page");System.out.println("Welcome page label is " +e.getText());
-//	 if(e.getText().startsWith("Welcome to"))
-//	 System.out.println("Sucessfully landed on journey page");
-	 
-	 int count=0;
-	 count=driver.findElements(By.xpath(prop.getProperty("phaseitem_count"))).size();
-	 if(count!=0)
-		 System.out.println("Sucessfully landed on journey page");
-		 
-	 
-	 
-		 
-	 //Assert.assertEquals("Welcome to", e.getText());
+		else{
+			System.out.println("User is an old user and Accept invitation button is not found");
+		}
  }
 
 }

@@ -9,8 +9,8 @@ public class welcomePageDefinition {
 	
 	welcomePage wp = new welcomePage();
 	
-	@Given("^User is on home Page$")
-	public void user_is_on_home_Page() throws Throwable {
+	@Given("^User is on welcome Page$")
+	public void user_is_on_welcome_Page() throws Throwable {
 		
 		wp.validateWelcomePage();
 	}
