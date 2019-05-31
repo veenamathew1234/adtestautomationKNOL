@@ -15,17 +15,10 @@ public class journeyPageDefinition {
 		jp.validateJourneyPage();
 	}
 
-	@When("^User clicks on each of the phase items$")
+	@Then("^User clicks on each of the phase items$")
 	public void user_clicks_on_each_of_the_phase_items() throws Throwable {
 	   
 		jp.clickPhaseItem();
 	}
-
-	@Then("^User should be displayed with correct page$")
-	public void user_should_be_displayed_with_correct_page() throws Throwable {
-	  
-		
-	}
-
 
 }

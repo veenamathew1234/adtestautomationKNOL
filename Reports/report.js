@@ -52,12 +52,16 @@ formatter.match({
 formatter.result({
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "duration": 6372757994,
 =======
   "duration": 4867164230,
 >>>>>>> shalini
 =======
   "duration": 5794204118,
+>>>>>>> shalini
+=======
+  "duration": 11301977772,
 >>>>>>> shalini
   "status": "passed"
 });
@@ -67,12 +71,16 @@ formatter.match({
 formatter.result({
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "duration": 30806581,
 =======
   "duration": 18788090,
 >>>>>>> shalini
 =======
   "duration": 14384881,
+>>>>>>> shalini
+=======
+  "duration": 19482712,
 >>>>>>> shalini
   "status": "passed"
 });
@@ -82,12 +90,16 @@ formatter.match({
 formatter.result({
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "duration": 549147572,
 =======
   "duration": 642340357,
 >>>>>>> shalini
 =======
   "duration": 640892999,
+>>>>>>> shalini
+=======
+  "duration": 581584592,
 >>>>>>> shalini
   "status": "passed"
 });
@@ -97,12 +109,16 @@ formatter.match({
 formatter.result({
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "duration": 1357466548,
 =======
   "duration": 1363407871,
 >>>>>>> shalini
 =======
   "duration": 1815279432,
+=======
+  "duration": 1401423762,
+>>>>>>> shalini
   "status": "passed"
 });
 formatter.uri("Features/BDemographics.feature");
@@ -135,7 +151,11 @@ formatter.match({
   "location": "demographicsPageDefinition.the_user_has_landed_on_the_demographics_page()"
 });
 formatter.result({
+<<<<<<< HEAD
   "duration": 22201994,
+>>>>>>> shalini
+=======
+  "duration": 28405004,
 >>>>>>> shalini
   "status": "passed"
 });
@@ -145,12 +165,16 @@ formatter.match({
 formatter.result({
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "duration": 4754044862,
 =======
   "duration": 2936891575,
 >>>>>>> shalini
 =======
   "duration": 5165713733,
+>>>>>>> shalini
+=======
+  "duration": 3735224882,
 >>>>>>> shalini
   "status": "passed"
 });
@@ -186,12 +210,16 @@ formatter.match({
 formatter.result({
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "duration": 14954289,
 =======
   "duration": 29939182,
 >>>>>>> shalini
 =======
   "duration": 33788831,
+>>>>>>> shalini
+=======
+  "duration": 26211904,
 >>>>>>> shalini
   "status": "passed"
 });
@@ -201,12 +229,16 @@ formatter.match({
 formatter.result({
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "duration": 5083437583,
   "status": "passed"
 =======
   "duration": 7027736994,
 =======
   "duration": 108076,
+>>>>>>> shalini
+=======
+  "duration": 167023,
 >>>>>>> shalini
   "status": "passed"
 });
@@ -245,21 +277,21 @@ formatter.match({
   "location": "journeyPageDefinition.user_is_already_in_journey_page()"
 });
 formatter.result({
-  "duration": 7020257212,
+  "duration": 7051184440,
   "status": "passed"
 });
 formatter.match({
   "location": "journeyPageDefinition.user_clicks_on_each_of_the_phase_items()"
 });
 formatter.result({
-  "duration": 6138230095,
+  "duration": 29798618433,
   "status": "passed"
 });
 formatter.match({
   "location": "journeyPageDefinition.user_should_be_displayed_with_correct_page()"
 });
 formatter.result({
-  "duration": 75802,
+  "duration": 65581,
   "status": "passed"
 });
 <<<<<<< HEAD
