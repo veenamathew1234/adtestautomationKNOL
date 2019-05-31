@@ -13,7 +13,7 @@ import cucumber.api.junit.Cucumber;
 		features= {"classpath:Features","src/main/java/Features/ALogin.feature","src/main/java/Features/BDemographics.feature","src/main/java/Features/CWelcome.feature","src/main/java/Features/DJourney.feature"}
 		,glue= {"stepDefinitions"},
 		tags= {"~@ignore"},
-		monochrome =true,
+		monochrome =true
 		//plugin = { "pretty", "junit:target/cucumber-reports/Cucumber.xml" }
 		//plugin = {"pretty" , "html:Reports"}
 		//plugin = {"junit:target/cucumber-reports/cucumber.xml"}
