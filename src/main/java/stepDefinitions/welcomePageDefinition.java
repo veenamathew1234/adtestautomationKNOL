@@ -15,7 +15,7 @@ public class welcomePageDefinition {
 		wp.validateWelcomePage();
 	}
 
-	@When("^User clicks on Accepts Invitation button$")
+	@Then("^User clicks on Accepts Invitation button$")
 	public void user_clicks_on_Accepts_Invitation_button() throws Throwable {
 	    
 		wp.clickAcceptInvitation();
