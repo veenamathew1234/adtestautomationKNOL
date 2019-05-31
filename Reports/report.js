@@ -34,47 +34,75 @@ formatter.step({
   "name": "User clicks on signin button",
   "keyword": "Then "
 });
-formatter.step({
-  "line": 10,
-  "name": "User is on AktivLearn Plus home page",
-  "keyword": "Then "
-});
 formatter.match({
   "location": "loginPageDefinition.user_is_already_in_login_page()"
 });
 formatter.result({
-  "duration": 4867164230,
+  "duration": 5794204118,
   "status": "passed"
 });
 formatter.match({
   "location": "loginPageDefinition.title_of_the_page_is_Login_to_AktivLearnPlus()"
 });
 formatter.result({
-  "duration": 18788090,
+  "duration": 14384881,
   "status": "passed"
 });
 formatter.match({
   "location": "loginPageDefinition.user_enters_email_and_password()"
 });
 formatter.result({
-  "duration": 642340357,
+  "duration": 640892999,
   "status": "passed"
 });
 formatter.match({
   "location": "loginPageDefinition.user_clicks_on_signin_button()"
 });
 formatter.result({
-  "duration": 1363407871,
+  "duration": 1815279432,
+  "status": "passed"
+});
+formatter.uri("Features/BDemographics.feature");
+formatter.feature({
+  "line": 1,
+  "name": "Demographics",
+  "description": "",
+  "id": "demographics",
+  "keyword": "Feature"
+});
+formatter.scenario({
+  "line": 3,
+  "name": "Skip demographics page",
+  "description": "",
+  "id": "demographics;skip-demographics-page",
+  "type": "scenario",
+  "keyword": "Scenario"
+});
+formatter.step({
+  "line": 5,
+  "name": "The user has landed on the demographics page",
+  "keyword": "Given "
+});
+formatter.step({
+  "line": 6,
+  "name": "Refresh the demographics page by redirecting again to the same url",
+  "keyword": "Then "
+});
+formatter.match({
+  "location": "demographicsPageDefinition.the_user_has_landed_on_the_demographics_page()"
+});
+formatter.result({
+  "duration": 22201994,
   "status": "passed"
 });
 formatter.match({
-  "location": "loginPageDefinition.user_is_on_AktivLearnPlus_home_page()"
+  "location": "demographicsPageDefinition.refresh_the_demographics_page_by_redirecting_again_to_the_same_url()"
 });
 formatter.result({
-  "duration": 2936891575,
+  "duration": 5165713733,
   "status": "passed"
 });
-formatter.uri("Features/BWelcome.feature");
+formatter.uri("Features/CWelcome.feature");
 formatter.feature({
   "line": 1,
   "name": "Welcome Page",
@@ -92,7 +120,7 @@ formatter.scenario({
 });
 formatter.step({
   "line": 4,
-  "name": "User is on home Page",
+  "name": "User is on welcome Page",
   "keyword": "Given "
 });
 formatter.step({
@@ -101,20 +129,20 @@ formatter.step({
   "keyword": "When "
 });
 formatter.match({
-  "location": "welcomePageDefinition.user_is_on_home_Page()"
+  "location": "welcomePageDefinition.user_is_on_welcome_Page()"
 });
 formatter.result({
-  "duration": 29939182,
+  "duration": 33788831,
   "status": "passed"
 });
 formatter.match({
   "location": "welcomePageDefinition.user_clicks_on_Accepts_Invitation_button()"
 });
 formatter.result({
-  "duration": 7027736994,
+  "duration": 108076,
   "status": "passed"
 });
-formatter.uri("Features/CJourney.feature");
+formatter.uri("Features/DJourney.feature");
 formatter.feature({
   "line": 1,
   "name": "JourneyPage",
@@ -124,9 +152,9 @@ formatter.feature({
 });
 formatter.scenario({
   "line": 3,
-  "name": "Validate the status of phase items",
+  "name": "Validate journey page",
   "description": "",
-  "id": "journeypage;validate-the-status-of-phase-items",
+  "id": "journeypage;validate-journey-page",
   "type": "scenario",
   "keyword": "Scenario"
 });
@@ -149,29 +177,21 @@ formatter.match({
   "location": "journeyPageDefinition.user_is_already_in_journey_page()"
 });
 formatter.result({
-  "duration": 506799,
+  "duration": 7020257212,
   "status": "passed"
 });
 formatter.match({
   "location": "journeyPageDefinition.user_clicks_on_each_of_the_phase_items()"
 });
 formatter.result({
-  "duration": 5896181294,
+  "duration": 6138230095,
   "status": "passed"
 });
 formatter.match({
   "location": "journeyPageDefinition.user_should_be_displayed_with_correct_page()"
 });
 formatter.result({
-  "duration": 91073,
+  "duration": 75802,
   "status": "passed"
-});
-formatter.uri("Features/Demographics.feature");
-formatter.feature({
-  "line": 1,
-  "name": "Demographics",
-  "description": "",
-  "id": "demographics",
-  "keyword": "Feature"
 });
 });

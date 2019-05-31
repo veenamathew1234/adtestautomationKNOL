@@ -44,14 +44,6 @@ public class loginPageDefinition{
 		
 		lp.clickOnSignButton();
     }
-	
-	@Then("^User is on AktivLearn Plus home page$")
-	public void user_is_on_AktivLearnPlus_home_page() {
-		
-		lp.reloadDemographics();
-    }
-	
-
 }
 
 

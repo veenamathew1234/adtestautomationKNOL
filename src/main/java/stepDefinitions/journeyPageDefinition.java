@@ -12,7 +12,7 @@ public class journeyPageDefinition {
 	@Given("^User is already in journey page$")
 	public void user_is_already_in_journey_page() throws Throwable {
 	    
-		jp.validatingJourneyPage();
+		jp.validateJourneyPage();
 	}
 
 	@When("^User clicks on each of the phase items$")
