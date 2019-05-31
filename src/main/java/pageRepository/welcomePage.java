@@ -10,6 +10,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.http.HttpResponse;
+
 import utils.StartUp;
 
 public class welcomePage extends StartUp {
@@ -21,6 +23,7 @@ public class welcomePage extends StartUp {
 	public Properties prop;
 	WebElement e;
 	String isNewUser;
+	int statusCode ;
 		
 public welcomePage(){
 			
@@ -68,6 +71,12 @@ public welcomePage(){
 	 
 	 System.out.println("Inside Journey Page");
 	 e=driver.findElement(By.xpath(prop.getProperty("lbl_journeypage")));
+	 String href;
+	 href=e.getAttribute("href");
+	 statusCode = new HttpResponse().getStatus();
+	// statusCode=new HttpResponseCode().httpResponseCodeViaGet(href);
+	 System.out.println(statusCode);
+
 	 System.out.println("Welcome page label is " +e.getText());
 	 if(e.getText().startsWith("Welcome to"))
 		 System.out.println("Sucessfully landed on journey page");

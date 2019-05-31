@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import cucumber.api.java.Before;
+import io.restassured.RestAssured;
 
 
 public class StartUp {
