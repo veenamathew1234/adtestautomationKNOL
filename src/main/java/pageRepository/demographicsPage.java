@@ -7,28 +7,32 @@ import java.util.Properties;
 
 import org.openqa.selenium.WebElement;
 
+import utils.ObjectFactory;
 import utils.StartUp;
 
 public class demographicsPage extends StartUp{
 	
 	int flag;
+	ObjectFactory objmap;
 	String currenturl;
-	StartUp st = new StartUp();
-	Map<String,Object> DataObj=st.beforeClass();
+	//StartUp st = new StartUp();
+	//Map<String,Object> DataObj=st.beforeClass();
 	public Properties prop;
 	WebElement e;
 	
 	public demographicsPage(){
 		
-		this.prop=new Properties();
-		FileInputStream objfile;
-			try {
-				objfile = new FileInputStream(System.getProperty("user.dir")+"/src/main/java/uiMap/DemographicsPage.properties");
-				prop.load(objfile);
-			} 
-			catch (IOException e) {
-					e.printStackTrace();
-			}
+		
+		this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/DemographicsPage.properties");
+//		this.prop=new Properties();
+//		FileInputStream objfile;
+//			try {
+//				objfile = new FileInputStream(System.getProperty("user.dir")+"/src/main/java/uiMap/DemographicsPage.properties");
+//				prop.load(objfile);
+//			} 
+//			catch (IOException e) {
+//					e.printStackTrace();
+//			}
 	}
 	
 	public void validateDemographicsPageLoad(){

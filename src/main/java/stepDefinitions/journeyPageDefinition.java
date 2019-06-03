@@ -18,7 +18,7 @@ public class journeyPageDefinition {
 	@Then("^User clicks on each of the phase items$")
 	public void user_clicks_on_each_of_the_phase_items() throws Throwable {
 	   
-		jp.clickPhaseItem();
+		jp.navigateThroughPhases();
 	}
 
 }

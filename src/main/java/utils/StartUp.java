@@ -3,6 +3,8 @@ package utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -19,8 +21,14 @@ import io.restassured.RestAssured;
 
 public class StartUp {
 	
-	  Map<String,Object> DataObj;
+	  protected static Map<String,Object> DataObj;
 	  protected static WebDriver driver;
+	  public StartUp()
+	  {
+		  getDriver();
+		  beforeClass();
+		  
+	  }
 		
 	  protected WebDriver getDriver(){
 			
@@ -36,6 +44,7 @@ public class StartUp {
 
 	public Map<String,Object> beforeClass()
 	{
+		
 		try 
 		{
 			ObjectMapper mapperForWrite = new ObjectMapper();
@@ -52,6 +61,12 @@ public class StartUp {
 				e.printStackTrace();
 		}
 		return DataObj;
+	}
+	
+	public List datalist(String ListName)
+	{
+		ArrayList<Object> ModuleList=((ArrayList)DataObj.get(ListName));
+		return ModuleList;
 	}
 
 }

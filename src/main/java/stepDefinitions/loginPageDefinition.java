@@ -34,13 +34,13 @@ public class loginPageDefinition{
 	}
 	
 	@Then("^User enters email and password$")
-	public void user_enters_email_and_password(){
+	public void user_enters_email_and_password() throws Exception{
 		
 		lp.enterUserCredentials();
     }
 	
 	@Then("^User clicks on signin button$")
-	public void user_clicks_on_signin_button(){
+	public void user_clicks_on_signin_button() throws Exception{
 		
 		lp.clickOnSignButton();
     }

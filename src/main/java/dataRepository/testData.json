@@ -1,7 +1,41 @@
  {
   "url" : "https://stg-aktivplatform.knolskape.io",
   "Demographics_url" : "https://accounts-test.knolskape.com",
-  "email" : "Aonlyb6_12@mailinator.com",
+  "email" : "auto_demo_10@mailinator.com",
   "password" : "password",
-  "isNewUser" : "no"
-  }
+  "isNewUser" : "no",
+  "journeyDetails":[
+  	{
+  		"phaseName":"Assessment",
+  		"phaseType":"Assessment"
+ 	},
+ 	 {
+ 	 	"phaseName":"R2S",
+  		"phaseType":"R2S"
+ 	 
+ 	 },
+ 	 {
+ 	 	"phaseName":"SelfPaced",
+  		"phaseType":"Self Paced"
+ 	 },
+ 	 {
+ 	 	"phaseName":"Normal",
+  		"phaseType":"Normal"
+ 	 }
+  ],
+ "phases":[
+  {
+  	"Assessment":[
+  		{"phaseIemName":"xyz",
+  		"phaseItem":"abc"
+  		},
+  		{"phaseIemName":"pqr",
+  		"phaseItem":"abg"
+  		}
+  	],
+  	"R2S":[
+  	{},
+  	{}]
+ 	}
+ ]
+}
