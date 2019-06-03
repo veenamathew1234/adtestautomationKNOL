@@ -18,6 +18,7 @@ import cucumber.api.junit.Cucumber;
 		plugin = {"pretty" , "html:Reports"}
 		//plugin = {"junit:target/cucumber-reports/cucumber.xml"}
 		)
+
 public class ADRunner {
 	
 	
