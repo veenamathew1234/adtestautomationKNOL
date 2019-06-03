@@ -14,7 +14,7 @@ import io.restassured.RestAssured;
 
 import utils.StartUp;
 
-public class journeyPage extends StartUp {
+public class journeyPage1 extends StartUp {
 	
 	WebDriver driver= getDriver();
 	public Properties prop;
@@ -22,7 +22,7 @@ public class journeyPage extends StartUp {
 	int statusCode;
 	Boolean result;
 	
-	public journeyPage(){
+	public journeyPage1(){
 		System.out.println("Inside journey page constructor");
 		this.prop=new Properties();
 		FileInputStream objfile;
