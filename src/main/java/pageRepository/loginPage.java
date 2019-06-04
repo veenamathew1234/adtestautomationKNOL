@@ -11,6 +11,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
+
+import utils.ObjectFactory;
 import io.restassured.RestAssured;
 
 
@@ -18,24 +20,17 @@ import utils.StartUp;
 
 public class loginPage extends StartUp{
 	
-	WebDriver driver= getDriver();
-	
-	StartUp st = new StartUp();
-	Map<String,Object> DataObj=st.beforeClass();
+	//WebDriver driver= getDriver();
+	ObjectFactory objmap;
+	//StartUp st = new StartUp();
+	//Map<String,Object> DataObj=st.beforeClass();
+	//Map<String,Object> DataObj=(Map<String, Object>) objtestData;
 	public Properties prop;
 	WebElement e;
 	
 	public loginPage(){
 		
-		this.prop=new Properties();
-		FileInputStream objfile;
-			try {
-				objfile = new FileInputStream(System.getProperty("user.dir")+"/src/main/java/uiMap/LoginPage.properties");
-				prop.load(objfile);
-			} 
-			catch (IOException e) {
-					e.printStackTrace();
-			}
+		this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/LoginPage.properties");
 	}
 
 	public void launchPage(){
@@ -56,18 +51,18 @@ public class loginPage extends StartUp{
 		Assert.assertEquals("Login to Kompass", title);
 	}
 	
-	public void enterUserCredentials(){
+	public void enterUserCredentials() throws Exception{
 		
 		System.out.println("Entering credentials");
-	    e=driver.findElement(By.xpath(prop.getProperty("txt_Email")));
+	    e=driver.findElement(objmap.getLocator("txt_Email"));
 	    e.sendKeys(DataObj.get("email").toString());
-	    e=driver.findElement(By.xpath(prop.getProperty("txt_Password")));
+	    e=driver.findElement(objmap.getLocator("txt_Password"));
 	    e.sendKeys(DataObj.get("password").toString());
 	}
 	
-	public void clickOnSignButton(){
+	public void clickOnSignButton() throws Exception{
 		System.out.println("User clicks on signin button");
-		e=driver.findElement(By.xpath(prop.getProperty("btn_Signin")));
+		e=driver.findElement(objmap.getLocator("btn_Signin"));
 		e.click();
 	}
 

@@ -5,8 +5,10 @@ import java.util.Properties;
 
 import org.openqa.selenium.By;
 
-public class ObjectFactory {
-	 Properties properties;
+	public class ObjectFactory 
+	{
+	  Properties properties;
+
 	  public ObjectFactory(String mapFile) 
 	  {
 		  properties = new Properties();
@@ -24,6 +26,7 @@ public class ObjectFactory {
 
 	 public By getLocator(String ElementName) throws Exception 
 	 {
+
 		String locator = properties.getProperty(ElementName);
         String locatorType = locator.split("-->")[0];
         String locatorValue = locator.split("-->")[1];
@@ -76,5 +79,5 @@ public class ObjectFactory {
         return locatorValue;
      }
 
-
+		 
 }
