@@ -76,7 +76,6 @@ public class journeyPage extends StartUp {
 		journeyInfo.forEach((phase) -> {
 			try {
 				
-				
 				 Map<String,Object> phaseMap=(Map<String, Object>) (phase);
 				 String phaseName=getPhaseName(phaseMap);
 				 driver.findElement(By.xpath("//div[contains(@class,'content-module-individual-tab') and contains(text(),'"+phaseName+"')]")).click();
@@ -177,7 +176,7 @@ public class journeyPage extends StartUp {
 				break;
 			case "Normal":
 				phaseItems=driver.findElements(objmap.getLocator("normalcourse_items"));
-				System.out.println("size of list "+phaseItems.size());
+				System.out.println("size of list in Normal "+phaseItems.size());
 				break;
 		}
 		
