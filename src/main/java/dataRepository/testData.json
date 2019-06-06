@@ -1,7 +1,7 @@
  {
   "url" : "https://stg-aktivplatform.knolskape.io",
   "Demographics_url" : "https://accounts-test.knolskape.com",
-  "email" : "ADb1_5@mailinator.com",
+  "email" : "adb5_4@mailinator.com",
   "password" : "password",
   "isNewUser" : "no",
   "journeyDetails":[
@@ -11,23 +11,80 @@
  	},
  	 {
  	 	"phaseName":"Development",
-  		"phaseType":"Normal"
+  		"phaseType":"NormalCourse"
  	 
  	 }
   ],
- "phases":[
+  "phases":[
+
   {
-  	"Assessment":[
-  		{"phaseIemName":"xyz",
-  		"phaseItem":"abc"
-  		},
-  		{"phaseIemName":"pqr",
-  		"phaseItem":"abg"
-  		}
-  	],
-  	"R2S":[
-  	{},
-  	{}]
- 	}
+
+    "Assessment":[
+
+        {"phaseIemName":"xyz",
+
+        "phaseItem":"abc"
+
+        },
+
+        {"phaseIemName":"pqr",
+
+        "phaseItem":"abg"
+
+        }
+
+    ],
+
+  "Development":[
+
+    {"phaseItemName":"Shalini_AD_NormalCourse",
+
+        "phaseItemType":"NormalCourse",
+
+        "Modules":
+
+        [
+
+            {"File":
+
+            [
+
+                {
+
+                    "Image":"Sample Image",
+
+                    "Presentation":"PPT File"   
+
+                }
+
+            ]
+
+        },
+
+        {"QUIZ & Assignment":
+
+            [
+
+                {
+
+                    "Quiz":"Normal Quiz",
+
+                    "Assignment":"Assignment with submission"   
+
+                }
+
+            ]
+
+        }
+
+    ]
+
+  }
+
  ]
+
+}
+
+]
+
 }

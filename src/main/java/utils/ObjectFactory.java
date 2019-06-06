@@ -52,32 +52,32 @@ import org.openqa.selenium.By;
                   throw new Exception("Locator type '" + locatorType + "' not defined!!");
       }
 	 
-	 public String getLocatorType(String ElementName) throws Exception 
-	 {
-        //Read value using the logical name as Key
-        String locator = properties.getProperty(ElementName);
-        //Split the value which contains locator type and locator value
-        String locatorType = locator.split("-->")[0];
-        return locatorType;
-     }
-	 
-	 public String getLocatorValue(String ElementName) throws Exception 
-	 {
-        //Read value using the logical name as Key
-        String locator = properties.getProperty(ElementName);
-        //Split the value which contains locator type and locator value
-        String locatorValue = locator.split("-->")[1];
-        return locatorValue;
-     }
-	 
-	 public String getElement(String ElementName) throws Exception 
-	 {
-        //Read value using the logical name as Key
-        String locator = properties.getProperty(ElementName);
-        //Split the value which contains locator type and locator value
-        String locatorValue = locator.split("-->")[1];
-        return locatorValue;
-     }
+//	 public String getLocatorType(String ElementName) throws Exception 
+//	 {
+//        //Read value using the logical name as Key
+//        String locator = properties.getProperty(ElementName);
+//        //Split the value which contains locator type and locator value
+//        String locatorType = locator.split("-->")[0];
+//        return locatorType;
+//     }
+//	 
+//	 public String getLocatorValue(String ElementName) throws Exception 
+//	 {
+//        //Read value using the logical name as Key
+//        String locator = properties.getProperty(ElementName);
+//        //Split the value which contains locator type and locator value
+//        String locatorValue = locator.split("-->")[1];
+//        return locatorValue;
+//     }
+//	 
+//	 public String getElement(String ElementName) throws Exception 
+//	 {
+//        //Read value using the logical name as Key
+//        String locator = properties.getProperty(ElementName);
+//        //Split the value which contains locator type and locator value
+//        String locatorValue = locator.split("-->")[1];
+//        return locatorValue;
+//     }
 
 		 
 }
