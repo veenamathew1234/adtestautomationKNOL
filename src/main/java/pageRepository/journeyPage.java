@@ -28,7 +28,6 @@ public class journeyPage extends StartUp {
 	int statusCode;
 	Boolean result;
 	List journeyInfo;
-	int inav;
 	assesmentPhase asp=new assesmentPhase();
 	
 	public journeyPage(){
@@ -68,7 +67,6 @@ public class journeyPage extends StartUp {
 	public boolean navigateThroughPhases() throws Exception
 	{
 		journeyInfo=datalist("journeyDetails");
-		inav=0;
 		/*
 		 * journeyInfo contains data from the testData.json
 		 */
@@ -85,9 +83,9 @@ public class journeyPage extends StartUp {
 				 String phaseType=phaseMap.get("phaseType").toString();
 				 System.out.println("Phase type to be clicked on next is "+phaseType);
 				 navigateThroughPhaseItem(phaseType);
-				 Thread.sleep(7000);
-				 driver.findElement(objmap.getLocator("btn_home")).click();
-				 System.out.println("clicked on home button");
+				 Thread.sleep(3000);
+				 clickOnHomeButton(phaseType);
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -119,13 +117,13 @@ public class journeyPage extends StartUp {
 				else if(phaseType.equalsIgnoreCase("NormalCourse"))
 				{
 					System.out.println("Inside Normal course");
-					Thread.sleep(5000);
+					Thread.sleep(7000);
 					List<WebElement> courseModules=driver.findElements(objmap.getLocator("coursemodules_count"));
 					System.out.println("Number of Modules "+courseModules.size());
 					for(int j=0;j<=courseModules.size();j++){
 					result=clickOnNextPhaseItem();
-					}
-		
+				}
+										
 				}
 					
 			if(i<phaseItems.size()-1)
@@ -134,6 +132,22 @@ public class journeyPage extends StartUp {
 		}
 		return result;
 	
+	}
+	
+	public void clickOnHomeButton(String phaseType) throws Exception{
+		
+		switch(phaseType)
+		{
+		     case "Assessment":
+		    	 driver.findElement(objmap.getLocator("btn_assessmentshome")).click();
+				 System.out.println("clicked on home button from Assessment phase"); 
+				 break;
+		     case "NormalCourse":
+		    	 driver.findElement(objmap.getLocator("btn_developmenthome")).click();
+		    	 System.out.println("clicked on home button from Development phase");
+				 break;
+		}
+		
 	}
 
 	/*
