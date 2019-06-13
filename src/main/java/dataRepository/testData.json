@@ -1,7 +1,7 @@
  {
   "url" : "https://stg-aktivplatform.knolskape.io",
   "Demographics_url" : "https://accounts-test.knolskape.com",
-  "email" : "ADb2_2@mailinator.com",
+  "email" : "adb5_4@mailinator.com",
   "password" : "password",
   "isNewUser" : "no",
   "journeyDetails":[
@@ -11,11 +11,12 @@
  	},
  	 {
  	 	"phaseName":"Development",
-  		"phaseType":"Normal"
+  		"phaseType":"NormalCourse"
  	 
  	 }
   ],
- "phases":[
+  "phases":[
+
   {
   	"Assessment":[
   		{"phaseIemName":"xyz",

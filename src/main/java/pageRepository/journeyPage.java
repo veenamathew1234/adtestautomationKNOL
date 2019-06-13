@@ -2,6 +2,7 @@ package pageRepository;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -27,7 +28,6 @@ public class journeyPage extends StartUp {
 	int statusCode;
 	Boolean result;
 	List journeyInfo;
-	int inav;
 	assesmentPhase asp=new assesmentPhase();
 	
 	public journeyPage(){
@@ -46,7 +46,7 @@ public class journeyPage extends StartUp {
 	public void validateJourneyPage() throws Exception{
 		
 		int count=0;
-		Thread.sleep(7000);
+		Thread.sleep(9000);
 		 count=driver.findElements(objmap.getLocator("phaseitem_count")).size();
 		 System.out.println("Number of phase items: "+count);
 		 if(count!=0)
@@ -66,10 +66,7 @@ public class journeyPage extends StartUp {
 	 */
 	public boolean navigateThroughPhases() throws Exception
 	{
-		boolean isNavigateThroughJourneySuccessful;
 		journeyInfo=datalist("journeyDetails");
-		List<WebElement> phases;
-		inav=0;
 		/*
 		 * journeyInfo contains data from the testData.json
 		 */
@@ -77,13 +74,17 @@ public class journeyPage extends StartUp {
 			try {
 				
 				 Map<String,Object> phaseMap=(Map<String, Object>) (phase);
-				 String phaseName=getPhaseName(phaseMap);
-				 System.out.println("PhaseName="+phaseName);
+				 String phaseName=phaseMap.get("phaseName").toString();
+				 System.out.println("Phase name to be clicked on next is "+phaseName);
 				 driver.findElement(By.xpath("//div[contains(@class,'content-module-individual-tab')]//div[contains(text(),'"+phaseName+"')]")).click();
-			//User navigates through the phase items of the particular phase	 
-				 navigateThroughPhaseItem(getPhaseType(phaseMap));
-				 driver.findElement(objmap.getLocator("btn_home")).click();
-				 System.out.println("clicked on home button");
+			
+				 //User navigates through the phase items of the particular phase	 
+				 
+				 String phaseType=phaseMap.get("phaseType").toString();
+				 System.out.println("Phase type to be clicked on next is "+phaseType);
+				 navigateThroughPhaseItem(phaseType);
+				 Thread.sleep(3000);
+				 clickOnHomeButton(phaseType);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -92,37 +93,7 @@ public class journeyPage extends StartUp {
 		return true;
 	}
 	
-	/*
-	 * Function Name : getPhaseName
-	 * Function Parameters: Map<String,Object> phaseMap . Data object saved from testData.json which contains our test data
-	 * Description : Function used to return the phaseName from the test data
-	 * Return Value : String
-	 * 
-	 */
-		
-	public String getPhaseName( Map<String,Object> phaseMap)
-	{
-		String phaseName=phaseMap.get("phaseName").toString();
-		System.out.println("Phase name to be clicked on next is"+phaseName);
-		return phaseName;
-	}
-	
-	
-	/*
-	 * Function Name : getPhaseType
-	 * Function Parameters: Map<String,Object> phaseMap . Data object saved from testData.json which contains our test data
-	 * Description : Function used to return the phaseType from the test data
-	 * Return Value : String
-	 * 
-	 */
-	public String getPhaseType( Map<String,Object> phaseMap)
-	{
-		String phaseType=phaseMap.get("phaseType").toString();
-		System.out.println("Phase type to be clicked on next is"+phaseType);
-		return phaseType;
-	}
-	
-	
+
 	/*
 	 * Function Name : navigateThroughPhaseItem
 	 * Function Parameters: String phaseType . phaseType is passed from the navigateThroughPhase function
@@ -137,19 +108,47 @@ public class journeyPage extends StartUp {
 		Thread.sleep(5000);
 		phaseItems.get(0).click();
 		for(i=0;i<=phaseItems.size()-1;i++){
-			if(phaseType.equalsIgnoreCase("Assessment"))
+			if(phaseType.equalsIgnoreCase("Assessment")){
 				if(launchPhaseItem()==true)
-					exitPhaseItem();
-				if(i<phaseItems.size()-1)
+					validateAndExitPhaseItem();
+			}
+				
+				else if(phaseType.equalsIgnoreCase("NormalCourse"))
+				{
+					System.out.println("Inside Normal course");
+					Thread.sleep(7000);
+					List<WebElement> courseModules=driver.findElements(objmap.getLocator("coursemodules_count"));
+					System.out.println("Number of Modules "+courseModules.size());
+					for(int j=0;j<=courseModules.size();j++){
 					result=clickOnNextPhaseItem();
+				}
+										
+				}
+					
+			if(i<phaseItems.size()-1)
+				result=clickOnNextPhaseItem();
 			
 		}
-		
 		return result;
 	
 	}
 	
-	
+	public void clickOnHomeButton(String phaseType) throws Exception{
+		
+		switch(phaseType)
+		{
+		     case "Assessment":
+		    	 driver.findElement(objmap.getLocator("btn_assessmentshome")).click();
+				 System.out.println("clicked on home button from Assessment phase"); 
+				 break;
+		     case "NormalCourse":
+		    	 driver.findElement(objmap.getLocator("btn_developmenthome")).click();
+		    	 System.out.println("clicked on home button from Development phase");
+				 break;
+		}
+		
+	}
+
 	/*
 	 * Function Name : returnPhaseItemsForPhaseType
 	 * Function Parameters: String phaseType .
@@ -175,12 +174,12 @@ public class journeyPage extends StartUp {
 				phaseItems=driver.findElements(objmap.getLocator("self_items"));
 				System.out.println("size of list "+phaseItems.size());
 				break;
-			case "Normal":
+			case "NormalCourse":
+				Thread.sleep(4000);
 				phaseItems=driver.findElements(objmap.getLocator("normalcourse_items"));
-				System.out.println("size of list in Normal "+phaseItems.size());
+				System.out.println("size of list "+phaseItems.size());
 				break;
 		}
-		
 		return phaseItems;
 			
 	}
@@ -198,7 +197,7 @@ public class journeyPage extends StartUp {
 		
 		//explicitWait.until(ExpectedConditions.visibilityOf(driver.findElement(objmap.getLocator("btn_start"))));
 		Thread.sleep(2000);
-		e=driver.findElement(objmap.getLocator("btn_start"));
+		   e=driver.findElement(objmap.getLocator("btn_start"));
 			if(e!=null){
 				System.out.println("Start button found");
 				e.click();
@@ -208,6 +207,7 @@ public class journeyPage extends StartUp {
 			return false;
 		
 	}
+
 	
 	/*
 	 * Function Name : clickOnNextPhaseItem
@@ -229,23 +229,10 @@ public class journeyPage extends StartUp {
 			return false;
 			
 		}
-	
-	
-	/* Function Name : validatePhaseItem
-	 * Parameter:Name of the simulation that is expected to be launched. It is fetched from testdata.json
-	 * 
-	 * 
-	 * 
-	 */
-	public boolean validatePhaseItem()
-	{
-		return true;
-	}
-		
-	
+
 	
 	/*
-	 * Function Name : exitPhaseItem
+	 * Function Name : validate and exitPhaseItem
 	 * Function Parameters: None.
 	 * Description : Function used to exit an existing assessment/simulation
 	 * Return Value : Boolean
@@ -253,13 +240,13 @@ public class journeyPage extends StartUp {
 	 */
 	
 	
-	public void exitPhaseItem() throws Exception{
+	public void validateAndExitPhaseItem() throws Exception{
 
 		statusCode=new HttpResponse().getStatus();
 		System.out.println("Status Code "+statusCode);
 		
 		if(statusCode==200){
-			System.out.println("hello 200");
+			Thread.sleep(2000);
 			//explicitWait.until(ExpectedConditions.elementToBeClickable(driver.findElement(objmap.getLocator("btn_exit"))));
 			e=driver.findElement(objmap.getLocator("btn_exit"));
 			e.click();
@@ -275,4 +262,3 @@ public class journeyPage extends StartUp {
 	}
 		
 }
-

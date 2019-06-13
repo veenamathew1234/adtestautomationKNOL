@@ -65,8 +65,8 @@ public class StartUp {
 	
 	public List datalist(String ListName)
 	{
-		ArrayList<Object> ModuleList=((ArrayList)DataObj.get(ListName));
-		return ModuleList;
+		ArrayList<Object> journeyDetails=((ArrayList)DataObj.get(ListName));
+		return journeyDetails;
 	}
 
 }
