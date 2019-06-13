@@ -78,7 +78,8 @@ public class journeyPage extends StartUp {
 				
 				 Map<String,Object> phaseMap=(Map<String, Object>) (phase);
 				 String phaseName=getPhaseName(phaseMap);
-				 driver.findElement(By.xpath("//div[contains(@class,'content-module-individual-tab') and contains(text(),'"+phaseName+"')]")).click();
+				 System.out.println("PhaseName="+phaseName);
+				 driver.findElement(By.xpath("//div[contains(@class,'content-module-individual-tab')]//div[contains(text(),'"+phaseName+"')]")).click();
 			//User navigates through the phase items of the particular phase	 
 				 navigateThroughPhaseItem(getPhaseType(phaseMap));
 				 driver.findElement(objmap.getLocator("btn_home")).click();
