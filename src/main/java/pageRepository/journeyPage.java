@@ -46,7 +46,7 @@ public class journeyPage extends StartUp {
 	public void validateJourneyPage() throws Exception{
 		
 		int count=0;
-		Thread.sleep(9000);
+		Thread.sleep(12000);
 		 count=driver.findElements(objmap.getLocator("phaseitem_count")).size();
 		 System.out.println("Number of phase items: "+count);
 		 if(count!=0)
@@ -76,7 +76,7 @@ public class journeyPage extends StartUp {
 				 Map<String,Object> phaseMap=(Map<String, Object>) (phase);
 				 String phaseName=phaseMap.get("phaseName").toString();
 				 System.out.println("Phase name to be clicked on next is "+phaseName);
-				 driver.findElement(By.xpath("//div[contains(@class,'content-module-individual-tab') and contains(text(),'"+phaseName+"')]")).click();
+				 driver.findElement(By.xpath("//div[contains(@class,'content-module-individual-tab')]//div[contains(text(),'"+phaseName+"')]")).click();
 			
 				 //User navigates through the phase items of the particular phase	 
 				 
