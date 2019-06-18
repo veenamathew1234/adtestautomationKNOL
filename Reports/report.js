@@ -38,28 +38,28 @@ formatter.match({
   "location": "loginPageDefinition.user_is_already_in_login_page()"
 });
 formatter.result({
-  "duration": 5785102196,
+  "duration": 4209645112,
   "status": "passed"
 });
 formatter.match({
   "location": "loginPageDefinition.title_of_the_page_is_Login_to_AktivLearnPlus()"
 });
 formatter.result({
-  "duration": 14748793,
+  "duration": 31873061,
   "status": "passed"
 });
 formatter.match({
   "location": "loginPageDefinition.user_enters_email_and_password()"
 });
 formatter.result({
-  "duration": 549379782,
+  "duration": 515440524,
   "status": "passed"
 });
 formatter.match({
   "location": "loginPageDefinition.user_clicks_on_signin_button()"
 });
 formatter.result({
-  "duration": 1389334737,
+  "duration": 1439699737,
   "status": "passed"
 });
 formatter.uri("Features/BDemographics.feature");
@@ -92,14 +92,14 @@ formatter.match({
   "location": "demographicsPageDefinition.the_user_has_landed_on_the_demographics_page()"
 });
 formatter.result({
-  "duration": 77822990,
+  "duration": 49246058,
   "status": "passed"
 });
 formatter.match({
   "location": "demographicsPageDefinition.refresh_the_demographics_page_by_redirecting_again_to_the_same_url()"
 });
 formatter.result({
-  "duration": 2888285331,
+  "duration": 2690333304,
   "status": "passed"
 });
 formatter.uri("Features/CWelcome.feature");
@@ -132,14 +132,14 @@ formatter.match({
   "location": "welcomePageDefinition.user_is_on_welcome_Page()"
 });
 formatter.result({
-  "duration": 16550133,
+  "duration": 19589015,
   "status": "passed"
 });
 formatter.match({
   "location": "welcomePageDefinition.user_clicks_on_Accepts_Invitation_button()"
 });
 formatter.result({
-  "duration": 126031,
+  "duration": 115427,
   "status": "passed"
 });
 formatter.uri("Features/DJourney.feature");
@@ -172,14 +172,14 @@ formatter.match({
   "location": "journeyPageDefinition.user_is_already_in_journey_page()"
 });
 formatter.result({
-  "duration": 9071403830,
+  "duration": 9064141872,
   "status": "passed"
 });
 formatter.match({
   "location": "journeyPageDefinition.user_clicks_on_each_of_the_phases()"
 });
 formatter.result({
-  "duration": 79014871989,
+  "duration": 81101190543,
   "status": "passed"
 });
 });
