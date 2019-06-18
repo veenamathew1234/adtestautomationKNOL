@@ -2,6 +2,7 @@ package pageRepository;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -76,6 +77,7 @@ public class journeyPage extends StartUp {
 				 Map<String,Object> phaseMap=(Map<String, Object>) (phase);
 				 String phaseName=phaseMap.get("phaseName").toString();
 				 System.out.println("Phase name to be clicked on next is "+phaseName);
+
 				 driver.findElement(By.xpath("//div[contains(@class,'content-module-individual-tab')]//div[contains(text(),'"+phaseName+"')]")).click();
 			
 				 //User navigates through the phase items of the particular phase	 
@@ -85,13 +87,13 @@ public class journeyPage extends StartUp {
 				 navigateThroughPhaseItem(phaseType);
 				 Thread.sleep(3000);
 				 clickOnHomeButton(phaseType);
-
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		});
-	
-		return true;
+		
+		result=logout();
+		return result;
 	}
 	
 
@@ -118,18 +120,29 @@ public class journeyPage extends StartUp {
 				{
 					System.out.println("Inside Normal course");
 					Thread.sleep(7000);
-					List<WebElement> courseModules=driver.findElements(objmap.getLocator("coursemodules_count"));
-					System.out.println("Number of Modules "+courseModules.size());
-					for(int j=0;j<=courseModules.size();j++){
-					result=clickOnNextPhaseItem();
-				}
+					System.out.println("After sleep");
+					//-- Dont delete this line List<WebElement> courseModules=driver.findElements(objmap.getLocator("coursemodules_count"));
+					//System.out.println("phaseitems+get(i)="+phaseItems.get(i));
+					String path="//div[contains(@class,'sidebarHeader-module-text')]";
+					String courseName=driver.findElement(By.xpath(path)).getText();
+					System.out.println("CourseName from screen="+courseName);
+					
+					
+					traverseThroughPhases(courseName);
+//					System.out.println("Number of Modules "+courseModules.size());
+//					for(int j=0;j<=courseModules.size();j++){
+//						System.out.println("");
+//					result=clickOnNextPhaseItem();
+//				}
 										
 				}
+			System.out.println("outside");
 					
 			if(i<phaseItems.size()-1)
 				result=clickOnNextPhaseItem();
 			
 		}
+		
 		return result;
 	
 	}
@@ -259,7 +272,94 @@ public class journeyPage extends StartUp {
 			Thread.sleep(2000);
 			
 		}
-
+		
+	
 	}
+		/*
+		 * Function Name : traverse through phases
+		 * Function Parameters: phaseName.
+		 * Description : Function is used to traverse through the phases
+		 * Return Value : void
+		 * 
+		 */
+		
+		public void traverseThroughPhases(String CourseTName)
+		{
+			System.out.println("Inside travel through phases");
+			ArrayList<Object> ModuleList=((ArrayList)DataObj.get("phases"));
+			ModuleList.forEach((phase) -> {
+				System.out.println("Inside each phase in traverse thrugh phase");
+				Map<String,Object> phaseMap=(Map<String, Object>) (phase);
+				Iterator hmIterator=phaseMap.entrySet().iterator();
+				while (hmIterator.hasNext()) {
+
+				           Map.Entry mapElement = (Map.Entry)hmIterator.next();
+				  Iterator alistIterator=((ArrayList<Object>) mapElement.getValue()).iterator();
+				  while(alistIterator.hasNext()) {
+						 Map<String,Object> map1=(Map<String,Object>)alistIterator.next();	
+						 System.out.println("Map is ="+map1);
+						 String courseName=map1.get("phaseItemName")+"";
+						 System.out.println("courseNameFromJson="+map1.get("phaseItemName"));
+						 if(courseName.equalsIgnoreCase(CourseTName))
+						 {
+							 System.out.println("Perera");
+							 
+						 if(((ArrayList)map1.get("Modules")!=null))
+						 {
+						 ArrayList<Object> MList=((ArrayList)map1.get("Modules"));
+						 System.out.println("modules are: "+MList);
+						 MList.forEach((module)->{
+							 Map<String,Object> mmmap = (Map<String,Object>) (module);
+							 System.out.println("mmmap is ="+mmmap);
+							 for ( String key : mmmap.keySet()) {
+								 
+								 System.out.println("Inside modules="+mmmap.get(key));
+								 Map<String,Object> mimap = (Map<String,Object>) (mmmap.get(key));
+								 for ( String key1 : mimap.keySet() ) {
+									 System.out.println("inside module item="+mimap.get(key1));
+									 try {
+										result=clickOnNextPhaseItem();
+									} catch (Exception e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+									 
+								 }
+								 
+							 }
+							 
+							 
+						 });
+						 }
+						 
+						//break; 
+
+				  }
+				  }
+				       }
+				});
+
+		}
+
+		
+		/*
+		 * Function Name : Logout
+		 * Function Parameters: pNA.
+		 * Description : Function is used to logout of the platform 
+		 * Return Value : boolean
+		 * 
+		 */
+		
+	public boolean logout() throws Exception
+	{
+		driver.findElement(objmap.getLocator("lbl_UserName")).click();
+		driver.findElement(objmap.getLocator("btn_Logout")).click();
+		driver.findElement(objmap.getLocator("pop_LOGOUT")).click();
+		
+		return true;
+	}
+		
+		
+	
 		
 }
