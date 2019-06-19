@@ -15,42 +15,8 @@
  	 
  	 }
   ],
-  "phases":[
+  "Assessments":[
+  ]
+  
 
-  {
-  	"Assessment":[
-  		{"phaseIemName":"xyz",
-  		"phaseItem":"abc"
-  		},
-  		{"phaseIemName":"pqr",
-  		"phaseItem":"abg"
-  		}
-  	],
-  "Development":[
-  	{
-  		"phaseItemName":"Normal Course",
-  		"phaseItemType":"NormalCourse",
-  		"Modules":
-  		[
-  			{"File":
-  			
-  				{
-  					"Image":"Sample Image",
-  					"Presentation":"PPT File"	
-  				}
-  	
-  		},
-  		{"QUIZ & Assignment":
-  			
-  				{
-  					"Quiz":"Normal Quiz",
-  					"Assignment":"Assignment with submission"	
-  				}
-  		
-  		}
-  	]
-  }
-]
-}
-]
 }
