@@ -70,6 +70,7 @@ public class journeyPage extends StartUp {
 	public boolean navigateThroughPhases() throws Exception
 	{
 		journeyInfo=datalist("journeyDetails");
+		
 		/*
 		 * journeyInfo contains data from the testData.json
 		 */
@@ -87,11 +88,10 @@ public class journeyPage extends StartUp {
 				 String phaseType=phaseMap.get("phaseType").toString();
 				 System.out.println("Phase type to be clicked on next is "+phaseType);
 				 navigateThroughPhaseItem(phaseType);
-				 Thread.sleep(3000);
+				 Thread.sleep(5000);
 				 clickOnHomeButton(phaseType);
-				//call a function that loads coursedata json
 				 
-				 
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -160,11 +160,12 @@ public class journeyPage extends StartUp {
 		     case "Assessment":
 		    	 driver.findElement(objmap.getLocator("btn_assessmentshome")).click();
 				 System.out.println("clicked on home button from Assessment phase"); 
+				 Map<String,Object> DataObj=st.beforeClass("coursedata.json");
 				 break;
 		     case "NormalCourse":
 		    	 driver.findElement(objmap.getLocator("btn_developmenthome")).click();
 		    	 System.out.println("clicked on home button from Development phase");
-				 break;
+		    	 break;
 		}
 		
 	}

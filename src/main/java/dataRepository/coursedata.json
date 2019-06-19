@@ -1,12 +1,5 @@
 {
-"courses" : [
- {
-    "name" : "Normal Course"
-  },
- {
-    "name" : "xyz"
- } ],
- "Normal Course":[
+"Normal Course":[
  {
  	"moduleName" : "File",
     "itemName" : "Sample Image",
