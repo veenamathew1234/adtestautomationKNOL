@@ -23,10 +23,11 @@ public class StartUp {
 	
 	  protected static Map<String,Object> DataObj;
 	  protected static WebDriver driver;
+	  String filename;
 	  public StartUp()
 	  {
 		  getDriver();
-		  beforeClass();
+		  //beforeClass(filename);
 		  
 	  }
 		
@@ -42,7 +43,7 @@ public class StartUp {
 	  String filepath=System.getProperty("user.dir")+"/src/main/java/dataRepository/";
 	  ObjectWriter writer;
 
-	public Map<String,Object> beforeClass()
+	public Map<String,Object> beforeClass(String dataFileName)
 	{
 		
 		try 
@@ -51,7 +52,7 @@ public class StartUp {
 			writer = mapperForWrite.writer(new DefaultPrettyPrinter());
 			JsonFactory fUser = new JsonFactory();
 			JsonParser jp1;
-			jp1 = fUser.createParser(new File(filepath+"testData.json"));
+			jp1 = fUser.createParser(new File(filepath + dataFileName));
 			jp1.nextToken();
 			DataObj = mapperForWrite.readValue(jp1, Map.class);
 		}

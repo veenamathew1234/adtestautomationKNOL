@@ -24,6 +24,7 @@ public class journeyPage extends StartUp {
 	//WebDriver driver= getDriver();
 	WebDriverWait explicitWait = new WebDriverWait(driver,30);
 	ObjectFactory objmap;
+	StartUp st = new StartUp();
 	public Properties prop;
 	WebElement e;
 	int statusCode;
@@ -34,6 +35,7 @@ public class journeyPage extends StartUp {
 	public journeyPage(){
 		System.out.println("Inside journey page constructor");
 		this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/JourneyPage.properties");
+		Map<String,Object> DataObj=st.beforeClass("testData.json");
 	}
 	
 	
