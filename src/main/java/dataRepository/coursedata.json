@@ -1,0 +1,46 @@
+{
+"courses" : [
+ {
+    "name" : "Normal Course"
+  },
+ {
+    "name" : "xyz"
+ } ],
+ "Normal Course":[
+ {
+ 	"moduleName" : "File",
+    "itemName" : "Sample Image",
+    "itemType" : "Image"
+ },{
+ 	"moduleName" : "File",
+    "itemName" : "PPT File",
+    "itemType" : "Presentation"
+ },
+ 
+ {
+ 	"moduleName" : "QUIZ & Assignment",
+    "itemName" : "Normal Quiz",
+    "itemType" : "Quiz"
+ },
+ {
+ 	"moduleName" : "QUIZ & Assignment",
+    "itemName" : "Assignment with submission",
+    "itemType" : "Assignment"
+ },
+ {
+ 	"moduleName" : "Simulation",
+    "itemName" : "Treasure Trailer",
+    "itemType" : "Simulation"
+ },
+ {
+ 	"moduleName" : "Page & External URL",
+    "itemName" : "Content PAGE",
+    "itemType" : "Page"
+ },
+ {
+ 	"moduleName" : "Page & External URL",
+    "itemName" : "Linked in",
+    "itemType" : "Page"
+ }
+ ]
+}

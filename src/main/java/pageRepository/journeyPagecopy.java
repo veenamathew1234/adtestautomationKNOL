@@ -19,7 +19,7 @@ import io.restassured.RestAssured;
 import utils.ObjectFactory;
 import utils.StartUp;
 
-public class journeyPage extends StartUp {
+public class journeyPagecopy extends StartUp {
 	
 	//WebDriver driver= getDriver();
 	WebDriverWait explicitWait = new WebDriverWait(driver,30);
@@ -31,7 +31,7 @@ public class journeyPage extends StartUp {
 	List journeyInfo;
 	assesmentPhase asp=new assesmentPhase();
 	
-	public journeyPage(){
+	public journeyPagecopy(){
 		System.out.println("Inside journey page constructor");
 		this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/JourneyPage.properties");
 	}
@@ -87,9 +87,6 @@ public class journeyPage extends StartUp {
 				 navigateThroughPhaseItem(phaseType);
 				 Thread.sleep(3000);
 				 clickOnHomeButton(phaseType);
-				//call a function that loads coursedata json
-				 
-				 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -131,8 +128,7 @@ public class journeyPage extends StartUp {
 					System.out.println("CourseName from screen="+courseName);
 					
 					
-				//	traverseThroughPhases(courseName);
-				//	traverseThroughCourse(courseName);
+					traverseThroughPhases(courseName);
 //					System.out.println("Number of Modules "+courseModules.size());
 //					for(int j=0;j<=courseModules.size();j++){
 //						System.out.println("");
