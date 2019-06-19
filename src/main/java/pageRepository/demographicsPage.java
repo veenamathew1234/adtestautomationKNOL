@@ -25,6 +25,7 @@ public class demographicsPage extends StartUp{
 	
 	int flag;
 	ObjectFactory objmap;
+	StartUp st = new StartUp();
 	String currenturl;
 	int statusCode;
 	public Properties prop;
@@ -37,6 +38,7 @@ public class demographicsPage extends StartUp{
 	public demographicsPage(){
 		
 		this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/DemographicsPage.properties");
+		Map<String,Object> DataObj=st.beforeClass("testData.json");
 	}
 	
 	public void validateDemographicsPageLoad(){

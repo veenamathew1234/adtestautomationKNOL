@@ -22,7 +22,7 @@ public class loginPage extends StartUp{
 	
 	//WebDriver driver= getDriver();
 	ObjectFactory objmap;
-	//StartUp st = new StartUp();
+	StartUp st = new StartUp();
 	//Map<String,Object> DataObj=st.beforeClass();
 	//Map<String,Object> DataObj=(Map<String, Object>) objtestData;
 	public Properties prop;
@@ -31,6 +31,7 @@ public class loginPage extends StartUp{
 	public loginPage(){
 		
 		this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/LoginPage.properties");
+		Map<String,Object> DataObj=st.beforeClass("testData.json");
 	}
 
 	public void launchPage(){

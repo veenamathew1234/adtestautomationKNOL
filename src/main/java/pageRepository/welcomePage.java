@@ -19,7 +19,7 @@ public class welcomePage extends StartUp {
 	
 	//WebDriver driver=getDriver();
 	ObjectFactory objmap;
-	//StartUp st = new StartUp();
+	StartUp st = new StartUp();
 	//Map<String,Object> DataObj=st.beforeClass();
 	public Properties prop;
 	WebElement e;
@@ -29,7 +29,8 @@ public class welcomePage extends StartUp {
 public welcomePage(){
 			
 	this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/WelcomePage.properties");
-	}
+	Map<String,Object> DataObj=st.beforeClass("testData.json");	
+}
 
  public void validateWelcomePage(){
 	    String WelcomePageTitle= driver.getTitle();
