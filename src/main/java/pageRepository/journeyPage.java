@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 import org.openqa.selenium.By;
@@ -134,7 +135,7 @@ public class journeyPage extends StartUp {
 					
 					
 				//	traverseThroughPhases(courseName);
-				//	traverseThroughCourse(courseName);
+					traverseThroughCourse(courseName);
 //					System.out.println("Number of Modules "+courseModules.size());
 //					for(int j=0;j<=courseModules.size();j++){
 //						System.out.println("");
@@ -292,6 +293,7 @@ public class journeyPage extends StartUp {
 		
 		public void traverseThroughPhases(String CourseTName)
 		{
+			//Boolean result;
 			System.out.println("Inside travel through phases");
 			ArrayList<Object> ModuleList=((ArrayList)DataObj.get("phases"));
 			ModuleList.forEach((phase) -> {
@@ -319,10 +321,18 @@ public class journeyPage extends StartUp {
 							 Map<String,Object> mmmap = (Map<String,Object>) (module);
 							 System.out.println("mmmap is ="+mmmap);
 							 for ( String key : mmmap.keySet()) {
+//								 try {
+//									 int i=1;
+//									System.out.println("The result of verifyModuleFromTestData="+ verifyModuleFromTestData(key,i));
+//								} catch (Exception e1) {
+//									// TODO Auto-generated catch block
+//									e1.printStackTrace();
+//								}
 								 
 								 System.out.println("Inside modules="+mmmap.get(key));
 								 Map<String,Object> mimap = (Map<String,Object>) (mmmap.get(key));
 								 for ( String key1 : mimap.keySet() ) {
+									 
 									 System.out.println("inside module item="+mimap.get(key1));
 									 try {
 										result=clickOnNextPhaseItem();
@@ -367,6 +377,43 @@ public class journeyPage extends StartUp {
 	}
 		
 		
+	/*
+	 * Function Name : verifyModuleFromTestData
+	 * Function Parameters: Module Name.
+	 * Description : Function is used verify if the module name from screen is same as that of the test Data
+	 * Return Value : boolean
+	 * 
+	 */
 	
+	public boolean verifyModuleFromTestData(String ModuleName, int index) throws Exception
+	{
+		String ModuleTName=driver.findElement(objmap.getLocator("lbl_ModuleName")).getText();
+		if(ModuleTName.equalsIgnoreCase(ModuleName))
+			return true;
+		else 
+			return false;
+	}
 		
+	
+	
+	public boolean traverseThroughCourse(String courseName)
+	{
+	
+		Iterator<Entry<String, Object>> it = DataObj.entrySet().iterator();
+		while(it.hasNext())
+		{
+			Map.Entry<String, Object> map = (Map.Entry<String, Object>) it.next();
+			if(map.getKey().equalsIgnoreCase(courseName))
+			{
+				ArrayList<Object> ModuleList=((ArrayList)DataObj.get(courseName));
+				ModuleList.forEach((module)->{ 
+					Map<String,Object> moduleItem=(Map<String,Object>)module;
+					System.out.println("ModuleName= "+moduleItem.get("moduleName"));
+				});
+			}
+			
+		}
+		
+		return true;
+	}
 }
