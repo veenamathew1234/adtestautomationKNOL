@@ -1,11 +1,4 @@
 {
-"courses" : [
- {
-    "name" : "Normal Course"
-  },
- {
-    "name" : "xyz"
- } ],
  "Normal Course":[
  {
  	"moduleName" : "File",
@@ -41,6 +34,5 @@
  	"moduleName" : "Page & External URL",
     "itemName" : "Linked in",
     "itemType" : "Page"
- }
- ]
+ } ]
 }

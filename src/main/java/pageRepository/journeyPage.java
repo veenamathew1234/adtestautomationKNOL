@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 import org.openqa.selenium.By;
@@ -134,7 +135,7 @@ public class journeyPage extends StartUp {
 					
 					
 				//	traverseThroughPhases(courseName);
-				//	traverseThroughCourse(courseName);
+					traverseThroughCourse(courseName);
 //					System.out.println("Number of Modules "+courseModules.size());
 //					for(int j=0;j<=courseModules.size();j++){
 //						System.out.println("");
@@ -160,6 +161,7 @@ public class journeyPage extends StartUp {
 		     case "Assessment":
 		    	 driver.findElement(objmap.getLocator("btn_assessmentshome")).click();
 				 System.out.println("clicked on home button from Assessment phase"); 
+				 Map<String,Object> DataObj=st.beforeClass("coursedata.json");
 				 break;
 		     case "NormalCourse":
 		    	 driver.findElement(objmap.getLocator("btn_developmenthome")).click();
@@ -392,4 +394,26 @@ public class journeyPage extends StartUp {
 			return false;
 	}
 		
+	
+	
+	public boolean traverseThroughCourse(String courseName)
+	{
+	
+		Iterator<Entry<String, Object>> it = DataObj.entrySet().iterator();
+		while(it.hasNext())
+		{
+			Map.Entry<String, Object> map = (Map.Entry<String, Object>) it.next();
+			if(map.getKey().equalsIgnoreCase(courseName))
+			{
+				ArrayList<Object> ModuleList=((ArrayList)DataObj.get(courseName));
+				ModuleList.forEach((module)->{ 
+					Map<String,Object> moduleItem=(Map<String,Object>)module;
+					System.out.println("ModuleName="+moduleItem.get("moduleName"));
+				});
+			}
+			
+		}
+		
+		return true;
+	}
 }
