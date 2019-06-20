@@ -21,8 +21,7 @@ import utils.ObjectFactory;
 import utils.StartUp;
 
 public class journeyPage extends StartUp {
-	
-	//WebDriver driver= getDriver();
+
 	WebDriverWait explicitWait = new WebDriverWait(driver,30);
 	ObjectFactory objmap;
 	StartUp st = new StartUp();
@@ -31,6 +30,7 @@ public class journeyPage extends StartUp {
 	int statusCode;
 	Boolean result;
 	List journeyInfo;
+	int index;
 	assesmentPhase asp=new assesmentPhase();
 	
 	public journeyPage(){
@@ -47,6 +47,7 @@ public class journeyPage extends StartUp {
 	 * Return Value : None
 	 * 
 	 */
+	
 	public void validateJourneyPage() throws Exception{
 		
 		int count=0;
@@ -68,6 +69,7 @@ public class journeyPage extends StartUp {
 	 * Return Value : Boolean
 	 * 
 	 */
+	
 	public boolean navigateThroughPhases() throws Exception
 	{
 		journeyInfo=datalist("journeyDetails");
@@ -81,11 +83,9 @@ public class journeyPage extends StartUp {
 				 Map<String,Object> phaseMap=(Map<String, Object>) (phase);
 				 String phaseName=phaseMap.get("phaseName").toString();
 				 System.out.println("Phase name to be clicked on next is "+phaseName);
-
 				 driver.findElement(By.xpath("//div[contains(@class,'content-module-individual-tab')]//div[contains(text(),'"+phaseName+"')]")).click();
 			
 				 //User navigates through the phase items of the particular phase	 
-				 
 				 String phaseType=phaseMap.get("phaseType").toString();
 				 System.out.println("Phase type to be clicked on next is "+phaseType);
 				 navigateThroughPhaseItem(phaseType);
@@ -98,14 +98,14 @@ public class journeyPage extends StartUp {
 			}
 		});
 		
-		result=logout();
+		//result=logout();
 		return result;
 	}
 	
 
 	/*
 	 * Function Name : navigateThroughPhaseItem
-	 * Function Parameters: String phaseType . phaseType is passed from the navigateThroughPhase function
+	 * Function Parameters: phaseType which is passed from the navigateThroughPhase function
 	 * Description : Function used to navigate through various phase items of the passed "phase"
 	 * Return Value : Boolean
 	 * 
@@ -127,32 +127,32 @@ public class journeyPage extends StartUp {
 					System.out.println("Inside Normal course");
 					Thread.sleep(7000);
 					System.out.println("After sleep");
-					//-- Dont delete this line List<WebElement> courseModules=driver.findElements(objmap.getLocator("coursemodules_count"));
-					//System.out.println("phaseitems+get(i)="+phaseItems.get(i));
 					String path="//div[contains(@class,'sidebarHeader-module-text')]";
 					String courseName=driver.findElement(By.xpath(path)).getText();
 					System.out.println("CourseName from screen="+courseName);
 					
-					
-				//	traverseThroughPhases(courseName);
+					//function to traverse through the courses listed in test data
 					traverseThroughCourse(courseName);
-//					System.out.println("Number of Modules "+courseModules.size());
-//					for(int j=0;j<=courseModules.size();j++){
-//						System.out.println("");
-//					result=clickOnNextPhaseItem();
-//				}
-										
+									
 				}
 			System.out.println("outside");
 					
 			if(i<phaseItems.size()-1)
 				result=clickOnNextPhaseItem();
-			
-		}
+			}
 		
 		return result;
 	
 	}
+	
+	/*
+	 * Function Name : clickOnHomeButton
+	 * Function Parameters: phaseType . phaseType is passed from the navigateThroughPhases function
+	 * Description : Function used to navigate through various phase items of the passed "phase"
+	 * Return Value : Boolean
+	 * 
+	 */
+	
 	
 	public void clickOnHomeButton(String phaseType) throws Exception{
 		
@@ -173,7 +173,7 @@ public class journeyPage extends StartUp {
 
 	/*
 	 * Function Name : returnPhaseItemsForPhaseType
-	 * Function Parameters: String phaseType .
+	 * Function Parameters: String phaseType
 	 * Description : Function used to return the webelement list of phase items based on the phaseType passed
 	 * Return Value : List
 	 * 
@@ -257,7 +257,7 @@ public class journeyPage extends StartUp {
 	 * Function Name : validate and exitPhaseItem
 	 * Function Parameters: None.
 	 * Description : Function used to exit an existing assessment/simulation
-	 * Return Value : Boolean
+	 * Return Value : void
 	 * 
 	 */
 	
@@ -283,83 +283,8 @@ public class journeyPage extends StartUp {
 		
 	
 	}
-		/*
-		 * Function Name : traverse through phases
-		 * Function Parameters: phaseName.
-		 * Description : Function is used to traverse through the phases
-		 * Return Value : void
-		 * 
-		 */
-		
-		public void traverseThroughPhases(String CourseTName)
-		{
-			//Boolean result;
-			System.out.println("Inside travel through phases");
-			ArrayList<Object> ModuleList=((ArrayList)DataObj.get("phases"));
-			ModuleList.forEach((phase) -> {
-				System.out.println("Inside each phase in traverse thrugh phase");
-				Map<String,Object> phaseMap=(Map<String, Object>) (phase);
-				Iterator hmIterator=phaseMap.entrySet().iterator();
-				while (hmIterator.hasNext()) {
 
-				           Map.Entry mapElement = (Map.Entry)hmIterator.next();
-				  Iterator alistIterator=((ArrayList<Object>) mapElement.getValue()).iterator();
-				  while(alistIterator.hasNext()) {
-						 Map<String,Object> map1=(Map<String,Object>)alistIterator.next();	
-						 System.out.println("Map is ="+map1);
-						 String courseName=map1.get("phaseItemName")+"";
-						 System.out.println("courseNameFromJson="+map1.get("phaseItemName"));
-						 if(courseName.equalsIgnoreCase(CourseTName))
-						 {
-							 System.out.println("Perera");
-							 
-						 if(((ArrayList)map1.get("Modules")!=null))
-						 {
-						 ArrayList<Object> MList=((ArrayList)map1.get("Modules"));
-						 System.out.println("modules are: "+MList);
-						 MList.forEach((module)->{
-							 Map<String,Object> mmmap = (Map<String,Object>) (module);
-							 System.out.println("mmmap is ="+mmmap);
-							 for ( String key : mmmap.keySet()) {
-//								 try {
-//									 int i=1;
-//									System.out.println("The result of verifyModuleFromTestData="+ verifyModuleFromTestData(key,i));
-//								} catch (Exception e1) {
-//									// TODO Auto-generated catch block
-//									e1.printStackTrace();
-//								}
-								 
-								 System.out.println("Inside modules="+mmmap.get(key));
-								 Map<String,Object> mimap = (Map<String,Object>) (mmmap.get(key));
-								 for ( String key1 : mimap.keySet() ) {
-									 
-									 System.out.println("inside module item="+mimap.get(key1));
-									 try {
-										result=clickOnNextPhaseItem();
-									} catch (Exception e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-									 
-								 }
-								 
-							 }
-							 
-							 
-						 });
-						 }
-						 
-						//break; 
-
-				  }
-				  }
-				       }
-				});
-
-		}
-
-		
-		/*
+	/*
 		 * Function Name : Logout
 		 * Function Parameters: pNA.
 		 * Description : Function is used to logout of the platform 
@@ -378,27 +303,57 @@ public class journeyPage extends StartUp {
 		
 		
 	/*
-	 * Function Name : verifyModuleFromTestData
-	 * Function Parameters: Module Name.
+	 * Function Name : verifyModuleName
+	 * Function Parameters: Module Name, Item Name is passed from traverseThroughCourse function
 	 * Description : Function is used verify if the module name from screen is same as that of the test Data
-	 * Return Value : boolean
+	 * Return Value : void
+	 * 
+	 */
+
+	 
+	public void verifyModuleName(String moduleName,String itemName) throws Exception{
+		String modulenamescreen=driver.findElement(objmap.getLocator("lbl_ModuleName")).getText();
+		if(modulenamescreen.equalsIgnoreCase(moduleName)){
+			System.out.println("Moduename from screen "+modulenamescreen);
+			verifyItemNameAndNavigateNext(itemName);
+		}
+			
+	}
+	
+	/*
+	 * Function Name : verifyItemNameAndNavigateNext
+	 * Function Parameters: Item Name which is passed from verifyModuleName function
+	 * Description : Function is used verify if the item name from screen is same as that of the test Data and navigate to next items
+	 * Return Value : void
 	 * 
 	 */
 	
-	public boolean verifyModuleFromTestData(String ModuleName, int index) throws Exception
-	{
-		String ModuleTName=driver.findElement(objmap.getLocator("lbl_ModuleName")).getText();
-		if(ModuleTName.equalsIgnoreCase(ModuleName))
-			return true;
-		else 
-			return false;
+	public void verifyItemNameAndNavigateNext(String itemName) throws Exception{
+		
+		String itemNameScreen=driver.findElement(objmap.getLocator("txt_ItemName")).getText();
+		System.out.println("Item Name From Screen "+itemNameScreen);
+		
+		if(itemNameScreen.equalsIgnoreCase(itemName)){
+			
+			Thread.sleep(1000);
+			clickOnNextPhaseItem();
+		}
+		
 	}
+
+	/*
+	 * Function Name : traverseThroughCourse
+	 * Function Parameters: course name which is passed from navigateThroughPhaseItem function
+	 * Description : Function is used traverse through course and its modules
+	 * Return Value : Boolean
+	 * 
+	 */
 		
 	
 	
 	public boolean traverseThroughCourse(String courseName)
 	{
-	
+		index=1;
 		Iterator<Entry<String, Object>> it = DataObj.entrySet().iterator();
 		while(it.hasNext())
 		{
@@ -406,9 +361,22 @@ public class journeyPage extends StartUp {
 			if(map.getKey().equalsIgnoreCase(courseName))
 			{
 				ArrayList<Object> ModuleList=((ArrayList)DataObj.get(courseName));
+				System.out.println("Module list size "+ModuleList.size());
 				ModuleList.forEach((module)->{ 
 					Map<String,Object> moduleItem=(Map<String,Object>)module;
-					System.out.println("ModuleName= "+moduleItem.get("moduleName"));
+					System.out.println("Module Item size "+moduleItem.size());
+					String modulename=moduleItem.get("moduleName").toString();
+					String itemName=moduleItem.get("itemName").toString();
+					System.out.println("ModuleName from json = "+moduleItem.get("moduleName"));
+				try {
+						verifyModuleName(modulename,itemName);
+					} catch (Exception e) {
+						
+						e.printStackTrace();
+					}
+					
+					
+					
 				});
 			}
 			
