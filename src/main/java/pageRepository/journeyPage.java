@@ -385,7 +385,7 @@ public class journeyPage extends StartUp {
 	 * 
 	 */
 	
-	public boolean verifyModuleFromTestData(String ModuleName, int index) throws Exception
+	public boolean verifyModuleItemFromTestData(String ModuleName, int index) throws Exception
 	{
 		String ModuleTName=driver.findElement(objmap.getLocator("lbl_ModuleName")).getText();
 		if(ModuleTName.equalsIgnoreCase(ModuleName))
@@ -409,11 +409,20 @@ public class journeyPage extends StartUp {
 				ModuleList.forEach((module)->{ 
 					Map<String,Object> moduleItem=(Map<String,Object>)module;
 					System.out.println("ModuleName="+moduleItem.get("moduleName"));
+					try {
+						result=clickOnNextPhaseItem();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
 				});
 			}
 			
 		}
-		
 		return true;
+	
+		
+		
 	}
 }
