@@ -38,28 +38,44 @@ formatter.match({
   "location": "loginPageDefinition.user_is_already_in_login_page()"
 });
 formatter.result({
+<<<<<<< HEAD
   "duration": 3852882626,
+=======
+  "duration": 5621368289,
+>>>>>>> 0c56cb19f7d70840ac5161ec5ebebd6a2c3c0892
   "status": "passed"
 });
 formatter.match({
   "location": "loginPageDefinition.title_of_the_page_is_Login_to_AktivLearnPlus()"
 });
 formatter.result({
+<<<<<<< HEAD
   "duration": 26458375,
+=======
+  "duration": 32880503,
+>>>>>>> 0c56cb19f7d70840ac5161ec5ebebd6a2c3c0892
   "status": "passed"
 });
 formatter.match({
   "location": "loginPageDefinition.user_enters_email_and_password()"
 });
 formatter.result({
+<<<<<<< HEAD
   "duration": 542538740,
+=======
+  "duration": 757010493,
+>>>>>>> 0c56cb19f7d70840ac5161ec5ebebd6a2c3c0892
   "status": "passed"
 });
 formatter.match({
   "location": "loginPageDefinition.user_clicks_on_signin_button()"
 });
 formatter.result({
+<<<<<<< HEAD
   "duration": 1455840311,
+=======
+  "duration": 1468968035,
+>>>>>>> 0c56cb19f7d70840ac5161ec5ebebd6a2c3c0892
   "status": "passed"
 });
 formatter.uri("Features/BDemographics.feature");
@@ -92,14 +108,22 @@ formatter.match({
   "location": "demographicsPageDefinition.the_user_has_landed_on_the_demographics_page()"
 });
 formatter.result({
+<<<<<<< HEAD
   "duration": 54011129,
+=======
+  "duration": 70123267,
+>>>>>>> 0c56cb19f7d70840ac5161ec5ebebd6a2c3c0892
   "status": "passed"
 });
 formatter.match({
   "location": "demographicsPageDefinition.refresh_the_demographics_page_by_redirecting_again_to_the_same_url()"
 });
 formatter.result({
+<<<<<<< HEAD
   "duration": 5784066719,
+=======
+  "duration": 5053306302,
+>>>>>>> 0c56cb19f7d70840ac5161ec5ebebd6a2c3c0892
   "status": "passed"
 });
 formatter.uri("Features/CWelcome.feature");
@@ -132,14 +156,22 @@ formatter.match({
   "location": "welcomePageDefinition.user_is_on_welcome_Page()"
 });
 formatter.result({
+<<<<<<< HEAD
   "duration": 23686221,
+=======
+  "duration": 190965035,
+>>>>>>> 0c56cb19f7d70840ac5161ec5ebebd6a2c3c0892
   "status": "passed"
 });
 formatter.match({
   "location": "welcomePageDefinition.user_clicks_on_Accepts_Invitation_button()"
 });
 formatter.result({
+<<<<<<< HEAD
   "duration": 98748,
+=======
+  "duration": 7188014,
+>>>>>>> 0c56cb19f7d70840ac5161ec5ebebd6a2c3c0892
   "status": "passed"
 });
 formatter.uri("Features/DJourney.feature");
@@ -171,6 +203,7 @@ formatter.step({
 formatter.match({
   "location": "journeyPageDefinition.user_is_already_in_journey_page()"
 });
+<<<<<<< HEAD
 formatter.result({
   "duration": 12062282746,
   "status": "passed"
@@ -183,3 +216,5 @@ formatter.result({
   "status": "passed"
 });
 });
+=======
+>>>>>>> 0c56cb19f7d70840ac5161ec5ebebd6a2c3c0892
