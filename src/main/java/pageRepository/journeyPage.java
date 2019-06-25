@@ -312,12 +312,13 @@ public class journeyPage extends StartUp {
 
 	 
 	public void verifyModuleName(String moduleName,String itemName) throws Exception{
-		String modulenamescreen=driver.findElement(objmap.getLocator("lbl_ModuleName")).getText();
-		if(modulenamescreen.equalsIgnoreCase(moduleName)){
-			System.out.println("Moduename from screen "+modulenamescreen);
+		
+		WebElement e= driver.findElement(By.xpath("//div[contains(@class,'sectionHeader-module-header-name')and contains(@title,'"+moduleName+"')]"));
+		System.out.println("Module name from screen "+e.getText());
+		if(e!=null){
+			System.out.println("Module name Matched");
 			verifyItemNameAndNavigateNext(itemName);
 		}
-			
 	}
 	
 	/*
@@ -330,14 +331,12 @@ public class journeyPage extends StartUp {
 	
 	public void verifyItemNameAndNavigateNext(String itemName) throws Exception{
 		
-		String itemNameScreen=driver.findElement(objmap.getLocator("txt_ItemName")).getText();
-		System.out.println("Item Name From Screen "+itemNameScreen);
-		
-		if(itemNameScreen.equalsIgnoreCase(itemName)){
-			
-			Thread.sleep(1000);
-			clickOnNextPhaseItem();
+		WebElement e= driver.findElement(By.xpath("//div[contains(@class,'innerListItem-module-module-item-title')and contains(@title,'"+itemName+"')]"));
+		System.out.println("Item Name From Screen "+e.getText());
+		if(e!=null){
+			System.out.println("Item name matched");
 		}
+
 		
 	}
 
@@ -364,17 +363,17 @@ public class journeyPage extends StartUp {
 				System.out.println("Module list size "+ModuleList.size());
 				ModuleList.forEach((module)->{ 
 					Map<String,Object> moduleItem=(Map<String,Object>)module;
-					System.out.println("Module Item size "+moduleItem.size());
 					String modulename=moduleItem.get("moduleName").toString();
 					String itemName=moduleItem.get("itemName").toString();
-					System.out.println("ModuleName from json = "+moduleItem.get("moduleName"));
 				try {
 						verifyModuleName(modulename,itemName);
+						Thread.sleep(3000);
+						clickOnNextPhaseItem();	
 					} catch (Exception e) {
 						
 						e.printStackTrace();
 					}
-					
+
 					
 					
 				});
