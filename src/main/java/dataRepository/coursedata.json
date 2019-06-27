@@ -1,16 +1,6 @@
 {
 "Normal Course":[
  {
- 	"moduleName" : "File",
-    "itemName" : "Sample Image",
-    "itemType" : "Image"
- },{
- 	"moduleName" : "File",
-    "itemName" : "PPT File",
-    "itemType" : "Presentation"
- },
- 
- {
  	"moduleName" : "QUIZ & Assignment",
     "itemName" : "Normal Quiz",
     "itemType" : "Quiz"
@@ -19,6 +9,16 @@
  	"moduleName" : "QUIZ & Assignment",
     "itemName" : "Assignment with submission",
     "itemType" : "Assignment"
+ },
+ {
+ 	"moduleName" : "File",
+    "itemName" : "Sample Image",
+    "itemType" : "Image"
+ },
+ {
+ 	"moduleName" : "File",
+    "itemName" : "PPT File",
+    "itemType" : "Presentation"
  },
  {
  	"moduleName" : "Simulation",

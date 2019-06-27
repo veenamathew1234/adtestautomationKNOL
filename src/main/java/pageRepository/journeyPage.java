@@ -310,25 +310,15 @@ public class journeyPage extends StartUp {
 	 * 
 	 */
 
-	 
-	public void verifyModuleName(String moduleName,String itemName) throws Exception{
-		String modulenamescreen=driver.findElement(objmap.getLocator("lbl_ModuleName")).getText();
-		if(modulenamescreen.equalsIgnoreCase(moduleName)){
-			System.out.println("Moduename from screen "+modulenamescreen);
-			verifyItemNameAndNavigateNext(itemName);
-		}
-			
-	}
-	
-	public boolean verifyModuleItemFromTestData(String ModuleName, int index) throws Exception
-	{
-		String ModuleTName=driver.findElement(objmap.getLocator("lbl_ModuleName")).getText();
-		if(ModuleTName.equalsIgnoreCase(ModuleName))
-			return true;
-		else 
-			return false;
-	}
-
+public void verifyModuleName(String moduleName,String itemName) throws Exception{
+        
+        WebElement e= driver.findElement(By.xpath("//div[contains(@class,'sectionHeader-module-header-name')and contains(@title,'"+moduleName+"')]"));
+        System.out.println("Module name from screen "+e.getText());
+        if(e!=null){
+            System.out.println("Module name Matched");
+            verifyItemNameAndNavigateNext(itemName);
+        }
+    }
 	/*
 	 * Function Name : verifyItemNameAndNavigateNext
 	 * Function Parameters: Item Name which is passed from verifyModuleName function
@@ -337,17 +327,14 @@ public class journeyPage extends StartUp {
 	 * 
 	 */
 	
-	public void verifyItemNameAndNavigateNext(String itemName) throws Exception{
-		
-		String itemNameScreen=driver.findElement(objmap.getLocator("txt_ItemName")).getText();
-		System.out.println("Item Name From Screen "+itemNameScreen);
-		
-		if(itemNameScreen.equalsIgnoreCase(itemName)){
-			
-			System.out.println(" yes matched");
-		}
-		
-	}
+public void verifyItemNameAndNavigateNext(String itemName) throws Exception{
+    
+    WebElement e= driver.findElement(By.xpath("//div[contains(@class,'innerListItem-module-module-item-title')and contains(@title,'"+itemName+"')]"));
+    System.out.println("Item Name From Screen "+e.getText());
+    if(e!=null){
+        System.out.println("Item name matched");
+    }        
+}
 
 	/*
 	 * Function Name : traverseThroughCourse
@@ -359,39 +346,35 @@ public class journeyPage extends StartUp {
 		
 	
 	
-	public boolean traverseThroughCourse(String courseName)
-	{
-		index=1;
-		Iterator<Entry<String, Object>> it = DataObj.entrySet().iterator();
-		while(it.hasNext())
-		{
-			Map.Entry<String, Object> map = (Map.Entry<String, Object>) it.next();
-			if(map.getKey().equalsIgnoreCase(courseName))
-			{
-				ArrayList<Object> ModuleList=((ArrayList)DataObj.get(courseName));
-				System.out.println("Module list size "+ModuleList.size());
-				ModuleList.forEach((module)->{ 
-					Map<String,Object> moduleItem=(Map<String,Object>)module;
-					System.out.println("Module Item size "+moduleItem.size());
-					String modulename=moduleItem.get("moduleName").toString();
-					String itemName=moduleItem.get("itemName").toString();
-					System.out.println("ModuleName from json = "+moduleItem.get("moduleName"));
-				try {
-						verifyModuleName(modulename,itemName);
-						Thread.sleep(3000);
-						clickOnNextPhaseItem();
-					} catch (Exception e) {
-						
-						e.printStackTrace();
-					}
-					
-				});
-			}
-			
-		}
-		return true;
-	
-		
-		
-	}
+public boolean traverseThroughCourse(String courseName)
+{
+    index=1;
+    Iterator<Entry<String, Object>> it = DataObj.entrySet().iterator();
+    while(it.hasNext())
+    {
+        Map.Entry<String, Object> map = (Map.Entry<String, Object>) it.next();
+        if(map.getKey().equalsIgnoreCase(courseName))
+        {
+            ArrayList<Object> ModuleList=((ArrayList)DataObj.get(courseName));
+            System.out.println("Module list size "+ModuleList.size());
+            ModuleList.forEach((module)->{
+                Map<String,Object> moduleItem=(Map<String,Object>)module;
+                String modulename=moduleItem.get("moduleName").toString();
+                String itemName=moduleItem.get("itemName").toString();
+            try {
+                    verifyModuleName(modulename,itemName);
+                    Thread.sleep(3000);
+                    clickOnNextPhaseItem();    
+                } catch (Exception e) {
+                    
+                    e.printStackTrace();
+                }                    
+                
+            });
+        }
+        
+    }
+    
+    return true;
+}
 }
