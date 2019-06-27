@@ -320,7 +320,6 @@ public class journeyPage extends StartUp {
 			
 	}
 	
-<<<<<<< HEAD
 	public boolean verifyModuleItemFromTestData(String ModuleName, int index) throws Exception
 	{
 		String ModuleTName=driver.findElement(objmap.getLocator("lbl_ModuleName")).getText();
@@ -328,7 +327,8 @@ public class journeyPage extends StartUp {
 			return true;
 		else 
 			return false;
-=======
+	}
+
 	/*
 	 * Function Name : verifyItemNameAndNavigateNext
 	 * Function Parameters: Item Name which is passed from verifyModuleName function
@@ -344,11 +344,9 @@ public class journeyPage extends StartUp {
 		
 		if(itemNameScreen.equalsIgnoreCase(itemName)){
 			
-			Thread.sleep(1000);
-			clickOnNextPhaseItem();
+			System.out.println(" yes matched");
 		}
 		
->>>>>>> 0c56cb19f7d70840ac5161ec5ebebd6a2c3c0892
 	}
 
 	/*
@@ -374,30 +372,19 @@ public class journeyPage extends StartUp {
 				System.out.println("Module list size "+ModuleList.size());
 				ModuleList.forEach((module)->{ 
 					Map<String,Object> moduleItem=(Map<String,Object>)module;
-<<<<<<< HEAD
-					System.out.println("ModuleName="+moduleItem.get("moduleName"));
-					try {
-						result=clickOnNextPhaseItem();
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-=======
 					System.out.println("Module Item size "+moduleItem.size());
 					String modulename=moduleItem.get("moduleName").toString();
 					String itemName=moduleItem.get("itemName").toString();
 					System.out.println("ModuleName from json = "+moduleItem.get("moduleName"));
 				try {
 						verifyModuleName(modulename,itemName);
+						Thread.sleep(3000);
+						clickOnNextPhaseItem();
 					} catch (Exception e) {
 						
 						e.printStackTrace();
 					}
 					
-					
-					
->>>>>>> 0c56cb19f7d70840ac5161ec5ebebd6a2c3c0892
 				});
 			}
 			
