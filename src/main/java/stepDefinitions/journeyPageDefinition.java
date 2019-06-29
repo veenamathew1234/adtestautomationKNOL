@@ -15,8 +15,8 @@ public class journeyPageDefinition {
 		jp.validateJourneyPage();
 	}
 
-	@Then("^User clicks on each of the phases$")
-	public void user_clicks_on_each_of_the_phases() throws Throwable {
+	@Then("^User able to navigate through each phase$")
+	public void user_able_to_navigate_through_each_phase() throws Throwable {
 	   
 		jp.navigateThroughPhases();
 	}

@@ -88,6 +88,7 @@ public class journeyPage extends StartUp {
 				 //User navigates through the phase items of the particular phase	 
 				 String phaseType=phaseMap.get("phaseType").toString();
 				 System.out.println("Phase type to be clicked on next is "+phaseType);
+			//--
 				 navigateThroughPhaseItem(phaseType);
 				 Thread.sleep(5000);
 				 clickOnHomeButton(phaseType);
@@ -113,9 +114,13 @@ public class journeyPage extends StartUp {
 	
 	public boolean navigateThroughPhaseItem(String phaseType) throws Exception{
 		int i;
+		//retrieve appropriate phase item type for phase types and click on it 
 		List<WebElement> phaseItems=returnPhaseItemsForPhaseType(phaseType);
 		Thread.sleep(5000);
 		phaseItems.get(0).click();
+	//---------------------
+		
+		//launching phases
 		for(i=0;i<=phaseItems.size()-1;i++){
 			if(phaseType.equalsIgnoreCase("Assessment")){
 				if(launchPhaseItem()==true)
