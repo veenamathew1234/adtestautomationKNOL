@@ -57,7 +57,9 @@ public class loginPage extends StartUp{
 		e=driver.findElement(objmap.getLocator("btn_Signin"));
 		e.click();
 		Assert.assertEquals("Incorrect credentials",0,driver.findElements(By.xpath("//div[contains(@class,'error-box')]")).size());
+		
 	}
+
 
 }
 

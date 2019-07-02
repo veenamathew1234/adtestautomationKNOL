@@ -42,10 +42,8 @@ public welcomePage(){
 	 isNewUser = DataObj.get("isNewUser").toString();
 	 if(isNewUser.equalsIgnoreCase("yes")){
 		 l=driver.findElements(objmap.getLocator("lbl_greetings"));
-	 Assert.assertEquals("Incorrect Welcome Page",l.size(),1);
+		 Assert.assertEquals("Incorrect Welcome Page",1,l.size());
 	 }
-	
-	 
  }
  
  public void clickAcceptInvitation() throws Exception{
