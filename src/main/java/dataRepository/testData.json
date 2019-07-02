@@ -1,6 +1,6 @@
  {
   "url" : "https://stg-aktivplatform.knolskape.io",
-  "Demographics_url" : "https://accounts-test.knolskape.com",
+  "Demographics_url" : "https://accounts-test.knolskape.com/user/fill_demographics",
   "email" : "adb5_18@mailinator.com",
   "password" : "Password@123",
   "isNewUser" : "no",

@@ -4,6 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import cucumber.api.Scenario;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -14,10 +17,12 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.junit.Assert;
+
+import utils.Hooks;
 import utils.StartUp;
 import pageRepository.loginPage;
 
-public class loginPageDefinition{
+public class loginPageDefinition extends StartUp{
 	
 	loginPage lp=new loginPage();
 	
@@ -43,7 +48,9 @@ public class loginPageDefinition{
 	public void user_clicks_on_signin_button() throws Exception{
 		
 		lp.clickOnSignButton();
-    }
+  }
+	
+
 }
 
 
