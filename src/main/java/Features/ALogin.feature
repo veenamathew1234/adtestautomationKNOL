@@ -7,3 +7,4 @@ Given User is already in login page
 When Title of the page is Login to AktivLearn Plus
 Then User enters email and password
 Then User clicks on signin button
+
