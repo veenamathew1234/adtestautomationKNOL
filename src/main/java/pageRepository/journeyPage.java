@@ -17,6 +17,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.restassured.RestAssured;
+import utils.CommonMethods;
 import junit.framework.Assert;
 import utils.ObjectFactory;
 import utils.StartUp;
@@ -32,7 +33,7 @@ public class journeyPage extends StartUp {
 	Boolean result;
 	List journeyInfo;
 	int index;
-	assesmentPhase asp=new assesmentPhase();
+	CommonMethods cm=new CommonMethods();
 	
 	public journeyPage(){
 		System.out.println("Inside journey page constructor");
@@ -72,7 +73,7 @@ public class journeyPage extends StartUp {
 	 * 
 	 */
 	
-	public boolean navigateThroughPhases() throws Exception
+	public void navigateThroughPhases() throws Exception
 	{
 		journeyInfo=datalist("journeyDetails");
 		
@@ -90,6 +91,7 @@ public class journeyPage extends StartUp {
 				 //User navigates through the phase items of the particular phase	 
 				 String phaseType=phaseMap.get("phaseType").toString();
 				 System.out.println("Phase type to be clicked on next is "+phaseType);
+			//--
 				 navigateThroughPhaseItem(phaseType);
 				 Thread.sleep(5000);
 				 clickOnHomeButton(phaseType);
@@ -101,7 +103,7 @@ public class journeyPage extends StartUp {
 		});
 		
 		//result=logout();
-		return result;
+		
 	}
 	
 
@@ -115,13 +117,17 @@ public class journeyPage extends StartUp {
 	
 	public boolean navigateThroughPhaseItem(String phaseType) throws Exception{
 		int i;
+		//retrieve appropriate phase item type for phase types and click on it 
 		List<WebElement> phaseItems=returnPhaseItemsForPhaseType(phaseType);
 		Thread.sleep(5000);
 		phaseItems.get(0).click();
+	//---------------------
+		
+		//launching phases
 		for(i=0;i<=phaseItems.size()-1;i++){
 			if(phaseType.equalsIgnoreCase("Assessment")){
 				if(launchPhaseItem()==true)
-					validateAndExitPhaseItem();
+						validateAndExitPhaseItem();
 			}
 				
 				else if(phaseType.equalsIgnoreCase("NormalCourse"))
@@ -161,13 +167,11 @@ public class journeyPage extends StartUp {
 		switch(phaseType)
 		{
 		     case "Assessment":
-		    	 driver.findElement(objmap.getLocator("btn_assessmentshome")).click();
-				 System.out.println("clicked on home button from Assessment phase"); 
+		    	 driver.findElement(objmap.getLocator("btn_assessmentshome")).click(); 
 				 Map<String,Object> DataObj=st.beforeClass("coursedata.json");
 				 break;
 		     case "NormalCourse":
 		    	 driver.findElement(objmap.getLocator("btn_developmenthome")).click();
-		    	 System.out.println("clicked on home button from Development phase");
 		    	 break;
 		}
 		
@@ -264,26 +268,20 @@ public class journeyPage extends StartUp {
 	 */
 	
 	
-	public void validateAndExitPhaseItem() throws Exception{
-
-		statusCode=new HttpResponse().getStatus();
-		System.out.println("Status Code "+statusCode);
+	public boolean validateAndExitPhaseItem() throws Exception{
 		
-		if(statusCode==200){
+		cm.checkErrorComponents();
+		int i=0,j=0;
 			Thread.sleep(2000);
-			//explicitWait.until(ExpectedConditions.elementToBeClickable(driver.findElement(objmap.getLocator("btn_exit"))));
 			e=driver.findElement(objmap.getLocator("btn_exit"));
 			e.click();
 			Thread.sleep(1000);
-			//explicitWait.until(ExpectedConditions.visibilityOf(driver.findElement(objmap.getLocator("btn_popupexit"))));
 			e=driver.findElement(objmap.getLocator("btn_popupexit"));
 			if(e!=null)
 				e.click();
 			Thread.sleep(2000);
-			
-		}
 		
-	
+	return true;
 	}
 
 	/*
@@ -312,17 +310,20 @@ public class journeyPage extends StartUp {
 	 * 
 	 */
 
-	 
-	public void verifyModuleName(String moduleName,String itemName) throws Exception{
-		
-		WebElement e= driver.findElement(By.xpath("//div[contains(@class,'sectionHeader-module-header-name')and contains(@title,'"+moduleName+"')]"));
-		System.out.println("Module name from screen "+e.getText());
-		if(e!=null){
-			System.out.println("Module name Matched");
-			verifyItemNameAndNavigateNext(itemName);
-		}
-	}
-	
+public void verifyModuleName(String moduleName,String itemName) {
+        
+        WebElement e= driver.findElement(By.xpath("//div[contains(@class,'sectionHeader-module-header-name')and contains(@title,'"+moduleName+"')]"));
+        System.out.println("Module name from screen "+e.getText());
+        if(e!=null){
+            System.out.println("Module name Matched");
+            try {
+				verifyItemNameAndNavigateNext(itemName);
+			} catch (Exception e1) {
+				Assert.assertNull("Exception in verifyModuleName",e1);
+				e1.printStackTrace();
+			}
+        }
+    }
 	/*
 	 * Function Name : verifyItemNameAndNavigateNext
 	 * Function Parameters: Item Name which is passed from verifyModuleName function
@@ -331,16 +332,25 @@ public class journeyPage extends StartUp {
 	 * 
 	 */
 	
-	public void verifyItemNameAndNavigateNext(String itemName) throws Exception{
-		
-		WebElement e= driver.findElement(By.xpath("//div[contains(@class,'innerListItem-module-module-item-title')and contains(@title,'"+itemName+"')]"));
-		System.out.println("Item Name From Screen "+e.getText());
-		if(e!=null){
-			System.out.println("Item name matched");
-		}
-
-		
+public boolean verifyItemNameAndNavigateNext(String itemName){
+    
+	try {
+		cm.checkErrorComponents();
+	
+    WebElement e= driver.findElement(By.xpath("//div[contains(@class,'innerListItem-module-module-item-title')and contains(@title,'"+itemName+"')]"));
+    System.out.println("Item Name From Screen "+e.getText());
+    if(e!=null){
+        System.out.println("Item name matched");
+    }        
+    return true;
+	} 
+	catch (Exception e1) {
+		// TODO Auto-generated catch block
+		Assert.assertNull("Exception in verifyItemNameAndNavigateNext",e1);
+		e1.printStackTrace();
+		return false;
 	}
+}
 
 	/*
 	 * Function Name : traverseThroughCourse
@@ -352,37 +362,38 @@ public class journeyPage extends StartUp {
 		
 	
 	
-	public boolean traverseThroughCourse(String courseName)
-	{
-		index=1;
-		Iterator<Entry<String, Object>> it = DataObj.entrySet().iterator();
-		while(it.hasNext())
-		{
-			Map.Entry<String, Object> map = (Map.Entry<String, Object>) it.next();
-			if(map.getKey().equalsIgnoreCase(courseName))
-			{
-				ArrayList<Object> ModuleList=((ArrayList)DataObj.get(courseName));
-				System.out.println("Module list size "+ModuleList.size());
-				ModuleList.forEach((module)->{ 
-					Map<String,Object> moduleItem=(Map<String,Object>)module;
-					String modulename=moduleItem.get("moduleName").toString();
-					String itemName=moduleItem.get("itemName").toString();
-				try {
-						verifyModuleName(modulename,itemName);
-						Thread.sleep(3000);
-						clickOnNextPhaseItem();	
-					} catch (Exception e) {
-						
-						e.printStackTrace();
-					}
+public boolean traverseThroughCourse(String courseName)
+{
+    index=1;
+    Iterator<Entry<String, Object>> it = DataObj.entrySet().iterator();
+    while(it.hasNext())
+    {
+        Map.Entry<String, Object> map = (Map.Entry<String, Object>) it.next();
+        if(map.getKey().equalsIgnoreCase(courseName))
+        {
+            ArrayList<Object> ModuleList=((ArrayList)DataObj.get(courseName));
+            System.out.println("Module list size "+ModuleList.size());
+            ModuleList.forEach((module)->{
+                Map<String,Object> moduleItem=(Map<String,Object>)module;
+                String modulename=moduleItem.get("moduleName").toString();
+                String itemName=moduleItem.get("itemName").toString();
+            try {
+                    verifyModuleName(modulename,itemName);
+                    Thread.sleep(3000);
+                    clickOnNextPhaseItem();    
+                } catch (Exception e) {
+                    
+                	Assert.assertNull(e);
+                    e.printStackTrace();
+                }                    
+                
+            });
+        }
+        
+    }
+    
+    return true;
+}
 
-					
-					
-				});
-			}
-			
-		}
-		
-		return true;
-	}
+
 }

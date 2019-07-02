@@ -1,5 +1,7 @@
 package stepDefinitions;
 
+import org.junit.Assert;
+
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -15,10 +17,16 @@ public class journeyPageDefinition {
 		jp.validateJourneyPage();
 	}
 
-	@Then("^User clicks on each of the phases$")
-	public void user_clicks_on_each_of_the_phases() throws Throwable {
+	@Then("^User able to navigate through each phase$")
+	public void user_able_to_navigate_through_each_phase() throws Throwable {
 	   
+		
 		jp.navigateThroughPhases();
+//		 for (int row = 0; row < twod.length; row++) {
+//	            //for (int col = 0; col < twod[row].length; col++) {
+//	            	Assert.assertEquals(twod[row][1],twod[row][0],"");
+//	            }
+//	        }
+	
 	}
-
 }

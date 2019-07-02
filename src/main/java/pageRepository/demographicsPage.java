@@ -16,8 +16,7 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-
-
+import utils.CommonMethods;
 import utils.ObjectFactory;
 import utils.StartUp;
 
@@ -32,6 +31,7 @@ public class demographicsPage extends StartUp{
 	WebElement e;
 	HttpURLConnection huc = null;
 	ExecutorService executor;
+	CommonMethods cm=new CommonMethods();
 	public static List<String> errorList = new ArrayList<String>();
 	
 	
@@ -43,7 +43,6 @@ public class demographicsPage extends StartUp{
 	
 	public void validateDemographicsPageLoad(){
 		
-		System.out.println("Validate Demographics Page");
 		currenturl=driver.getCurrentUrl();
 		flag=0;
 		if(currenturl.startsWith(DataObj.get("Demographics_url").toString()))
@@ -52,14 +51,13 @@ public class demographicsPage extends StartUp{
 		
 	}
 	
-	public void pageRefresh() throws InterruptedException, IOException{
+	public void pageRefresh() throws Exception{
 		
 		driver.get(DataObj.get("url").toString());
 		Thread.sleep(2000);
-		List<WebElement> l=driver.findElements(By.xpath("//div[contains(@class,'_1igs3lz module-s6sm1kqha136yk484neh1qe46a8r2c8hrnkwhdtyh7dazwwzct8mfaaudbrfety6hwc7rpaa47wq4r2mjyjzntkzdshar83gg5p9fs-userError-module-error-heading')]"));
-		Assert.assertEquals("Error while refreshing page", 0, l.size());
-		
-	}	
+		cm.checkErrorComponents();		
+	
+}
 }
 
 
