@@ -19,12 +19,9 @@ import io.restassured.RestAssured;
 import utils.StartUp;
 
 public class loginPage extends StartUp{
-	
-	//WebDriver driver= getDriver();
+
 	ObjectFactory objmap;
 	StartUp st = new StartUp();
-	//Map<String,Object> DataObj=st.beforeClass();
-	//Map<String,Object> DataObj=(Map<String, Object>) objtestData;
 	public Properties prop;
 	WebElement e;
 	
@@ -37,19 +34,13 @@ public class loginPage extends StartUp{
 	public void launchPage(){
 		
 		driver.get(DataObj.get("url").toString());
-		
-//---------To get the response code of current url using RestAssured--------------
-		
-//		String str=DataObj.get("url").toString();
-//		System.out.println("url is:"+str);
-//		System.out.println("status code"+RestAssured.get(str).statusCode());
-//		return RestAssured.get(str).statusCode();
 	}
 	
 	public void validateLoginPage(){
 		String title=driver.getTitle();
 		System.out.println("Page title :"+title);
-		Assert.assertEquals("Login to Kompass", title);
+		Assert.assertEquals("Incorrect Login page","Login to Kompass", title);
+		
 	}
 	
 	public void enterUserCredentials() throws Exception{
@@ -65,6 +56,7 @@ public class loginPage extends StartUp{
 		System.out.println("User clicks on signin button");
 		e=driver.findElement(objmap.getLocator("btn_Signin"));
 		e.click();
+		Assert.assertEquals("Incorrect credentials",0,driver.findElements(By.xpath("//div[contains(@class,'error-box')]")).size());
 	}
 
 }

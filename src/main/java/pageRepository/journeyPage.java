@@ -18,6 +18,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.restassured.RestAssured;
 import utils.CommonMethods;
+import junit.framework.Assert;
 import utils.ObjectFactory;
 import utils.StartUp;
 
@@ -59,6 +60,7 @@ public class journeyPage extends StartUp {
 		 System.out.println("Number of phase items: "+count);
 		 if(count!=0)
 			 System.out.println("Sucessfully landed on journey page");
+		 Assert.assertNotSame("Invalid Journey Page",0, count);
 		
 		}
 	

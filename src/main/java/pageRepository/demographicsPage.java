@@ -43,10 +43,12 @@ public class demographicsPage extends StartUp{
 	
 	public void validateDemographicsPageLoad(){
 		
+		System.out.println("Validate Demographics Page");
 		currenturl=driver.getCurrentUrl();
 		flag=0;
 		if(currenturl.startsWith(DataObj.get("Demographics_url").toString()))
-			flag=1;
+		flag=1;
+		Assert.assertEquals("Incorrect Demographics Page",1,flag);
 		
 	}
 	
@@ -56,16 +58,10 @@ public class demographicsPage extends StartUp{
 		Thread.sleep(2000);
 		System.out.println("Inside page refresh");
 		String result[][]=cm.checkErrorComponents();
-		for (String[] x : result)
-			{
-			   for (String y : x)
-			   {
-			        System.out.print(y + " ");
-			   }
-			   System.out.println();
+		List<WebElement> l=driver.findElements(By.xpath("//div[contains(@class,'_1igs3lz module-s6sm1kqha136yk484neh1qe46a8r2c8hrnkwhdtyh7dazwwzct8mfaaudbrfety6hwc7rpaa47wq4r2mjyjzntkzdshar83gg5p9fs-userError-module-error-heading')]"));
+		Assert.assertEquals("Error while refreshing page", 0, l.size());
 		
 	
-	}	
 }
 }
 

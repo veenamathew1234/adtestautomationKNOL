@@ -5,23 +5,22 @@ import org.openqa.selenium.JavascriptExecutor;
 
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-
-
+import cucumber.api.Scenario;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 
 import cucumber.api.java.en.Then;
 
 import junit.framework.Assert;
 import pageRepository.demographicsPage;
+import utils.Hooks;
 
-public class demographicsPageDefinition {
+public class demographicsPageDefinition{
 	
 	demographicsPage dp = new demographicsPage();
 	
-		String script="";
-		String CatchS=null;
-
-		@Given("^The user has landed on the demographics page$")
+	@Given("^The user has landed on the demographics page$")
 
 		public void the_user_has_landed_on_the_demographics_page()  {
 			
@@ -36,6 +35,7 @@ public class demographicsPageDefinition {
 			dp.pageRefresh();
 
 		}
+		
 
 //
 //
