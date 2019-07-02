@@ -33,8 +33,6 @@ public class journeyPage extends StartUp {
 	Boolean result;
 	List journeyInfo;
 	int index;
-	String twodresult[][];
-	assesmentPhase asp=new assesmentPhase();
 	CommonMethods cm=new CommonMethods();
 	
 	public journeyPage(){
@@ -75,7 +73,7 @@ public class journeyPage extends StartUp {
 	 * 
 	 */
 	
-	public String[][] navigateThroughPhases() throws Exception
+	public void navigateThroughPhases() throws Exception
 	{
 		journeyInfo=datalist("journeyDetails");
 		
@@ -105,7 +103,7 @@ public class journeyPage extends StartUp {
 		});
 		
 		//result=logout();
-		return twodresult;
+		
 	}
 	
 
@@ -130,8 +128,6 @@ public class journeyPage extends StartUp {
 			if(phaseType.equalsIgnoreCase("Assessment")){
 				if(launchPhaseItem()==true)
 						validateAndExitPhaseItem();
-					if(twodresult[i][0].equalsIgnoreCase("false"))
-						return false;
 			}
 				
 				else if(phaseType.equalsIgnoreCase("NormalCourse"))
@@ -171,13 +167,11 @@ public class journeyPage extends StartUp {
 		switch(phaseType)
 		{
 		     case "Assessment":
-		    	 driver.findElement(objmap.getLocator("btn_assessmentshome")).click();
-				 System.out.println("clicked on home button from Assessment phase"); 
+		    	 driver.findElement(objmap.getLocator("btn_assessmentshome")).click(); 
 				 Map<String,Object> DataObj=st.beforeClass("coursedata.json");
 				 break;
 		     case "NormalCourse":
 		    	 driver.findElement(objmap.getLocator("btn_developmenthome")).click();
-		    	 System.out.println("clicked on home button from Development phase");
 		    	 break;
 		}
 		
@@ -276,29 +270,16 @@ public class journeyPage extends StartUp {
 	
 	public boolean validateAndExitPhaseItem() throws Exception{
 		
-		 twodresult=cm.checkErrorComponents();
+		cm.checkErrorComponents();
 		int i=0,j=0;
-		statusCode=new HttpResponse().getStatus();
-		System.out.println("Status Code "+statusCode);
-		if(twodresult[i][0].equalsIgnoreCase("false"))
-		{
-			return false;
-		}
-		else
-		{
 			Thread.sleep(2000);
-			//explicitWait.until(ExpectedConditions.elementToBeClickable(driver.findElement(objmap.getLocator("btn_exit"))));
 			e=driver.findElement(objmap.getLocator("btn_exit"));
 			e.click();
 			Thread.sleep(1000);
-			//explicitWait.until(ExpectedConditions.visibilityOf(driver.findElement(objmap.getLocator("btn_popupexit"))));
 			e=driver.findElement(objmap.getLocator("btn_popupexit"));
 			if(e!=null)
 				e.click();
 			Thread.sleep(2000);
-			i++;
-			
-		}
 		
 	return true;
 	}
@@ -329,13 +310,18 @@ public class journeyPage extends StartUp {
 	 * 
 	 */
 
-public void verifyModuleName(String moduleName,String itemName) throws Exception{
+public void verifyModuleName(String moduleName,String itemName) {
         
         WebElement e= driver.findElement(By.xpath("//div[contains(@class,'sectionHeader-module-header-name')and contains(@title,'"+moduleName+"')]"));
         System.out.println("Module name from screen "+e.getText());
         if(e!=null){
             System.out.println("Module name Matched");
-            verifyItemNameAndNavigateNext(itemName);
+            try {
+				verifyItemNameAndNavigateNext(itemName);
+			} catch (Exception e1) {
+				Assert.assertNull("Exception in verifyModuleName",e1);
+				e1.printStackTrace();
+			}
         }
     }
 	/*
@@ -346,18 +332,24 @@ public void verifyModuleName(String moduleName,String itemName) throws Exception
 	 * 
 	 */
 	
-public boolean verifyItemNameAndNavigateNext(String itemName) throws Exception{
+public boolean verifyItemNameAndNavigateNext(String itemName){
     
-	int i=0,j=0;
-	twodresult=cm.checkErrorComponents();
-	if(twodresult[i++][0].equalsIgnoreCase("false"))
-		return false;
+	try {
+		cm.checkErrorComponents();
+	
     WebElement e= driver.findElement(By.xpath("//div[contains(@class,'innerListItem-module-module-item-title')and contains(@title,'"+itemName+"')]"));
     System.out.println("Item Name From Screen "+e.getText());
     if(e!=null){
         System.out.println("Item name matched");
     }        
     return true;
+	} 
+	catch (Exception e1) {
+		// TODO Auto-generated catch block
+		Assert.assertNull("Exception in verifyItemNameAndNavigateNext",e1);
+		e1.printStackTrace();
+		return false;
+	}
 }
 
 	/*
@@ -391,6 +383,7 @@ public boolean traverseThroughCourse(String courseName)
                     clickOnNextPhaseItem();    
                 } catch (Exception e) {
                     
+                	Assert.assertNull(e);
                     e.printStackTrace();
                 }                    
                 

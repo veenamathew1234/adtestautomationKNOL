@@ -13,6 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.http.HttpResponse;
 
+import utils.CommonMethods;
 import utils.ObjectFactory;
 import utils.StartUp;
 
@@ -25,6 +26,7 @@ public class welcomePage extends StartUp {
 	String isNewUser;
 	int statusCode ;
 	List<WebElement> l;
+	CommonMethods cm=new CommonMethods(); 
 	
 		
 public welcomePage(){
@@ -35,10 +37,7 @@ public welcomePage(){
 }
 
  public void validateWelcomePage() throws Exception{
-	    //String WelcomePageTitle= driver.getTitle();
-		//System.out.println("Welcome page title is "+WelcomePageTitle);
-		//Assert.assertEquals("User landed on incorrect Welcome page","AktivLearn Plus",driver.getTitle());
-	 
+	 cm.checkErrorComponents();
 	 isNewUser = DataObj.get("isNewUser").toString();
 	 if(isNewUser.equalsIgnoreCase("yes")){
 		 l=driver.findElements(objmap.getLocator("lbl_greetings"));
@@ -50,7 +49,6 @@ public welcomePage(){
  
  public void clickAcceptInvitation() throws Exception{
  
-	 	//isNewUser = DataObj.get("isNewUser").toString();
 		if(isNewUser.equalsIgnoreCase("yes")){
 			System.out.println("User is new user and Accept invitation button is found");
 			Thread.sleep(7000);
