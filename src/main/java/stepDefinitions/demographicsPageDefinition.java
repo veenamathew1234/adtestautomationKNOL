@@ -31,7 +31,7 @@ public class demographicsPageDefinition {
 
 		@Then("^Refresh the demographics page by redirecting again to the same url$")
 
-		public void refresh_the_demographics_page_by_redirecting_again_to_the_same_url() throws InterruptedException, IOException{
+		public void refresh_the_demographics_page_by_redirecting_again_to_the_same_url() throws Exception{
 
 			dp.pageRefresh();
 

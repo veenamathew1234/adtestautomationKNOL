@@ -16,8 +16,7 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-
-
+import utils.CommonMethods;
 import utils.ObjectFactory;
 import utils.StartUp;
 
@@ -32,6 +31,7 @@ public class demographicsPage extends StartUp{
 	WebElement e;
 	HttpURLConnection huc = null;
 	ExecutorService executor;
+	CommonMethods cm=new CommonMethods();
 	public static List<String> errorList = new ArrayList<String>();
 	
 	
@@ -50,13 +50,23 @@ public class demographicsPage extends StartUp{
 		
 	}
 	
-	public void pageRefresh() throws InterruptedException, IOException{
+	public void pageRefresh() throws Exception{
 		
 		driver.get(DataObj.get("url").toString());
 		Thread.sleep(2000);
+		System.out.println("Inside page refresh");
+		String result[][]=cm.checkErrorComponents();
+		for (String[] x : result)
+			{
+			   for (String y : x)
+			   {
+			        System.out.print(y + " ");
+			   }
+			   System.out.println();
 		
 	
 	}	
+}
 }
 
 

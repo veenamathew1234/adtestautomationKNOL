@@ -17,6 +17,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.restassured.RestAssured;
+import utils.CommonMethods;
 import utils.ObjectFactory;
 import utils.StartUp;
 
@@ -31,7 +32,9 @@ public class journeyPage extends StartUp {
 	Boolean result;
 	List journeyInfo;
 	int index;
+	String twodresult[][];
 	assesmentPhase asp=new assesmentPhase();
+	CommonMethods cm=new CommonMethods();
 	
 	public journeyPage(){
 		System.out.println("Inside journey page constructor");
@@ -70,7 +73,7 @@ public class journeyPage extends StartUp {
 	 * 
 	 */
 	
-	public boolean navigateThroughPhases() throws Exception
+	public String[][] navigateThroughPhases() throws Exception
 	{
 		journeyInfo=datalist("journeyDetails");
 		
@@ -100,7 +103,7 @@ public class journeyPage extends StartUp {
 		});
 		
 		//result=logout();
-		return result;
+		return twodresult;
 	}
 	
 
@@ -124,7 +127,9 @@ public class journeyPage extends StartUp {
 		for(i=0;i<=phaseItems.size()-1;i++){
 			if(phaseType.equalsIgnoreCase("Assessment")){
 				if(launchPhaseItem()==true)
-					validateAndExitPhaseItem();
+						validateAndExitPhaseItem();
+					if(twodresult[i][0].equalsIgnoreCase("false"))
+						return false;
 			}
 				
 				else if(phaseType.equalsIgnoreCase("NormalCourse"))
@@ -267,12 +272,18 @@ public class journeyPage extends StartUp {
 	 */
 	
 	
-	public void validateAndExitPhaseItem() throws Exception{
-
+	public boolean validateAndExitPhaseItem() throws Exception{
+		
+		 twodresult=cm.checkErrorComponents();
+		int i=0,j=0;
 		statusCode=new HttpResponse().getStatus();
 		System.out.println("Status Code "+statusCode);
-		
-		if(statusCode==200){
+		if(twodresult[i][0].equalsIgnoreCase("false"))
+		{
+			return false;
+		}
+		else
+		{
 			Thread.sleep(2000);
 			//explicitWait.until(ExpectedConditions.elementToBeClickable(driver.findElement(objmap.getLocator("btn_exit"))));
 			e=driver.findElement(objmap.getLocator("btn_exit"));
@@ -283,10 +294,11 @@ public class journeyPage extends StartUp {
 			if(e!=null)
 				e.click();
 			Thread.sleep(2000);
+			i++;
 			
 		}
 		
-	
+	return true;
 	}
 
 	/*
@@ -332,13 +344,18 @@ public void verifyModuleName(String moduleName,String itemName) throws Exception
 	 * 
 	 */
 	
-public void verifyItemNameAndNavigateNext(String itemName) throws Exception{
+public boolean verifyItemNameAndNavigateNext(String itemName) throws Exception{
     
+	int i=0,j=0;
+	twodresult=cm.checkErrorComponents();
+	if(twodresult[i++][0].equalsIgnoreCase("false"))
+		return false;
     WebElement e= driver.findElement(By.xpath("//div[contains(@class,'innerListItem-module-module-item-title')and contains(@title,'"+itemName+"')]"));
     System.out.println("Item Name From Screen "+e.getText());
     if(e!=null){
         System.out.println("Item name matched");
     }        
+    return true;
 }
 
 	/*
@@ -382,4 +399,6 @@ public boolean traverseThroughCourse(String courseName)
     
     return true;
 }
+
+
 }

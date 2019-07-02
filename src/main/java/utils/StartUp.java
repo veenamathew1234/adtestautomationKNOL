@@ -69,6 +69,8 @@ public class StartUp {
 		ArrayList<Object> journeyDetails=((ArrayList)DataObj.get(ListName));
 		return journeyDetails;
 	}
+	
+	
 
 }
 
