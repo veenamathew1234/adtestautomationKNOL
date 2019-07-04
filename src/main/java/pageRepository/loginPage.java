@@ -14,8 +14,6 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import utils.ObjectFactory;
 import io.restassured.RestAssured;
-
-
 import utils.StartUp;
 
 public class loginPage extends StartUp{

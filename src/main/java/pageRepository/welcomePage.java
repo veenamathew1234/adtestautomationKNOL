@@ -27,6 +27,7 @@ public class welcomePage extends StartUp {
 	int statusCode ;
 	List<WebElement> l;
 	CommonMethods cm=new CommonMethods(); 
+	int flag=0;
 	
 		
 public welcomePage(){
@@ -37,12 +38,22 @@ public welcomePage(){
 }
 
  public void validateWelcomePage() throws Exception{
+	 
 	 cm.checkErrorComponents();
-	 isNewUser = DataObj.get("isNewUser").toString();
-	 if(isNewUser.equalsIgnoreCase("yes")){
-		 l=driver.findElements(objmap.getLocator("lbl_greetings"));
-		 Assert.assertEquals("Incorrect Welcome Page",1,l.size());
+	 String currenturl=driver.getCurrentUrl();
+	 if(currenturl.startsWith("https://stg-aktivplatform.knolskape.io")){
+		 flag=1;
+		 isNewUser = DataObj.get("isNewUser").toString();
+		 if(isNewUser.equalsIgnoreCase("yes")){
+			 l=driver.findElements(objmap.getLocator("lbl_greetings"));
+			 Assert.assertEquals("Incorrect Welcome Page",1,l.size());
+		 }
 	 }
+	 else
+		 Assert.assertEquals("User not landed on correct page", 1, flag);
+	 
+	 
+	 
  }
  
  public void clickAcceptInvitation() throws Exception{

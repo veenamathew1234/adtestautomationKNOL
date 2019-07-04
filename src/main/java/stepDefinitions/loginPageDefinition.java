@@ -17,12 +17,9 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.junit.Assert;
-
-import utils.Hooks;
-import utils.StartUp;
 import pageRepository.loginPage;
 
-public class loginPageDefinition extends StartUp{
+public class loginPageDefinition {
 	
 	loginPage lp=new loginPage();
 	

@@ -14,7 +14,6 @@ import cucumber.api.java.en.Then;
 
 import junit.framework.Assert;
 import pageRepository.demographicsPage;
-import utils.Hooks;
 
 public class demographicsPageDefinition{
 	

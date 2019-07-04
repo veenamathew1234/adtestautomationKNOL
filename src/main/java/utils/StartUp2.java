@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -21,47 +19,25 @@ import cucumber.api.java.Before;
 import io.restassured.RestAssured;
 
 
-public class StartUp {
+public class StartUp2 {
 	
 	  protected static Map<String,Object> DataObj;
 	  protected static WebDriver driver;
-	  String chromepath=System.getProperty("user.dir")+"/chromedriver";
 	  String filename;
-	  public StartUp()
+	  public StartUp2()
 	  {
 		  getDriver();
-		  	  
+		  //beforeClass(filename);
+		  
 	  }
 		
 	  protected WebDriver getDriver(){
-		  
-	//---------------In Case if we wanted code to run with UI uncomment the below code block------
 			
-//			if(driver==null){
-//				driver=new ChromeDriver();
-//				driver.manage().window().maximize();
-//			}
-//			return driver;
-		  
-	//--------------code to run script headless--------------	  
-		 if(driver==null){
-			 System.out.println("incongni");
-				System.setProperty("webdriver.chrome.driver",chromepath);
-				ChromeOptions options = new ChromeOptions();
-				DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-				options.addArguments("-incognito");
-				options.addArguments("window-size=5000x5000");
-				options.addArguments("headless");
-				options.addArguments("disable-gpu");
-				System.out.println("inside healdless startup");
-				capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-				driver = new ChromeDriver(options);
-				driver.manage().window().maximize(); 
-		 }
-		  
+			if(driver==null){
+				driver=new ChromeDriver();
+				driver.manage().window().maximize();
+			}
 			return driver;
-		  
-		  
 			
 		}
 	  String filepath=System.getProperty("user.dir")+"/src/main/java/dataRepository/";

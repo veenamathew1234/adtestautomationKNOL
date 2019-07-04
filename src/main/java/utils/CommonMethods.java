@@ -16,7 +16,7 @@ public class CommonMethods extends StartUp {
 	public void checkErrorComponents() throws Exception
 	{
 		
-		System.out.println("checkErrorComponents");
+		System.out.println("Inside checkErrorComponents");
 		if(driver.findElements(objmap.getLocator("lbl_errorcom1")).size()!=0)
 		{
 			Assert.assertEquals("Error 1 ", 0,1);
@@ -37,6 +37,14 @@ public class CommonMethods extends StartUp {
 		if(driver.findElements(objmap.getLocator("lbl_errorcom5")).size()!=0)
 		{
 			Assert.assertEquals("Error 5 ", 0,1);
+		}
+		if(driver.findElements(objmap.getLocator("lbl_errorcom6")).size()!=0)
+		{
+			Assert.assertEquals("Error 6 ", 0,1);
+		}
+		if(driver.findElements(objmap.getLocator("lbl_errorcom7")).size()!=0)
+		{
+			Assert.assertEquals("Error 7 ", 0,1);
 		}
 	}
 
