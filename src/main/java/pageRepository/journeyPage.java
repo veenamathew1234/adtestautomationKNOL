@@ -162,8 +162,10 @@ public class journeyPage extends StartUp {
 	 */
 	
 	
-	public void clickOnHomeButton(String phaseType) throws Exception{
+	public void clickOnHomeButton(String phaseType) {
 		
+		try
+		{
 		switch(phaseType)
 		{
 		     case "Assessment":
@@ -173,6 +175,12 @@ public class journeyPage extends StartUp {
 //		     case "NormalCourse":
 //		    	 driver.findElement(objmap.getLocator("btn_developmenthome")).click();
 //		    	 break;
+
+		}
+		}
+		catch(Exception e)
+		{
+			Assert.assertNull("Exception in vclickOnHomeButton",e);
 		}
 		
 	}
@@ -247,6 +255,7 @@ public class journeyPage extends StartUp {
 	
 	public boolean clickOnNextPhaseItem() throws Exception
 	{
+
 			Thread.sleep(5000);
 			e=driver.findElement(objmap.getLocator("btn_nextitem"));
 			if(e!=null){
@@ -376,6 +385,7 @@ public boolean verifyItemName(String itemName){
 	catch (Exception e1) {
 		// TODO Auto-generated catch block
 		Assert.assertNull("Exception in verifyItemName "+itemName+"",e1);
+
 		e1.printStackTrace();
 		return false;
 	}
