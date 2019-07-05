@@ -162,8 +162,10 @@ public class journeyPage extends StartUp {
 	 */
 	
 	
-	public void clickOnHomeButton(String phaseType) throws Exception{
+	public void clickOnHomeButton(String phaseType) {
 		
+		try
+		{
 		switch(phaseType)
 		{
 		     case "Assessment":
@@ -171,8 +173,14 @@ public class journeyPage extends StartUp {
 				 Map<String,Object> DataObj=st.beforeClass("coursedata.json");
 				 break;
 		     case "NormalCourse":
+		    	 Thread.sleep(2000);
 		    	 driver.findElement(objmap.getLocator("btn_developmenthome")).click();
 		    	 break;
+		}
+		}
+		catch(Exception e)
+		{
+			Assert.assertNull("Exception in vclickOnHomeButton",e);
 		}
 		
 	}
@@ -247,7 +255,8 @@ public class journeyPage extends StartUp {
 	
 	public boolean clickOnNextPhaseItem() throws Exception
 	{
-			Thread.sleep(2000);
+			Thread.sleep(3000);
+
 			e=driver.findElement(objmap.getLocator("btn_nextitem"));
 			if(e!=null){
 				System.out.println("Next button found ");
@@ -319,7 +328,7 @@ public void verifyModuleName(String moduleName,String itemName) {
             try {
 				verifyItemNameAndNavigateNext(itemName);
 			} catch (Exception e1) {
-				Assert.assertNull("Exception in verifyModuleName",e1);
+				Assert.assertNull("Exception in verifyModuleName "+moduleName+"",e1);
 				e1.printStackTrace();
 			}
         }
@@ -336,7 +345,8 @@ public boolean verifyItemNameAndNavigateNext(String itemName){
     
 	try {
 		cm.checkErrorComponents();
-	
+	if(itemName.equalsIgnoreCase("PPT File"))
+		Thread.sleep(2000);
     WebElement e= driver.findElement(By.xpath("//div[contains(@class,'innerListItem-module-module-item-title')and contains(@title,'"+itemName+"')]"));
     System.out.println("Item Name From Screen "+e.getText());
     if(e!=null){
@@ -346,7 +356,7 @@ public boolean verifyItemNameAndNavigateNext(String itemName){
 	} 
 	catch (Exception e1) {
 		// TODO Auto-generated catch block
-		Assert.assertNull("Exception in verifyItemNameAndNavigateNext",e1);
+		Assert.assertNull("Exception in verifyItemNameAndNavigateNext: "+itemName+" ",e1);
 		e1.printStackTrace();
 		return false;
 	}
