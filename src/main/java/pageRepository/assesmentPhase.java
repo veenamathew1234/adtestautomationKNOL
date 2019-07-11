@@ -1,5 +1,6 @@
 package pageRepository;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.http.HttpResponse;
 
@@ -11,10 +12,29 @@ public class assesmentPhase extends StartUp{
 	ObjectFactory objmap;
 	WebElement e;
 	public assesmentPhase(){
-		System.out.println("Inside journey page constructor");
+		System.out.println("Inside assessment page constructor");
 		this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/assessmentPhase.properties");
 	}
 
+	
+	/*
+	 * Function Name : submitTestSim
+	 * Function Parameters: None.
+	 * Description : Function used to start/launch an assessment item
+	 * Return Value : Boolean
+	 * 
+	 */
+	
+	public boolean submitTestSim() throws Exception
+	{
+		System.out.println("inside submit test sim");
+		Thread.sleep(2000);
+		driver.switchTo().frame(1);
+		driver.findElement(objmap.getLocator("btn_TestSimSubmit")).click();
+		driver.switchTo().parentFrame();
+		return true;
+	}
+	
 	
 	/*
 	 * Function Name : launchPhaseItem

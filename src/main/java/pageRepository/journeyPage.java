@@ -2,6 +2,7 @@ package pageRepository;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream.PutField;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Map.Entry;
 import java.util.Properties;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.http.HttpResponse;
@@ -34,7 +36,8 @@ public class journeyPage extends StartUp {
 	List journeyInfo;
 	int index;
 	CommonMethods cm=new CommonMethods();
-	
+	assesmentPhase asp=new assesmentPhase();
+	feedbackPages fbp=new feedbackPages();
 	public journeyPage(){
 		System.out.println("Inside journey page constructor");
 		this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/JourneyPage.properties");
@@ -94,6 +97,12 @@ public class journeyPage extends StartUp {
 			//--
 				 navigateThroughPhaseItem(phaseType);
 				 Thread.sleep(5000);
+				 if(phaseMap.get("PhaseFeedback").toString().equalsIgnoreCase("Yes"))
+				 {
+					 System.out.println("Inside feedback phase submission");
+					 Thread.sleep(2000);
+					 fbp.fillFeedback(phaseName);
+				 }
 				 clickOnHomeButton(phaseType);
 				 
 
@@ -105,6 +114,7 @@ public class journeyPage extends StartUp {
 		//result=logout();
 		
 	}
+	
 	
 
 	/*
@@ -122,35 +132,90 @@ public class journeyPage extends StartUp {
 		Thread.sleep(5000);
 		phaseItems.get(0).click();
 	
-		//launching phases
+		//launching phases----------------------------------------------------------------
+		
+		if(phaseType.equalsIgnoreCase("Assessment"))
+		{
+			navigateThroughAssessmentPhase();
+		}
+		
 					
 		for(i=0;i<=phaseItems.size()-1;i++){
-			if(phaseType.equalsIgnoreCase("Assessment")){
-				if(launchPhaseItem()==true)
-					cm.checkErrorComponents();
-						validateAndExitPhaseItem();
-			}
-				
-				else if(phaseType.equalsIgnoreCase("NormalCourse"))
-				{
-					System.out.println("Inside Normal course");
-					Thread.sleep(5000);
-					String path="//div[contains(@class,'sidebarHeader-module-text')]";
-					String courseName=driver.findElement(By.xpath(path)).getText();
-					System.out.println("CourseName from screen="+courseName);
-					
-					//function to traverse through the courses listed in test data
-					traverseThroughCourse(courseName);
+			
+			navigateThroughDevelopmentPhase(phaseType);
 									
+				if(i<phaseItems.size()-1)
+					result=clickOnNextPhaseItem();
 				}
 			System.out.println("outside");
 					
-			if(i<phaseItems.size()-1)
-				result=clickOnNextPhaseItem();
-			}
+		
 		
 		return result;
 	
+	}
+	
+	
+	/*
+	 * Function Name : navigateThroughDevelopmentPhase
+	 * Function Parameters: 
+	 * Description : Function used to navigate through various phase items of the development phase
+	 * Return Value : Boolean
+	 * 
+	 */
+	
+	public boolean navigateThroughDevelopmentPhase(String phaseType) throws InterruptedException
+	{
+		Boolean result=false;
+		if(phaseType.equalsIgnoreCase("NormalCourse"))
+		{
+			System.out.println("Inside Normal course");
+			Thread.sleep(5000);
+			String path="//div[contains(@class,'sidebarHeader-module-text')]";
+			String courseName=driver.findElement(By.xpath(path)).getText();
+			System.out.println("CourseName from screen="+courseName);
+			
+			//function to traverse through the courses listed in test data
+			result=traverseThroughCourse(courseName);
+						
+			}
+		return result;
+	}
+	
+	
+	/*
+	 * Function Name : navigateThroughAssessmentPhase
+	 * Function Parameters: 
+	 * Description : Function used to navigate through various phase items of the assessment phase
+	 * Return Value : Boolean
+	 * 
+	 */
+	
+	
+	public boolean navigateThroughAssessmentPhase()
+	{
+		List AssessmentNames=datalist("Assessments");
+		AssessmentNames.forEach((assessment)->{
+			Map<String,Object> assessmentDetail=(Map<String, Object>) (assessment);
+			String assessmentType=assessmentDetail.get("AssessmentType").toString();
+			System.out.println("assess Type= "+assessmentType);
+			try
+			{
+			//Thread.sleep(2000);	
+			if(launchPhaseItem()==true)
+				{
+					System.out.println("inside start button found");
+					cm.checkErrorComponents();
+					validateAndExitPhaseItem(assessmentType);
+				}
+				clickOnNextPhaseItem();
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		});
+		return true;
 	}
 	
 	/*
@@ -232,7 +297,7 @@ public class journeyPage extends StartUp {
 	{
 		
 		//explicitWait.until(ExpectedConditions.visibilityOf(driver.findElement(objmap.getLocator("btn_start"))));
-		Thread.sleep(2000);
+		Thread.sleep(4000);
 		   e=driver.findElement(objmap.getLocator("btn_start"));
 			if(e!=null){
 				System.out.println("Start button found");
@@ -266,34 +331,6 @@ public class journeyPage extends StartUp {
 			}
 			return false;
 	}
-		
-//		
-//		
-//		Thread.sleep(4000);
-//		assertAndVerifyElement(By.xpath("//div[contains(@class,'nextItem-module-next-item-cnt')]"));
-//		driver.findElement(By.xpath("//div[contains(@class,'nextItem-module-next-item-cnt')]")).click();
-//					return true;
-//		}
-
-	
-//	public void assertAndVerifyElement(By element) throws InterruptedException{
-//		boolean isPresent=false;
-//		for(int i=0;i<5;i++){
-//			try {
-//                if (driver.findElement(element) != null) {
-//                    isPresent = true;
-//                    break;
-//                }
-//            } catch (Exception e) {
-//                // System.out.println(e.getLocalizedMessage());
-//                Thread.sleep(1000);
-//                
-//            }
-//        }
-//		Assert.assertTrue("is not present",isPresent);	
-//		}
-	
-	
 	
 	
 	
@@ -307,9 +344,21 @@ public class journeyPage extends StartUp {
 	 */
 	
 	
-	public boolean validateAndExitPhaseItem() throws Exception{
+	public boolean validateAndExitPhaseItem(String assessmentType) throws Exception{
 		
 			//cm.checkErrorComponents();
+			
+		if(assessmentType.equalsIgnoreCase("Test Sim"))
+		{
+			System.out.println("Inside Test SIm ");
+			try {
+				asp.submitTestSim();
+				} 
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+			
 			Thread.sleep(2000);
 			e=driver.findElement(objmap.getLocator("btn_exit"));
 			e.click();
@@ -321,7 +370,21 @@ public class journeyPage extends StartUp {
 		
 	return true;
 	}
-
+	
+	
+	/*
+	 * Function Name : runAssessment
+	 * Function Parameters: None.
+	 * Description : Function used to exit an existing assessment/simulation
+	 * Return Value : boolean
+	 * 
+	 */
+	
+public boolean runAssessment(String assessmentName)
+{
+	
+	return true;
+}
 	/*
 		 * Function Name : Logout
 		 * Function Parameters: pNA.
