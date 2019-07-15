@@ -209,6 +209,13 @@ public class journeyPage extends StartUp {
 					System.out.println("inside start button found");
 					cm.checkErrorComponents();
 					validateAndExitPhaseItem(assessmentType);
+					if(assessmentDetail.get("ItemFeedbackStars")!=null)
+					{
+						System.out.println("inside item feedback");
+						Thread.sleep(2000);
+						String stars=assessmentDetail.get("ItemFeedbackStars").toString();
+						fbp.enterItemFeedbackStars(stars);
+					}
 				}
 				clickOnNextPhaseItem();
 			}

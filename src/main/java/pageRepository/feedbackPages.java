@@ -110,6 +110,16 @@ public class feedbackPages extends StartUp {
 		Assert.assertEquals("Thank you feedback page not displaying", 1, thankYouPage);
 		return true;
 	}
+	
+	public boolean enterItemFeedbackStars(String stars) throws Exception
+	{
+		
+		driver.findElement(objmap.getLocator("lbl_itemFeedback")).click();
+		driver.findElement(By.xpath("//div[contains(@class,'rating-module-star')]["+stars+"]")).click();
+		driver.findElement(objmap.getLocator("lbl_closeItemFeedback")).click();
+		
+		return true;
+	}
 
 
 }
