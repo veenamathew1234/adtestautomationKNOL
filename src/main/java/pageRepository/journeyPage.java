@@ -307,7 +307,7 @@ public class journeyPage extends StartUp {
 			Thread.sleep(1000);
 			e=driver.findElement(objmap.getLocator("btn_popupexit"));
 			if(e!=null)
-				e.click();
+			e.click();
 			Thread.sleep(2000);
 		
 	return true;
