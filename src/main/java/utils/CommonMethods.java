@@ -46,6 +46,10 @@ public class CommonMethods extends StartUp {
 		{
 			Assert.assertEquals("Error 7 ", 0,1);
 		}
+		if(driver.findElements(objmap.getLocator("lbl_errorcom8")).size()!=0)
+		{
+			Assert.assertEquals("Error 8 ", 0,1);
+		}
 	}
 
 }

@@ -47,6 +47,7 @@ public class StartUp {
 			return driver;
 		  
 	//--------------code to run script headless--------------	  
+
 //		 if(driver==null){
 //			 System.out.println("incongni");
 //				System.setProperty("webdriver.chrome.driver",chromepath);
@@ -63,7 +64,7 @@ public class StartUp {
 //		 }
 //		  
 //			return driver;
-		  
+	  
 		  
 			
 		}
