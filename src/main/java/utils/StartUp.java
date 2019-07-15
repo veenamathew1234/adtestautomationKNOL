@@ -40,29 +40,29 @@ public class StartUp {
 		  
 	//---------------In Case if we wanted code to run with UI uncomment the below code block------
 			
-//			if(driver==null){
-//				driver=new ChromeDriver();
-//				driver.manage().window().maximize();
-//			}
-//			return driver;
+			if(driver==null){
+				driver=new ChromeDriver();
+				driver.manage().window().maximize();
+			}
+			return driver;
 		  
 	//--------------code to run script headless--------------	  
-		 if(driver==null){
-			 System.out.println("incongni");
-				System.setProperty("webdriver.chrome.driver",chromepath);
-				ChromeOptions options = new ChromeOptions();
-				DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-				options.addArguments("-incognito");
-				options.addArguments("window-size=5000x5000");
-				//options.addArguments("headless");
-				options.addArguments("disable-gpu");
-				System.out.println("inside healdless startup");
-				capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-				driver = new ChromeDriver(options);
-				driver.manage().window().maximize(); 
-		 }
-		  
-			return driver;
+//		 if(driver==null){
+//			 System.out.println("incongni");
+//				System.setProperty("webdriver.chrome.driver",chromepath);
+//				ChromeOptions options = new ChromeOptions();
+//				DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+//				options.addArguments("-incognito");
+//				options.addArguments("window-size=5000x5000");
+//				//options.addArguments("headless");
+//				options.addArguments("disable-gpu");
+//				System.out.println("inside healdless startup");
+//				capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+//				driver = new ChromeDriver(options);
+//				driver.manage().window().maximize(); 
+//		 }
+//		  
+//			return driver;
 		  
 		  
 			
