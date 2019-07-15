@@ -139,7 +139,8 @@ public class journeyPage extends StartUp {
 			navigateThroughAssessmentPhase();
 		}
 		
-					
+		if(phaseType.equalsIgnoreCase("NormalCourse")||phaseType.equalsIgnoreCase("R2S"))
+		{
 		for(i=0;i<=phaseItems.size()-1;i++){
 			
 			navigateThroughDevelopmentPhase(phaseType);
@@ -147,11 +148,12 @@ public class journeyPage extends StartUp {
 				if(i<phaseItems.size()-1)
 					result=clickOnNextPhaseItem();
 				}
+		}
 			System.out.println("outside");
 					
 		
 		
-		return result;
+		return true;
 	
 	}
 	
@@ -411,9 +413,11 @@ public boolean runAssessment(String assessmentName)
 	 * 
 	 */
 
-public void verifyModuleName(String moduleName,String itemName) {
-        
-        WebElement e= driver.findElement(By.xpath("//div[contains(@class,'sectionHeader-module-header-name')and contains(@title,'"+moduleName+"')]"));
+public void verifyModuleName(String moduleName,String itemName) throws InterruptedException {
+     
+		System.out.println("Inside verify module name");
+		Thread.sleep(3000);
+        WebElement e= driver.findElement(By.xpath("//div[contains(@class,'sectionHeader-module-header-name') and contains (text(),'"+moduleName+"')]"));
         System.out.println("Module name from screen "+e.getText());
         if(e!=null){
             System.out.println("Module name Matched");
