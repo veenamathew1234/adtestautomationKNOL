@@ -1,7 +1,7 @@
  {
   "url" : "https://stg-aktivplatform.knolskape.io",
   "Demographics_url" : "https://accounts-test.knolskape.com/user/fill_demographics",
-  "email" : "allautvee_27@mailinator.com",
+  "email" : "allautvee_34@mailinator.com",
   "password" : "password",
   "isNewUser" : "yes",
   "journeyDetails":[
@@ -17,7 +17,7 @@
  	 }
   ],
   "Assessments":[
-  		{"AssessmentType":"Test Sim"},
+  		{"AssessmentType":"Test Sim","ItemFeedbackStars":"4"},
   		{"AssessmentType":"Test Sim"},
   		{"AssessmentType":"Test Sim"}
   ],
