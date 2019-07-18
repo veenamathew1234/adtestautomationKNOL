@@ -424,9 +424,13 @@ public void verifyModuleName(String moduleName,String itemName) throws Interrupt
      
 		System.out.println("Inside verify module name");
 		Thread.sleep(3000);
-        WebElement e= driver.findElement(By.xpath("//div[contains(@class,'sectionHeader-module-header-name') and contains (text(),'"+moduleName+"')]"));
+        //WebElement e= driver.findElement(By.xpath("//div[contains(@class,'sectionHeader-module-header-name') and contains (text(),'"+moduleName+"')]"));
+		String s="return function findModuleName(string){let found = false;document.querySelectorAll('[class^=\"sectionHeader-module-header-name\"],[class*=\"sectionHeader-module-header-name\"]').forEach((el) => {if(el.innerText == string){found = true;}});return found;}findModuleName(\""+moduleName+"\")";
+		String result=cm.executingJavaScript(s);
+		
+		
         System.out.println("Module name from screen "+e.getText());
-        if(e!=null){
+        if(result.trim().equalsIgnoreCase("true")){
             System.out.println("Module name Matched");
             try {
 				verifyItemName(itemName);

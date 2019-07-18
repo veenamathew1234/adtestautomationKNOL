@@ -2,6 +2,10 @@ package utils;
 
 import java.util.Map;
 
+import org.openqa.selenium.JavascriptExecutor;
+
+import com.itextpdf.text.log.SysoCounter;
+
 import junit.framework.Assert;
 
 public class CommonMethods extends StartUp {
@@ -12,6 +16,16 @@ public class CommonMethods extends StartUp {
 		this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/CommonErrors.properties");
 	}
 	
+	
+	
+	public String executingJavaScript(String script)
+	{
+		System.out.println("inside executingJavaScriptMethod");
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		 String s=js.executeScript(script).toString();
+		 System.out.println("The result after javascript execution="+s);
+		 return script;
+	}
 	
 	public void checkErrorComponents() throws Exception
 	{
