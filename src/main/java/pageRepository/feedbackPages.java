@@ -16,7 +16,6 @@ public class feedbackPages extends StartUp {
 	StartUp st = new StartUp();
 	
 	public feedbackPages(){
-		System.out.println("Inside journey page constructor");
 		this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/feedbackPages.properties");
 		Map<String,Object> DataObj=st.beforeClass("testData.json");
 	}
@@ -32,7 +31,9 @@ public class feedbackPages extends StartUp {
 	 */
 
 	public boolean fillFeedback(String phaseName) throws Exception {
+		System.out.println("phase name in f/b function is "+phaseName);
 		List feedbackData=datalist("PhaseFeedbackDetails");
+		System.out.println("inside fill f/b function");
 		Boolean result[]= {false};
 		Map<String,Object>[] feedbackD=null;
 		//feedbackD.put("", "");
@@ -40,9 +41,10 @@ public class feedbackPages extends StartUp {
 			 Map<String,Object> fb=(Map<String, Object>) (feedback);
 			if(fb.get("phaseName").toString().equalsIgnoreCase(phaseName))
 			{
+				System.out.println("Phase names matched");
 				try 
 				{
-					
+				System.out.println("indide f/b try block");	
 				result[0]=enterFeedbackDetailsForm(fb);
 				verifyThankYouFeedbackPage();
 				}
@@ -76,7 +78,7 @@ public class feedbackPages extends StartUp {
 		{
 		String overallRating=fb.get("overallRating").toString();
 		String recommend=fb.get("recommendValue").toString();
-		String howeasy=fb.get("howEasy").toString();
+		//String howeasy=fb.get("howEasy").toString();
 		driver.findElement(By.xpath("//div[contains(@class,'module-4d12mstux7kz6kx16r2e8csqgx5wze318bdeea8bnug4byhh8nu7fzfs82ck8e7ntvgnfk478xt475dbahu496asmz7xz13s9thqknz-starRating-module-individual-star')]["+overallRating+"]")).click();
 		driver.findElement(By.xpath("//div[contains(@class,'_508t3c module-2dds1v9tuexvbh1njfs1gpvgf7rk981dc2hutw3hp84jkv6ufr5d5j5vxwfbv5czk9m4gtj1fmdmv6pmdt935rz5jz771cpkxaade7y-scaleRating-module-individual-score')]["+recommend+"]")).click();
 		//--- Scrolling to accomodate the submit button-----
