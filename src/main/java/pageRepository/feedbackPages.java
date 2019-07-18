@@ -35,8 +35,9 @@ public class feedbackPages extends StartUp {
 		List feedbackData=datalist("PhaseFeedbackDetails");
 		System.out.println("inside fill f/b function");
 		Boolean result[]= {false};
+		System.out.println("Print feedback data "+feedbackData.size());
 		Map<String,Object>[] feedbackD=null;
-		//feedbackD.put("", "");
+		
 		feedbackData.forEach((feedback)->{
 			 Map<String,Object> fb=(Map<String, Object>) (feedback);
 			if(fb.get("phaseName").toString().equalsIgnoreCase(phaseName))
