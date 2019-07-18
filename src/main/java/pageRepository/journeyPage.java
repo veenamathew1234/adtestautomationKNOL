@@ -38,6 +38,7 @@ public class journeyPage extends StartUp {
 	CommonMethods cm=new CommonMethods();
 	assesmentPhase asp=new assesmentPhase();
 	feedbackPages fbp=new feedbackPages();
+	
 	public journeyPage(){
 		System.out.println("Inside journey page constructor");
 		this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/JourneyPage.properties");
@@ -94,7 +95,7 @@ public class journeyPage extends StartUp {
 				 //User navigates through the phase items of the particular phase	 
 				 String phaseType=phaseMap.get("phaseType").toString();
 				 System.out.println("Phase type to be clicked on next is "+phaseType);
-			//--
+			
 				 navigateThroughPhaseItem(phaseType);
 				 Thread.sleep(5000);
 				 if(phaseMap.get("PhaseFeedback").toString().equalsIgnoreCase("Yes"))
@@ -127,12 +128,12 @@ public class journeyPage extends StartUp {
 	
 	public boolean navigateThroughPhaseItem(String phaseType) throws Exception{
 		int i;
-		//retrieve appropriate phase item type for phase types and click on it 
+		//------retrieve appropriate phase item type for phase types and click on it-------- 
 		List<WebElement> phaseItems=returnPhaseItemsForPhaseType(phaseType);
 		Thread.sleep(5000);
 		phaseItems.get(0).click();
 	
-		//launching phases----------------------------------------------------------------
+		//-----------launching phases--------------------
 		
 		if(phaseType.equalsIgnoreCase("Assessment"))
 		{
@@ -177,7 +178,7 @@ public class journeyPage extends StartUp {
 			String courseName=driver.findElement(By.xpath(path)).getText();
 			System.out.println("CourseName from screen="+courseName);
 			
-			//function to traverse through the courses listed in test data
+			//-----function to traverse through the courses listed in test data-------
 			result=traverseThroughCourse(courseName);
 						
 			}
@@ -246,10 +247,6 @@ public class journeyPage extends StartUp {
 		    	 driver.findElement(objmap.getLocator("btn_assessmentshome")).click(); 
 				 Map<String,Object> DataObj=st.beforeClass("coursedata.json");
 				 break;
-//		     case "NormalCourse":
-//		    	 driver.findElement(objmap.getLocator("btn_developmenthome")).click();
-//		    	 break;
-
 		}
 		}
 		catch(Exception e)
@@ -374,7 +371,7 @@ public class journeyPage extends StartUp {
 			Thread.sleep(1000);
 			e=driver.findElement(objmap.getLocator("btn_popupexit"));
 			if(e!=null)
-				e.click();
+			e.click();
 			Thread.sleep(2000);
 		
 	return true;
@@ -423,23 +420,25 @@ public boolean runAssessment(String assessmentName)
 public void verifyModuleName(String moduleName,String itemName) throws InterruptedException {
      
 		System.out.println("Inside verify module name");
-		Thread.sleep(3000);
-        //WebElement e= driver.findElement(By.xpath("//div[contains(@class,'sectionHeader-module-header-name') and contains (text(),'"+moduleName+"')]"));
-		String s="return function findModuleName(string){let found = false;document.querySelectorAll('[class^=\"sectionHeader-module-header-name\"],[class*=\"sectionHeader-module-header-name\"]').forEach((el) => {if(el.innerText == string){found = true;}});return found;}findModuleName(\""+moduleName+"\")";
-		String result=cm.executingJavaScript(s);
-		
-		
-        System.out.println("Module name from screen "+e.getText());
-        if(result.trim().equalsIgnoreCase("true")){
-            System.out.println("Module name Matched");
-            try {
-				verifyItemName(itemName);
-			} catch (Exception e1) {
-				Assert.assertNull("Exception in verifyModuleName "+moduleName+"",e1);
-				e1.printStackTrace();
+		Thread.sleep(4000);
+    	List<WebElement> e=driver.findElements(By.xpath("//div[contains(@class,'module-2jm6jgwkd4mep6p6g9p5rj7s886661tqjt4tmat6w1xjsweeu2z43gzyk628tx66haga3dbb4435mwkk6cvdba6ysyb5vysmn2ru4-moduleItemScreen-module-sidebar-open module-36ypdeweh3nma3gv8ygsmvuuz5y6v96ntwxw69wy8167wqc5ze79x4mvj63hhhsh61ku9pggep2y9zh1d8f91qsu2q5gddzy7cxatzc-moduleItemScreen-module-module-item-outer-cnt')]//div[contains(@class,'_6flor0 module-49qcfnxjwygbdeq6agmkwaksp2wekc55jyg1pf9y7851cfanspg95dq93t6gsy47wmn2ukvwnwhaqk8rzaykjh4xnm4y64w96mdssx4-moduleItemScreen-module-menu-container')]//span//div//div//div[contains(@class,'tobesco')]//div[contains(@class,'_1feb3ip module-3apypwr1fyrjh2vrn8ma4dc9uxybzg21wmc7repy765y6ymt37y9fhyh3yb1gmebcz3ehqdmehedhugb9n573mua5rnnednx87w96rp-sectionHeader-module-header-name')]"));
+			
+		for(WebElement e1:e){
+			
+			if(e1.getText().equalsIgnoreCase(moduleName)){
+				System.out.println("Module name from screen "+e1.getText());
+				System.out.println("Module name Matched with test data");
+	            try {
+					verifyItemName(itemName);
+				} catch (Exception e2) {
+					Assert.assertNull("Exception in verifyModuleName "+moduleName+"",e2);
+					e2.printStackTrace();
+				}
 			}
-        }
-    }
+		}
+}	
+		
+		
 	/*
 	 * Function Name : verifyItemNameAndNavigateNext
 	 * Function Parameters: Item Name which is passed from verifyModuleName function
@@ -451,17 +450,16 @@ public void verifyModuleName(String moduleName,String itemName) throws Interrupt
 public boolean verifyItemName(String itemName){
     
 	try {
-		cm.checkErrorComponents();
+	cm.checkErrorComponents();
 	Thread.sleep(2000);
-    WebElement e= driver.findElement(By.xpath("//div[contains(@class,'innerListItem-module-module-item-title')and contains(@title,'"+itemName+"')]"));
-    System.out.println("Item Name From Screen "+e.getText());
+	WebElement e = driver.findElement(By.xpath("//div[contains(@class,'innerListItem-module-module-item-title')]//span[contains(@class,'module-22v5yu3ffhhsgfk81kmxd65jpqpc4hrwzg5fydhjy4urrqcg2faj6em1bzckj68yxxwv96gp591877j4dy536vn4gg1dpm1nw21pwy6-innerListItem-module-title-inner') and contains(text(),'"+itemName+"')]"));
+	System.out.println("Item Name From Screen "+e.getText());
     if(e!=null){
-        System.out.println("Item name matched");
+        System.out.println("Item name matched with test data");
     }        
     return true;
 	} 
 	catch (Exception e1) {
-		// TODO Auto-generated catch block
 		Assert.assertNull("Exception in verifyItemName "+itemName+"",e1);
 
 		e1.printStackTrace();

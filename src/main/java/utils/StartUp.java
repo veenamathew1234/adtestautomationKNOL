@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -27,6 +29,7 @@ public class StartUp {
 	  protected static WebDriver driver;
 	  String chromepath=System.getProperty("user.dir")+"/chromedriver";
 	  String filename;
+
 	  public StartUp()
 	  {
 		  getDriver();
@@ -36,31 +39,33 @@ public class StartUp {
 	  protected WebDriver getDriver(){
 		  
 	//---------------In Case if we wanted code to run with UI uncomment the below code block------
-			
-//			if(driver==null){
-//				driver=new ChromeDriver();
-//				driver.manage().window().maximize();
-//			}
-//			return driver;
+
+			if(driver==null){
+				driver=new ChromeDriver();
+				driver.manage().window().maximize();
+			}
+			return driver;
+
 		  
 	//--------------code to run script headless--------------	  
-		 if(driver==null){
-			 System.out.println("incongni");
-				System.setProperty("webdriver.chrome.driver",chromepath);
-				ChromeOptions options = new ChromeOptions();
-				DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-				options.addArguments("-incognito");
-				options.addArguments("window-size=5000x5000");
-				//options.addArguments("headless");
-				options.addArguments("disable-gpu");
-				System.out.println("inside healdless startup");
-				capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-				driver = new ChromeDriver(options);
-				driver.manage().window().maximize(); 
-		 }
-		  
-			return driver;
-		  
+
+//		 if(driver==null){
+//			 System.out.println("incongni");
+//				System.setProperty("webdriver.chrome.driver",chromepath);
+//				ChromeOptions options = new ChromeOptions();
+//				DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+//				options.addArguments("-incognito");
+//				options.addArguments("window-size=5000x5000");
+//				//options.addArguments("headless");
+//				options.addArguments("disable-gpu");
+//				System.out.println("inside healdless startup");
+//				capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+//				driver = new ChromeDriver(options);
+//				driver.manage().window().maximize(); 
+//		 }
+//		  
+//			return driver;
+	  
 		  
 			
 		}

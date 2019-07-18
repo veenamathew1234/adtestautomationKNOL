@@ -8,6 +8,8 @@ import cucumber.api.CucumberOptions;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.junit.Cucumber;
+import com.github.mkolisnyk.cucumber.runner.ExtendedCucumber;
+import com.github.mkolisnyk.cucumber.runner.ExtendedCucumberOptions;
 
 
 @RunWith(Cucumber.class)
@@ -17,6 +19,8 @@ import cucumber.api.junit.Cucumber;
 		//monochrome =true,
 		,glue= {"stepDefinitions"},plugin= {"json:target/cucumber-reports/cucumber.json"}
 		)
+
+
 
 public class ADRunnerTest {
 	
