@@ -1,6 +1,7 @@
 package pageRepository;
 
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 import org.openqa.selenium.By;
@@ -14,6 +15,8 @@ public class feedbackPages extends StartUp {
 	
 	ObjectFactory objmap;
 	StartUp st = new StartUp();
+	List feedbackData;
+	Boolean result=false;
 	
 	public feedbackPages(){
 		this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/feedbackPages.properties");
@@ -30,14 +33,13 @@ public class feedbackPages extends StartUp {
 	 * 
 	 */
 
+
 	public boolean fillFeedback(String phaseName) throws Exception {
 		System.out.println("phase name in f/b function is "+phaseName);
-		List feedbackData=datalist("PhaseFeedbackDetails");
+		feedbackData=datalist("PhaseFeedbackDetails");
 		System.out.println("inside fill f/b function");
 		Boolean result[]= {false};
-		System.out.println("Print feedback data "+feedbackData.size());
-		Map<String,Object>[] feedbackD=null;
-		
+		Thread.sleep(1000);
 		feedbackData.forEach((feedback)->{
 			 Map<String,Object> fb=(Map<String, Object>) (feedback);
 			if(fb.get("phaseName").toString().equalsIgnoreCase(phaseName))
@@ -48,7 +50,7 @@ public class feedbackPages extends StartUp {
 				System.out.println("indide f/b try block");	
 				result[0]=enterFeedbackDetailsForm(fb);
 				verifyThankYouFeedbackPage();
-				}
+						}
 				catch(Exception e)
 				{
 					e.printStackTrace();
@@ -56,11 +58,15 @@ public class feedbackPages extends StartUp {
 				}
 				
 				
-			}});
+			}
+			});
 		
 		return true;
 		
 	}
+	
+	
+	
 	
 	/*
 	 * Function Name : enterFeedbackDetailsForm
@@ -119,6 +125,7 @@ public class feedbackPages extends StartUp {
 		
 		driver.findElement(objmap.getLocator("lbl_itemFeedback")).click();
 		driver.findElement(By.xpath("//div[contains(@class,'rating-module-star')]["+stars+"]")).click();
+		Thread.sleep(1000);
 		driver.findElement(objmap.getLocator("lbl_closeItemFeedback")).click();
 		
 		return true;

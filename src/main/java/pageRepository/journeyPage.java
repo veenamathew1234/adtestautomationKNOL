@@ -101,7 +101,7 @@ public class journeyPage extends StartUp {
 				 if(phaseMap.get("PhaseFeedback").toString().equalsIgnoreCase("Yes"))
 				 {
 					 System.out.println("Inside feedback phase submission");
-					 Thread.sleep(2000);
+					 Thread.sleep(1000);
 					 fbp.fillFeedback(phaseName);
 				 }
 				 clickOnHomeButton(phaseType);
