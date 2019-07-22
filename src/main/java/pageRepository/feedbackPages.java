@@ -33,12 +33,6 @@ public class feedbackPages extends StartUp {
 	 * 
 	 */
 
-//<<<<<<< HEAD
-//
-//	public boolean fillFeedback(String phaseName) throws Exception {
-//		System.out.println("phase name in f/b function is "+phaseName);
-//		feedbackData=datalist("PhaseFeedbackDetails");
-//=======
 	public boolean fillFeedback(String phaseName,List feedbackData) throws Exception {
 		System.out.println("phase name in f/b function is "+phaseName);
 		System.out.println("inside fill f/b function");
@@ -92,12 +86,13 @@ public class feedbackPages extends StartUp {
 		//String howeasy=fb.get("howEasy").toString();
 		driver.findElement(By.xpath("//div[contains(@class,'module-4d12mstux7kz6kx16r2e8csqgx5wze318bdeea8bnug4byhh8nu7fzfs82ck8e7ntvgnfk478xt475dbahu496asmz7xz13s9thqknz-starRating-module-individual-star')]["+overallRating+"]")).click();
 		driver.findElement(By.xpath("//div[contains(@class,'_508t3c module-2dds1v9tuexvbh1njfs1gpvgf7rk981dc2hutw3hp84jkv6ufr5d5j5vxwfbv5czk9m4gtj1fmdmv6pmdt935rz5jz771cpkxaade7y-scaleRating-module-individual-score')]["+recommend+"]")).click();
+		
 		//--- Scrolling to accomodate the submit button-----
 		JavascriptExecutor js = ((JavascriptExecutor) driver);
 		js.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(objmap.getLocator("btn_submitPhaseFeedback")));
-		Thread.sleep(1000);
-		driver.findElement(objmap.getLocator("btn_submitPhaseFeedbackShort")).click();
-		Thread.sleep(1000);
+		Thread.sleep(2000);
+		driver.findElement(objmap.getLocator("btn_submitPhaseFeedback")).click();
+		Thread.sleep(2000);
 		return true;
 		}
 		catch(Exception e)
@@ -121,6 +116,7 @@ public class feedbackPages extends StartUp {
 		
 		int thankYouPage=driver.findElements(objmap.getLocator("lbl_ThankYouFeedbackPage")).size();
 		Assert.assertEquals("Thank you feedback page not displaying", 1, thankYouPage);
+		Thread.sleep(2000);
 		return true;
 	}
 	

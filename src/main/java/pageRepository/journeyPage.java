@@ -109,12 +109,13 @@ public class journeyPage extends StartUp {
 					 Thread.sleep(2000);
 					 fbp.fillFeedback(phaseName,feedbackData);
 				 }
-				 clickOnHomeButton(phaseType);
+			 clickOnHomeButton(phaseType);
 				 
 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
 		});
 		
 		//result=logout();
@@ -252,6 +253,9 @@ public class journeyPage extends StartUp {
 		    	 driver.findElement(objmap.getLocator("btn_assessmentshome")).click(); 
 				 Map<String,Object> DataObj=st.beforeClass("coursedata.json");
 				 break;
+		     case "NormalCourse":
+		    	 driver.findElement(objmap.getLocator("btn_developmenthome")).click();
+		    	 break;
 		}
 		}
 		catch(Exception e)
