@@ -34,6 +34,7 @@ public class journeyPage extends StartUp {
 	int statusCode;
 	Boolean result;
 	List journeyInfo;
+	List feedbackData;
 	int index;
 	CommonMethods cm=new CommonMethods();
 	assesmentPhase asp=new assesmentPhase();
@@ -80,6 +81,10 @@ public class journeyPage extends StartUp {
 	public void navigateThroughPhases() throws Exception
 	{
 		journeyInfo=datalist("journeyDetails");
+		if(DataObj.get("PhaseFeedbackDetails")!=null)
+		{
+			feedbackData=datalist("PhaseFeedbackDetails");
+		}
 		
 		/*
 		 * journeyInfo contains data from the testData.json
@@ -95,14 +100,14 @@ public class journeyPage extends StartUp {
 				 //User navigates through the phase items of the particular phase	 
 				 String phaseType=phaseMap.get("phaseType").toString();
 				 System.out.println("Phase type to be clicked on next is "+phaseType);
-			
+
 				 navigateThroughPhaseItem(phaseType);
 				 Thread.sleep(5000);
 				 if(phaseMap.get("PhaseFeedback").toString().equalsIgnoreCase("Yes"))
 				 {
 					 System.out.println("Inside feedback phase submission");
 					 Thread.sleep(2000);
-					 fbp.fillFeedback(phaseName);
+					 fbp.fillFeedback(phaseName,feedbackData);
 				 }
 				 clickOnHomeButton(phaseType);
 				 
