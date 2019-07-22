@@ -33,10 +33,14 @@ public class feedbackPages extends StartUp {
 	 * 
 	 */
 
-
-	public boolean fillFeedback(String phaseName) throws Exception {
+//<<<<<<< HEAD
+//
+//	public boolean fillFeedback(String phaseName) throws Exception {
+//		System.out.println("phase name in f/b function is "+phaseName);
+//		feedbackData=datalist("PhaseFeedbackDetails");
+//=======
+	public boolean fillFeedback(String phaseName,List feedbackData) throws Exception {
 		System.out.println("phase name in f/b function is "+phaseName);
-		feedbackData=datalist("PhaseFeedbackDetails");
 		System.out.println("inside fill f/b function");
 		Boolean result[]= {false};
 		Thread.sleep(1000);
@@ -92,7 +96,7 @@ public class feedbackPages extends StartUp {
 		JavascriptExecutor js = ((JavascriptExecutor) driver);
 		js.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(objmap.getLocator("btn_submitPhaseFeedback")));
 		Thread.sleep(1000);
-		driver.findElement(objmap.getLocator("btn_submitPhaseFeedback")).click();
+		driver.findElement(objmap.getLocator("btn_submitPhaseFeedbackShort")).click();
 		Thread.sleep(1000);
 		return true;
 		}
