@@ -1,9 +1,13 @@
 package utils;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.itextpdf.text.log.SysoCounter;
 
 import junit.framework.Assert;
@@ -65,5 +69,32 @@ public class CommonMethods extends StartUp {
 			Assert.assertEquals("Error 8 ", 0,1);
 		}
 	}
+	
+	public boolean changeToNewUser()
+	  {
+		System.out.println(DataObj);
+		 String username= DataObj.get("email").toString();
+		 System.out.println("username="+username);
+		 String user_namefirsthalf=username.substring(0,username.lastIndexOf("_")+1);
+		 int user_num = Integer.parseInt(username.substring(username.lastIndexOf("_")+1,username.lastIndexOf("@")+1));
+		 String user_namesecondhalf=username.substring(username.lastIndexOf("@")+1, username.length());
+		 user_num++;
+		 String newUserName=user_namefirsthalf.concat(Integer.toString(user_num).concat(user_namesecondhalf));
+		 System.out.println("new user name= "+newUserName);
+		 DataObj.put("userName",newUserName);
+		 try 
+		 {
+			 writer.writeValue(new File(filepath+"testData.json"), DataObj); 
+		 }
+		 catch (JsonProcessingException e1) {
+			 e1.printStackTrace();
+			 return false;
+		 } 
+		 catch (IOException e1) {
+				e1.printStackTrace();
+				return false;
+			}
+		  return true;
+	  }
 
 }
