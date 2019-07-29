@@ -114,13 +114,13 @@ public class journeyPage extends StartUp {
 				 }
 			 clickOnHomeButton(phaseType);
 				 
-			 System.out.println("email after phase="+DataObj.get("email"));
+			 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
 		});
-	//	cm.changeToNewUser();
+		cm.changeToNewUser();
 		
 		//result=logout();
 		
@@ -255,16 +255,17 @@ public class journeyPage extends StartUp {
 		{
 		     case "Assessment":
 		    	 driver.findElement(objmap.getLocator("btn_assessmentshome")).click(); 
+		    	 Map<String,Object> DataObj=st.beforeClass("coursedata.json");
 				 break;
 		     case "NormalCourse":
 		    	 driver.findElement(objmap.getLocator("btn_developmenthome")).click();
-		    	 Map<String,Object> DataObj=st.beforeClass("coursedata.json");
+//		    	 Map<String,Object> DataObj=st.beforeClass("coursedata.json");
 		    	 break;
 		}
 		}
 		catch(Exception e)
 		{
-			Assert.assertNull("Exception in vclickOnHomeButton",e);
+			Assert.assertNull("Exception in clickOnHomeButton",e);
 		}
 		
 	}
@@ -469,6 +470,7 @@ public boolean verifyItemName(String itemName){
 	System.out.println("Item Name From Screen "+e.getText());
     if(e!=null){
         System.out.println("Item name matched with test data");
+        Thread.sleep(2000);
     }        
     return true;
 	} 
@@ -507,7 +509,7 @@ public boolean traverseThroughCourse(String courseName)
                 String itemName=moduleItem.get("itemName").toString();
             try {
                     verifyModuleName(modulename,itemName);
-                    Thread.sleep(3000);
+                    Thread.sleep(4000);
                     
                     clickOnNextPhaseItem();    
                 } catch (Exception e) {
