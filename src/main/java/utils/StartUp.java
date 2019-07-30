@@ -71,6 +71,7 @@ public class StartUp {
 		}
 	  String filepath=System.getProperty("user.dir")+"/src/main/java/dataRepository/";
 	  ObjectWriter writer;
+	  ObjectMapper mapper = new ObjectMapper();
 
 	public Map<String,Object> beforeClass(String dataFileName)
 	{
