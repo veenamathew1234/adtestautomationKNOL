@@ -17,8 +17,11 @@ import com.github.mkolisnyk.cucumber.runner.ExtendedCucumberOptions;
 		features= {"classpath:Features","src/main/java/Features/ALogin.feature","src/main/java/Features/BDemographics.feature","src/main/java/Features/CWelcome.feature","src/main/java/Features/DJourney.feature"}
 		//,tags= {"~@ignore"},
 		//monochrome =true,
-		,glue= {"stepDefinitions"},plugin= {"json:target/cucumber-reports/cucumber.json"}
+		,glue= {"stepDefinitions"},
+				//plugin= {"json:target/cucumber-reports/cucumber.json"}
+				plugin = { "pretty", "html:target/cucumber-reports" }
 		)
+
 
 
 
