@@ -40,6 +40,7 @@ public welcomePage(){
  public void validateWelcomePage() throws Exception{
 	 
 	 cm.checkErrorComponents();
+	 Thread.sleep(2000);
 	 String currenturl=driver.getCurrentUrl();
 	 if(currenturl.startsWith("https://stg-aktivplatform.knolskape.io")){
 		 flag=1;

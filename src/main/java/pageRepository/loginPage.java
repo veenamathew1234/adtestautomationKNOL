@@ -48,8 +48,10 @@ public class loginPage extends StartUp{
 		System.out.println("Entering credentials");
 	    e=driver.findElement(objmap.getLocator("txt_Email"));
 	    e.sendKeys(DataObj.get("email").toString());
+	    System.out.println("Username : "+DataObj.get("email"));
 	    e=driver.findElement(objmap.getLocator("txt_Password"));
 	    e.sendKeys(DataObj.get("password").toString());
+	    System.out.println("Password : "+DataObj.get("password"));
 	}
 	
 	public void clickOnSignButton() throws Exception{

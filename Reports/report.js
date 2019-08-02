@@ -34,33 +34,21 @@ formatter.step({
   "name": "User clicks on signin button",
   "keyword": "Then "
 });
-formatter.match({
-  "location": "loginPageDefinition.user_is_already_in_login_page()"
-});
+formatter.match({});
 formatter.result({
-  "duration": 9104888524,
-  "status": "passed"
+  "status": "undefined"
 });
-formatter.match({
-  "location": "loginPageDefinition.title_of_the_page_is_Login_to_AktivLearnPlus()"
-});
+formatter.match({});
 formatter.result({
-  "duration": 10256935,
-  "status": "passed"
+  "status": "undefined"
 });
-formatter.match({
-  "location": "loginPageDefinition.user_enters_email_and_password()"
-});
+formatter.match({});
 formatter.result({
-  "duration": 531553710,
-  "status": "passed"
+  "status": "undefined"
 });
-formatter.match({
-  "location": "loginPageDefinition.user_clicks_on_signin_button()"
-});
+formatter.match({});
 formatter.result({
-  "duration": 1395948452,
-  "status": "passed"
+  "status": "undefined"
 });
 formatter.uri("Features/BDemographics.feature");
 formatter.feature({
@@ -88,19 +76,13 @@ formatter.step({
   "name": "Refresh the demographics page by redirecting again to the same url",
   "keyword": "Then "
 });
-formatter.match({
-  "location": "demographicsPageDefinition.the_user_has_landed_on_the_demographics_page()"
-});
+formatter.match({});
 formatter.result({
-  "duration": 56625994,
-  "status": "passed"
+  "status": "undefined"
 });
-formatter.match({
-  "location": "demographicsPageDefinition.refresh_the_demographics_page_by_redirecting_again_to_the_same_url()"
-});
+formatter.match({});
 formatter.result({
-  "duration": 4659334001,
-  "status": "passed"
+  "status": "undefined"
 });
 formatter.uri("Features/CWelcome.feature");
 formatter.feature({
@@ -128,19 +110,13 @@ formatter.step({
   "name": "User clicks on Accepts Invitation button",
   "keyword": "Then "
 });
-formatter.match({
-  "location": "welcomePageDefinition.user_is_on_welcome_Page()"
-});
+formatter.match({});
 formatter.result({
-  "duration": 919889719,
-  "status": "passed"
+  "status": "undefined"
 });
-formatter.match({
-  "location": "welcomePageDefinition.user_clicks_on_Accepts_Invitation_button()"
-});
+formatter.match({});
 formatter.result({
-  "duration": 297286,
-  "status": "passed"
+  "status": "undefined"
 });
 formatter.uri("Features/DJourney.feature");
 formatter.feature({
@@ -165,21 +141,15 @@ formatter.step({
 });
 formatter.step({
   "line": 6,
-  "name": "User clicks on each of the phases",
+  "name": "User able to navigate through each phase",
   "keyword": "Then "
 });
-formatter.match({
-  "location": "journeyPageDefinition.user_is_already_in_journey_page()"
-});
+formatter.match({});
 formatter.result({
-  "duration": 12078176601,
-  "status": "passed"
+  "status": "undefined"
 });
-formatter.match({
-  "location": "journeyPageDefinition.user_clicks_on_each_of_the_phases()"
-});
+formatter.match({});
 formatter.result({
-  "duration": 103746437930,
-  "status": "passed"
+  "status": "undefined"
 });
 });

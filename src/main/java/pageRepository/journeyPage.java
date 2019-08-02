@@ -197,15 +197,17 @@ public class journeyPage extends StartUp {
 	 * 
 	 */
 	
-	public boolean navigateThroughDevelopmentPhase(String phaseType) throws InterruptedException
+	public boolean navigateThroughDevelopmentPhase(String phaseType) throws Exception
 	{
 		Boolean result=false;
 		if(phaseType.equalsIgnoreCase("NormalCourse"))
 		{
 			System.out.println("Inside Normal course");
 			Thread.sleep(5000);
-			String path="//div[contains(@class,'sidebarHeader-module-text')]";
-			String courseName=driver.findElement(By.xpath(path)).getText();
+			WebElement ee=driver.findElement(objmap.getLocator("lbl_coursenamesidebar"));
+			
+			
+			String courseName=ee.getText();
 			System.out.println("CourseName from screen="+courseName);
 			
 			//-----function to traverse through the courses listed in test data-------
