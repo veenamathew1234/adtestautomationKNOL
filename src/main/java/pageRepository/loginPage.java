@@ -24,8 +24,7 @@ public class loginPage extends StartUp{
 	StartUp st = new StartUp();
 	public Properties prop;
 	WebElement e;
-	CommonMethods cm = new CommonMethods();
-		
+	CommonMethods cm=new CommonMethods();
 	public loginPage(){
 		
 		this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/LoginPage.properties");
@@ -60,6 +59,7 @@ public class loginPage extends StartUp{
 		Thread.sleep(1000);
 		cm.changeToNewUser();
 		Assert.assertEquals("Incorrect credentials",0,driver.findElements(By.xpath("//div[contains(@class,'error-box')]")).size());
+		cm.changeToNewUser();
 		
 	}
 	

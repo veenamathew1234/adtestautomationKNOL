@@ -46,6 +46,7 @@ import org.openqa.selenium.By;
                 return By.cssSelector(locatorValue);
           else if(locatorType.toLowerCase().equals("xpath"))
           {	
+        	 // System.out.println("locatorValue="+locatorValue);
                 return By.xpath(locatorValue);
           }
           else
