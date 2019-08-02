@@ -78,7 +78,6 @@ public class CommonMethods extends StartUp {
 		 String username= DataObj.get("email").toString();
 		 System.out.println("username="+username);
 		 
-		 //String user_namefirsthalf=username.substring(0,username.lastIndexOf("_")+1);
 		 String user_namefirsthalf=username.substring(0,username.lastIndexOf("_")+1);
 		 System.out.println("Username first half "+user_namefirsthalf);
 		 
@@ -91,15 +90,14 @@ public class CommonMethods extends StartUp {
 		 user_num++;
 		 String newUserName=user_namefirsthalf.concat(Integer.toString(user_num).concat("@").concat(user_namesecondhalf));
 		 System.out.println("new user name = "+newUserName);
-		// DataObj.put("username", newUserName);
+		
 		 DataObj.replace("email", username, newUserName);
 		 System.out.println("current user name "+username);
 		 try 
 		 {
 			 System.out.println("Inside try");
 			 System.out.println();
-			 //writer.writeValue(new File(filepath+"testData.json"), DataObj);
-			 
+						 
 			 mapper.writeValue(new File(filepath+"testData.json"), DataObj);
 			 System.out.println("Written successfully");
 		 }
