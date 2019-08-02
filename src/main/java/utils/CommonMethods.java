@@ -101,14 +101,11 @@ public class CommonMethods extends StartUp {
 		 int user_num = Integer.parseInt(username.substring(username.lastIndexOf("_")+1,username.lastIndexOf("@")));
 		 
 		 String user_namesecondhalf=username.substring(username.lastIndexOf("@")+1, username.length());
-		 
 		 user_num++;
 		 String newUserName=user_namefirsthalf.concat(Integer.toString(user_num).concat("@").concat(user_namesecondhalf));
-		// DataObj.put("username", newUserName);
 		 DataObj.replace("email", username, newUserName);
 		 try 
 		 {
-			 
 			 mapper.writeValue(new File(filepath+"testData.json"), DataObj);
 		 }
 		 catch (JsonProcessingException e1) {
