@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 
 import junit.framework.Assert;
 import utils.ObjectFactory;
@@ -83,7 +84,6 @@ public class feedbackPages extends StartUp {
 		{
 		String overallRating=fb.get("overallRating").toString();
 		String recommend=fb.get("recommendValue").toString();
-		//String howeasy=fb.get("howEasy").toString();
 		driver.findElement(By.xpath("//div[contains(@class,'module-4d12mstux7kz6kx16r2e8csqgx5wze318bdeea8bnug4byhh8nu7fzfs82ck8e7ntvgnfk478xt475dbahu496asmz7xz13s9thqknz-starRating-module-individual-star')]["+overallRating+"]")).click();
 		//driver.findElement(By.xpath("//div[contains(@class,'module-4d12mstux7kz6kx16r2e8csqgx5wze318bdeea8bnug4byhh8nu7fzfs82ck8e7ntvgnfk478xt475dbahu496asmz7xz13s9thqknz-starRating-module-individual-star'")])
 		driver.findElement(By.xpath("//div[contains(@class,'_508t3c module-2dds1v9tuexvbh1njfs1gpvgf7rk981dc2hutw3hp84jkv6ufr5d5j5vxwfbv5czk9m4gtj1fmdmv6pmdt935rz5jz771cpkxaade7y-scaleRating-module-individual-score')]["+recommend+"]")).click();
@@ -95,6 +95,12 @@ public class feedbackPages extends StartUp {
 		driver.findElement(objmap.getLocator("btn_submitPhaseFeedback")).click();
 		Thread.sleep(2000);
 		return true;
+		}
+		
+		catch(NoSuchElementException ne)
+		{
+			Assert.assertNull(""+fb.get("phaseName")+" feedback form issue while user enters data", ne);
+			return false;
 		}
 		catch(Exception e)
 		{
