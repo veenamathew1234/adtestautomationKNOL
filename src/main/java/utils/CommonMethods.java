@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -71,37 +72,44 @@ public class CommonMethods extends StartUp {
 		}
 	}
 	
+	public void verifyElementPresent(String locator,boolean objfactorylocator,String notPresentMessage) throws Exception
+	{
+		
+		int size=0;
+		if(objfactorylocator)
+		{
+			String l="\""+locator+"\"";
+			System.out.println("inside verify with Object factory"+l);
+			size=driver.findElements(objmap.getLocator(l)).size();
+			System.out.println("size="+size);
+		}
+		
+		else
+		{
+			size=driver.findElements(By.xpath(locator)).size();
+		}
+		Assert.assertNotSame(notPresentMessage, 0, size);
+		
+	}
+	
 	public boolean changeToNewUser()
 	  {
 		Map<String,Object> DataObj=st.beforeClass("testData.json");
-		System.out.println("email after phase="+DataObj.get("email"));
 		 String username= DataObj.get("email").toString();
-		 System.out.println("username="+username);
-		 
-		 //String user_namefirsthalf=username.substring(0,username.lastIndexOf("_")+1);
 		 String user_namefirsthalf=username.substring(0,username.lastIndexOf("_")+1);
-		 System.out.println("Username first half "+user_namefirsthalf);
 		 
 		 int user_num = Integer.parseInt(username.substring(username.lastIndexOf("_")+1,username.lastIndexOf("@")));
-		 System.out.println("User num "+user_num);
 		 
 		 String user_namesecondhalf=username.substring(username.lastIndexOf("@")+1, username.length());
-		 System.out.println("Username second half "+user_namesecondhalf);
 		 
 		 user_num++;
 		 String newUserName=user_namefirsthalf.concat(Integer.toString(user_num).concat("@").concat(user_namesecondhalf));
-		 System.out.println("new user name = "+newUserName);
 		// DataObj.put("username", newUserName);
 		 DataObj.replace("email", username, newUserName);
-		 System.out.println("current user name "+username);
 		 try 
 		 {
-			 System.out.println("Inside try");
-			 System.out.println();
-			 //writer.writeValue(new File(filepath+"testData.json"), DataObj);
 			 
 			 mapper.writeValue(new File(filepath+"testData.json"), DataObj);
-			 System.out.println("Written successfully");
 		 }
 		 catch (JsonProcessingException e1) {
 			 e1.printStackTrace();

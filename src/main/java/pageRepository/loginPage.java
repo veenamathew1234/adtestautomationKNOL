@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import utils.CommonMethods;
 import utils.ObjectFactory;
 import io.restassured.RestAssured;
 import utils.StartUp;
@@ -22,6 +23,7 @@ public class loginPage extends StartUp{
 	StartUp st = new StartUp();
 	public Properties prop;
 	WebElement e;
+	CommonMethods cm=new CommonMethods();
 	
 	public loginPage(){
 		
@@ -55,6 +57,7 @@ public class loginPage extends StartUp{
 		e=driver.findElement(objmap.getLocator("btn_Signin"));
 		e.click();
 		Assert.assertEquals("Incorrect credentials",0,driver.findElements(By.xpath("//div[contains(@class,'error-box')]")).size());
+		cm.changeToNewUser();
 		
 	}
 
