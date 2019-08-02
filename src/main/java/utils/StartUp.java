@@ -49,6 +49,8 @@ public class StartUp {
 		  
 	//--------------code to run script headless--------------	  
 
+//		  try
+//		  {
 		 if(driver==null){
 			 System.out.println("incongni");
 				System.setProperty("webdriver.chrome.driver",chromepath);
@@ -63,12 +65,41 @@ public class StartUp {
 				driver = new ChromeDriver(options);
 				driver.manage().window().maximize(); 
 		 }
+//		  }
+//		 
+//		 finally{
+//             Runtime.getRuntime().addShutdownHook(
+//                 new Thread(new BrowserCleanup()));
+//         }
 		  
 			return driver;
 	  
 		  
 			
 		}
+	  
+	  private static class BrowserCleanup implements Runnable {
+		    public void run() {
+		        close();
+		    }
+		}
+	  
+	  public static void close() {
+		    try {
+		    	System.out.println("Going to quit the browser");
+		        driver.quit();
+		        driver = null;
+		        
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		        
+		    }
+		}
+	  
+	  
+	  
+	  
+	  
 	  String filepath=System.getProperty("user.dir")+"/src/main/java/dataRepository/";
 	  ObjectWriter writer;
 	  ObjectMapper mapper = new ObjectMapper();
