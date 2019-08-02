@@ -96,8 +96,6 @@ public class CommonMethods extends StartUp {
 		 try 
 		 {
 			 System.out.println("Inside try");
-			 System.out.println();
-				 
 			 mapper.writeValue(new File(filepath+"testData.json"), DataObj);
 			 System.out.println("Written successfully");
 		 }

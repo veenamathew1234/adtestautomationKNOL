@@ -120,8 +120,7 @@ public class journeyPage extends StartUp {
 			}
 			
 		});
-		cm.changeToNewUser();
-		
+	
 		//result=logout();
 		
 	}
