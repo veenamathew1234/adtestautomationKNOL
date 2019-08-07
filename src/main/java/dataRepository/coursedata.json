@@ -34,5 +34,22 @@
  	"moduleName" : "Page & External URL",
     "itemName" : "Linked in",
     "itemType" : "Page"
- } ]
+ } ],
+ "Quiz" : [ {
+    "quizName" : "Normal Quiz",
+    "quizDesc" : "Welcome to Normal Quiz Desc",
+    "allowMultipleAttempts" : "N",
+    "noOfQuestions" : 2,
+    "qb":"N",
+    "QuestionsAnswersToPlay":
+    [{
+    "2*2=5?":["False"],
+   	"scoreReceived":10
+   	},
+    {
+    "What is AD":["Analytics & Development"],
+   	"scoreReceived":10
+   	}],
+    "pointsPerQuestion" : 10
+   }]
 }
