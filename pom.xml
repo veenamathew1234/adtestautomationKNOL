@@ -123,7 +123,6 @@
 <groupId>junit</groupId>
 <artifactId>junit</artifactId>
 <version>4.12</version>
-<scope>test</scope>
 </dependency>
 <dependency>
     <groupId>io.rest-assured</groupId>
@@ -134,7 +133,6 @@
 <groupId>info.cukes</groupId>
 <artifactId>cucumber-java</artifactId>
 <version>1.2.5</version>
-<scope>test</scope>
 </dependency>
 <dependency>
 <groupId>info.cukes</groupId>
@@ -180,8 +178,7 @@
 <dependency>
     <groupId>io.cucumber</groupId>
     <artifactId>cucumber-picocontainer</artifactId>
-    <version>2.1.0</version>
- <scope>test</scope>   
+    <version>2.1.0</version> 
 </dependency>
 <dependency>
     <groupId>info.cukes</groupId>
