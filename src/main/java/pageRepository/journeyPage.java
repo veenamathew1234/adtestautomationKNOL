@@ -276,13 +276,11 @@ public class journeyPage extends StartUp {
 		switch(phaseType)
 		{
 		     case "Assessment":
-		    	//cm.verifyElementPresent("btn_assessmentshome", true, "Home button in the assessment phase not present");
 		    	 driver.findElement(objmap.getLocator("btn_assessmentshome")).click(); 
 		    	 Map<String,Object> DataObj=st.beforeClass("coursedata.json");
 				 break;
 		     case "NormalCourse":
 		    	 driver.findElement(objmap.getLocator("btn_developmenthome")).click();
-//		    	 Map<String,Object> DataObj=st.beforeClass("coursedata.json");
 		    	 break;
 		}
 		}
@@ -519,7 +517,7 @@ public boolean runAssessment(String assessmentName)
 	 * 
 	 */
 
-public void verifyModuleName(String moduleName,String itemName) throws InterruptedException {
+public void verifyModuleName(String moduleName,String itemName,String itemType) throws InterruptedException {
      
 		System.out.println("Inside verify module name");
 		Thread.sleep(4000);
@@ -531,7 +529,7 @@ public void verifyModuleName(String moduleName,String itemName) throws Interrupt
 				System.out.println("Module name from screen "+e1.getText());
 				System.out.println("Module name Matched with test data");
 	            try {
-					verifyItemName(itemName);
+					verifyItemName(itemName,itemType);
 				}
 	            catch (NoSuchElementException e2) {
 					Assert.assertNull("Exception in verifyModuleName: cant find the list of module names "+moduleName+"",e2);
@@ -554,7 +552,7 @@ public void verifyModuleName(String moduleName,String itemName) throws Interrupt
 	 * 
 	 */
 	
-public boolean verifyItemName(String itemName){
+public boolean verifyItemName(String itemName,String itemType){
     
 	try {
 	cm.checkErrorComponents();
@@ -607,8 +605,9 @@ public boolean traverseThroughCourse(String courseName)
                 Map<String,Object> moduleItem=(Map<String,Object>)module;
                 String modulename=moduleItem.get("moduleName").toString();
                 String itemName=moduleItem.get("itemName").toString();
+                String itemType=moduleItem.get("itemType").toString();
             try {
-                    verifyModuleName(modulename,itemName);
+                    verifyModuleName(modulename,itemName,itemType);
                     Thread.sleep(4000);
                     
                     clickOnNextPhaseItem();    

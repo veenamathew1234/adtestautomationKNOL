@@ -34,5 +34,19 @@
  	"moduleName" : "Page & External URL",
     "itemName" : "Linked in",
     "itemType" : "Page"
- } ]
+ } ],
+ 
+ "Assignment":[
+ {
+ 	"assignmentName" :"Assignment with text submission",
+ 	"assignmentPoints" : 50,
+ 	"submissionType" : "Text Entry"
+  },
+ {
+ 	"assignmentName" :"Assignment with file upload",
+ 	"assignmentPoints" : 20,
+ 	"submissionType" : "File Upload"
+ }],
+ "submissionUploadFilePath" :""
+ 
 }
