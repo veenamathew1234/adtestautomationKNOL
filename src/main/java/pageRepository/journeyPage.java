@@ -44,6 +44,7 @@ public class journeyPage extends StartUp {
 	CommonMethods cm=new CommonMethods();
 	assesmentPhase asp=new assesmentPhase();
 	feedbackPages fbp=new feedbackPages();
+	Quiz qz=new Quiz();
 	
 	public journeyPage(){
 		System.out.println("Inside journey page constructor");
@@ -520,7 +521,7 @@ public boolean runAssessment(String assessmentName)
 	 * 
 	 */
 
-public void verifyModuleName(String moduleName,String itemName) throws InterruptedException {
+public void verifyModuleName(String moduleName,String itemName,String itemType) throws InterruptedException {
      
 		System.out.println("Inside verify module name");
 		Thread.sleep(4000);
@@ -532,7 +533,7 @@ public void verifyModuleName(String moduleName,String itemName) throws Interrupt
 				System.out.println("Module name from screen "+e1.getText());
 				System.out.println("Module name Matched with test data");
 	            try {
-					verifyItemName(itemName);
+					verifyItemName(itemName,itemType);
 				}
 	            catch (NoSuchElementException e2) {
 					Assert.assertNull("Exception in verifyModuleName: cant find the list of module names "+moduleName+"",e2);
@@ -548,14 +549,14 @@ public void verifyModuleName(String moduleName,String itemName) throws Interrupt
 		
 		
 	/*
-	 * Function Name : verifyItemNameAndNavigateNext
+	 * Function Name : verifyItemName
 	 * Function Parameters: Item Name which is passed from verifyModuleName function
 	 * Description : Function is used verify if the item name from screen is same as that of the test Data and navigate to next items
 	 * Return Value : void
 	 * 
 	 */
 	
-public boolean verifyItemName(String itemName){
+public boolean verifyItemName(String itemName, String itemType){
     
 	try {
 	cm.checkErrorComponents();
@@ -565,7 +566,8 @@ public boolean verifyItemName(String itemName){
     if(e!=null){
         System.out.println("Item name matched with test data");
         Thread.sleep(2000);
-    }        
+    }
+    playItem(itemName,itemType);
     return true;
 	} 
 	
@@ -581,6 +583,31 @@ public boolean verifyItemName(String itemName){
 		e1.printStackTrace();
 		return false;
 	}
+}
+
+
+/*
+ * Function Name : playitem
+ * Function Parameters: itemName
+ * Description : To play or execute the current item 
+ * Return Value : boolean
+ * 
+ */
+
+public boolean playItem(String itemName, String itemType)
+{
+	Map<String,Object> itemDetails;
+	switch(itemType)
+	{
+		case "Quiz" :
+			qz.playQuiz(itemName);
+			break;
+		case "Assignment":
+			break;
+			
+		
+	}
+	return true;
 }
 
 	/*
@@ -608,8 +635,9 @@ public boolean traverseThroughCourse(String courseName)
                 Map<String,Object> moduleItem=(Map<String,Object>)module;
                 String modulename=moduleItem.get("moduleName").toString();
                 String itemName=moduleItem.get("itemName").toString();
+                String itemType=moduleItem.get("itemType").toString();
             try {
-                    verifyModuleName(modulename,itemName);
+                    verifyModuleName(modulename,itemName,itemType);
                     Thread.sleep(4000);
                     
                     clickOnNextPhaseItem();    
