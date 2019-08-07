@@ -106,7 +106,6 @@ public class CommonMethods extends StartUp {
 		 DataObj.replace("email", username, newUserName);
 		 try 
 		 {
-
 			 mapper.writeValue(new File(filepath+"testData.json"), DataObj);
 		 }
 		 catch (JsonProcessingException e1) {
