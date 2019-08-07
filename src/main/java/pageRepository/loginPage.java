@@ -61,8 +61,7 @@ public class loginPage extends StartUp{
 		Thread.sleep(1000);
 		cm.changeToNewUser();
 		Assert.assertEquals("Incorrect credentials",0,driver.findElements(By.xpath("//div[contains(@class,'error-box')]")).size());
-		cm.changeToNewUser();
-		
+				
 	}
 	
 
