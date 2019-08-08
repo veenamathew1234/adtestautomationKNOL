@@ -7,7 +7,12 @@
  },
  {
  	"moduleName" : "QUIZ & Assignment",
-    "itemName" : "Assignment with submission",
+    "itemName" : "Assignment with text submission",
+    "itemType" : "Assignment"
+ },
+{
+ 	"moduleName" : "QUIZ & Assignment",
+    "itemName" : "Assignment with file upload",
     "itemType" : "Assignment"
  },
  {
