@@ -15,6 +15,11 @@
     "itemName" : "Assignment with file upload",
     "itemType" : "Assignment"
  },
+{
+ 	"moduleName" : "QUIZ & Assignment",
+    "itemName" : "Assignment with website url submission",
+    "itemType" : "Assignment"
+ },
  {
  	"moduleName" : "File",
     "itemName" : "Sample Image",
