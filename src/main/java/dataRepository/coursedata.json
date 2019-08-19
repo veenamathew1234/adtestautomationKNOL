@@ -3,11 +3,12 @@
  {
  	"moduleName" : "QUIZ & Assignment",
     "itemName" : "Normal Quiz",
-    "itemType" : "Quiz"
- },
+    "itemType" : "Quiz",
+    "feedback":"like"
+},
  {
  	"moduleName" : "QUIZ & Assignment",
-    "itemName" : "Assignment with submission",
+    "itemName" : "Assignment with text submission",
     "itemType" : "Assignment"
  },
  {
@@ -48,8 +49,8 @@
    	},
     {
     "What is AD":["Analytics & Development"],
-   	"scoreReceived":10
+   	"scoreReceived":5
    	}],
-    "pointsPerQuestion" : 10
-   }]
+    "pointsPerQuestion" :10
+  }]
 }

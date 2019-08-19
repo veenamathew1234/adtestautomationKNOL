@@ -137,6 +137,43 @@ public class feedbackPages extends StartUp {
 		
 		return true;
 	}
+	
+	public boolean likeDislikeDevItemfeedback(String feedback)
+	{
+		try
+		{
+			System.out.println("like Dislike Development Phase Item feedback");
+			Thread.sleep(2000);
+			switch(feedback)
+			{
+			case "like":
+				System.out.println("in like");
+				driver.findElement(objmap.getLocator("btn_FeedbackDevPhaseItemLIKE")).click();
+				break;
+				
+			case "dislike":
+				driver.findElement(objmap.getLocator("btn_FeedbackDevPhaseItemDISLIKE")).click();
+				break;
+			}
+			Thread.sleep(1000);
+			driver.findElement(objmap.getLocator("btn_closeFeedbackPhaseItemDev")).click();
+			Thread.sleep(3000);
+			System.out.println("closing like dislike");
+			return true;
+			
+		}
+		
+		catch(NoSuchElementException ne)
+		{
+			Assert.assertNull("Cannot find the thumbs up /down in development phase item", ne);
+			return false;
+		}
+		catch(Exception e)
+		{
+			Assert.assertNull("General exception in the Like/Dislike Dev Phase item", e);
+			return false;
+		}
+	}
 
 
 }
