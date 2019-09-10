@@ -7,7 +7,17 @@
  },
  {
  	"moduleName" : "QUIZ & Assignment",
-    "itemName" : "Assignment with submission",
+    "itemName" : "Assignment with text submission",
+    "itemType" : "Assignment"
+ },
+  {
+ 	"moduleName" : "QUIZ & Assignment",
+    "itemName" : "Assignment with file upload",
+    "itemType" : "Assignment"
+ },
+   {
+ 	"moduleName" : "QUIZ & Assignment",
+    "itemName" : "Assignment with website url submission",
     "itemType" : "Assignment"
  },
  {
@@ -36,17 +46,24 @@
     "itemType" : "Page"
  } ],
  
- "Assignment":[
+ "AssignmentData":[
  {
  	"assignmentName" :"Assignment with text submission",
- 	"assignmentPoints" : 50,
- 	"submissionType" : "Text Entry"
+ 	"assignmentPoints" : "50",
+ 	"submissionType" : "Text Entry",
+ 	"assignmenttext" :"Trial test given for assignment"
   },
  {
  	"assignmentName" :"Assignment with file upload",
- 	"assignmentPoints" : 20,
+ 	"assignmentPoints" : "20",
  	"submissionType" : "File Upload"
+ },
+ {
+ 	"assignmentName" :"Assignment with website url submission",
+ 	"assignmentPoints" : "10",
+ 	"submissionType" : "Website URL",
+ 	"website_url" 	 :	"https://www.google.com"
  }],
- "submissionUploadFilePath" :""
+  "submissionUploadFilePath" :"/src/main/java/dataRepository/sample.csv"
  
 }

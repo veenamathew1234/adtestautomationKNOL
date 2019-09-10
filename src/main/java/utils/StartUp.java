@@ -26,6 +26,7 @@ import io.restassured.RestAssured;
 public class StartUp {
 	
 	  protected static Map<String,Object> DataObj;
+	  protected static Map<String,Object> CourseDataObj;
 	  protected static WebDriver driver;
 	  String chromepath=System.getProperty("user.dir")+"/chromedriver";
 	  String filename;
@@ -40,39 +41,39 @@ public class StartUp {
 		  
 	//---------------In Case if we wanted code to run with UI uncomment the below code block------
 
-//			if(driver==null){
-//				driver=new ChromeDriver();
-//				driver.manage().window().maximize();
-//			}
-//			return driver;
+			if(driver==null){
+				driver=new ChromeDriver();
+				driver.manage().window().maximize();
+			}
+			return driver;
 
 		  
 	//--------------code to run script headless--------------	  
 
-//		  try
-//		  {
-		 if(driver==null){
-			 System.out.println("incongni");
-				System.setProperty("webdriver.chrome.driver",chromepath);
-				ChromeOptions options = new ChromeOptions();
-				DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-				options.addArguments("-incognito");
-				options.addArguments("window-size=5000x5000");
-				options.addArguments("headless");
-				options.addArguments("disable-gpu");
-				System.out.println("inside healdless startup");
-				capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-				driver = new ChromeDriver(options);
-				driver.manage().window().maximize(); 
-		 }
-//		  }
-//		 
-//		 finally{
-//             Runtime.getRuntime().addShutdownHook(
-//                 new Thread(new BrowserCleanup()));
-//         }
-		  
-			return driver;
+////		  try
+////		  {
+//		 if(driver==null){
+//			 System.out.println("incongni");
+//				System.setProperty("webdriver.chrome.driver",chromepath);
+//				ChromeOptions options = new ChromeOptions();
+//				DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+//				options.addArguments("-incognito");
+//				options.addArguments("window-size=5000x5000");
+//				options.addArguments("headless");
+//				options.addArguments("disable-gpu");
+//				System.out.println("inside healdless startup");
+//				capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+//				driver = new ChromeDriver(options);
+//				driver.manage().window().maximize(); 
+//		 }
+////		  }
+////		 
+////		 finally{
+////             Runtime.getRuntime().addShutdownHook(
+////                 new Thread(new BrowserCleanup()));
+////         }
+//		  
+//			return driver;
 	  
 		  
 			
@@ -127,8 +128,8 @@ public class StartUp {
 	
 	public List datalist(String ListName)
 	{
-		ArrayList<Object> journeyDetails=((ArrayList)DataObj.get(ListName));
-		return journeyDetails;
+		ArrayList<Object> journeydetails=((ArrayList)DataObj.get(ListName));
+		return journeydetails;
 		
 	}
 	
