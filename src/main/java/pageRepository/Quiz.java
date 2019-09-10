@@ -163,7 +163,7 @@ public class Quiz extends StartUp{
 		{
 			Assert.assertNull("Take Quiz function which loops through Quiz data having some issues", e);
 			e.printStackTrace();
-		}
+		}	
 		
 		
 	}
