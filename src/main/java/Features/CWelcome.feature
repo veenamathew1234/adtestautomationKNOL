@@ -1,4 +1,4 @@
-Feature: Welcome Page
+Feature: C.Welcome Page
 Scenario: To validate Welcome Page
 
 Given User is on welcome Page

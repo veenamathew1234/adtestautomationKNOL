@@ -39,17 +39,20 @@ public class journeyPage extends StartUp {
 	Boolean result;
 	List journeyInfo;
 	List feedbackData;
+	List assignmentData;
 	int index;
 	boolean webElementPresent;
 	CommonMethods cm=new CommonMethods();
 	assesmentPhase asp=new assesmentPhase();
 	feedbackPages fbp=new feedbackPages();
+	assignment assgn = new assignment();
 	Quiz qz=new Quiz();
 	
 	public journeyPage(){
 		System.out.println("Inside journey page constructor");
 		this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/JourneyPage.properties");
 		Map<String,Object> DataObj=st.beforeClass("testData.json");
+//		Map<String,Object>CourseDataObj=st.beforeClass("coursedata.json");
 	}
 	
 	
@@ -97,8 +100,6 @@ public class journeyPage extends StartUp {
 			feedbackData=datalist("PhaseFeedbackDetails");
 		}
 	
-		// driver.findElement(By.xpath("//div[contains(@class,'content-module-individual-tabb')]//div[contains(text(),'Assessment')]"));
-		
 		/*
 		 * journeyInfo contains data from the testData.json
 		 */
@@ -117,7 +118,7 @@ public class journeyPage extends StartUp {
 				 System.out.println("Phase type to be clicked on next is "+phaseType);
 
 				 navigateThroughPhaseItem(phaseType);
-				 Thread.sleep(5000);
+				 Thread.sleep(7000);
 				 if(phaseMap.get("PhaseFeedback").toString().equalsIgnoreCase("Yes"))
 				 {
 					 System.out.println("Inside feedback phase submission");
@@ -307,13 +308,11 @@ public class journeyPage extends StartUp {
 		switch(phaseType)
 		{
 		     case "Assessment":
-		    	//cm.verifyElementPresent("btn_assessmentshome", true, "Home button in the assessment phase not present");
 		    	 driver.findElement(objmap.getLocator("btn_assessmentshome")).click(); 
 		    	 Map<String,Object> DataObj=st.beforeClass("coursedata.json");
 				 break;
 		     case "NormalCourse":
 		    	 driver.findElement(objmap.getLocator("btn_developmenthome")).click();
-//		    	 Map<String,Object> DataObj=st.beforeClass("coursedata.json");
 		    	 break;
 		}
 		}
@@ -468,8 +467,6 @@ public class journeyPage extends StartUp {
 	
 	public boolean validateAndExitPhaseItem(String assessmentType){
 		
-			//cm.checkErrorComponents();
-		
 		try {
 		if(assessmentType.equalsIgnoreCase("Test Sim"))
 		{
@@ -550,6 +547,7 @@ public boolean runAssessment(String assessmentName)
 	 * 
 	 */
 
+
 public boolean verifyModuleName(String moduleName,String itemName,String itemType,Map<String,Object> moduleItem) throws InterruptedException {
      
 		System.out.println("Inside verify module name");
@@ -589,8 +587,9 @@ public boolean verifyModuleName(String moduleName,String itemName,String itemTyp
 	 * 
 	 */
 	
+
 public boolean verifyItemName(String itemName, String itemType,Map<String,Object> moduleItem){
-    
+  
 	try {
 	String feedbackItem=moduleItem.get("feedback").toString();
 	System.out.println("feedback for the item"+itemName+"="+feedbackItem);
@@ -598,8 +597,8 @@ public boolean verifyItemName(String itemName, String itemType,Map<String,Object
 	Thread.sleep(2000);
 	WebElement e = driver.findElement(By.xpath("//div[contains(@class,'innerListItem-module-module-item-title')]//span[contains(@class,'module-22v5yu3ffhhsgfk81kmxd65jpqpc4hrwzg5fydhjy4urrqcg2faj6em1bzckj68yxxwv96gp591877j4dy536vn4gg1dpm1nw21pwy6-innerListItem-module-title-inner') and contains(text(),'"+itemName+"')]"));
 	System.out.println("Item Name From Screen "+e.getText());
-    if(e!=null){
-        System.out.println("Item name matched with test data");
+    
+	if(e!=null){
         Thread.sleep(2000);
     }
     playItem(itemName,itemType);
@@ -634,17 +633,21 @@ public boolean playItem(String itemName, String itemType)
 {
 	System.out.println("Inside playItem");
 	Map<String,Object> itemDetails;
-	switch(itemType)
-	{
-		case "Quiz" :
-			qz.playQuiz(itemName);
-			break;
-		case "Assignment":
-			break;
-			
-		
-	}
-	return true;
+
+    switch(itemType)
+    {
+    	case "Quiz" :
+    		qz.playQuiz(itemName);
+    		break;
+
+        case "Assignment":
+        	System.out.println("Item Type is Assignment");
+        	assgn.verifyAndSubmitAssignment();
+            break;
+
+    }
+    return true;
+
 }
 
 	/*
@@ -677,6 +680,7 @@ public boolean traverseThroughCourse(String courseName)
                 String itemName=moduleItem.get("itemName").toString();
                 String itemType=moduleItem.get("itemType").toString();
             try {
+
             		System.out.println("just before verify module");
                     verifyModuleName(modulename,itemName,itemType,moduleItem);
                     System.out.println("executed verifyModuleName function");
@@ -696,6 +700,10 @@ public boolean traverseThroughCourse(String courseName)
     
     return true;
 }
+
+
+
+
 
 
 /*

@@ -11,6 +11,16 @@
     "itemName" : "Assignment with text submission",
     "itemType" : "Assignment"
  },
+  {
+ 	"moduleName" : "QUIZ & Assignment",
+    "itemName" : "Assignment with file upload",
+    "itemType" : "Assignment"
+ },
+   {
+ 	"moduleName" : "QUIZ & Assignment",
+    "itemName" : "Assignment with website url submission",
+    "itemType" : "Assignment"
+ },
  {
  	"moduleName" : "File",
     "itemName" : "Sample Image",
@@ -36,6 +46,28 @@
     "itemName" : "Linked in",
     "itemType" : "Page"
  } ],
+
+ 
+ "AssignmentData":[
+ {
+ 	"assignmentName" :"Assignment with text submission",
+ 	"assignmentPoints" : "50",
+ 	"submissionType" : "Text Entry",
+ 	"assignmenttext" :"Trial test given for assignment"
+  },
+ {
+ 	"assignmentName" :"Assignment with file upload",
+ 	"assignmentPoints" : "20",
+ 	"submissionType" : "File Upload",
+ 	"submissionUploadFilePath" :"/src/main/java/dataRepository/sample.csv"
+ },
+ {
+ 	"assignmentName" :"Assignment with website url submission",
+ 	"assignmentPoints" : "10",
+ 	"submissionType" : "Website URL",
+ 	"website_url" 	 :	"https://www.google.com"
+ }],
+
  "Quiz" : [ {
     "quizName" : "Normal Quiz",
     "quizDesc" : "Welcome to Normal Quiz Desc",

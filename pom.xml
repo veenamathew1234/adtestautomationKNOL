@@ -178,8 +178,8 @@
 <dependency>
     <groupId>io.cucumber</groupId>
     <artifactId>cucumber-picocontainer</artifactId>
-    <version>2.1.0</version> 
-</dependency>
+    <version>2.1.0</version>
+ </dependency>
 <dependency>
     <groupId>info.cukes</groupId>
     <artifactId>cucumber-picocontainer</artifactId>
