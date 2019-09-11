@@ -70,6 +70,10 @@ public class CommonMethods extends StartUp {
 		{
 			Assert.assertEquals("Error 8 ", 0,1);
 		}
+		if(driver.findElements(objmap.getLocator("lbl_errorcom9")).size()!=0)
+		{
+			Assert.assertEquals("Error 9 ", 0,1);
+		}
 	}
 	
 	public void verifyElementPresent(String locator,boolean objfactorylocator,String notPresentMessage) throws Exception
