@@ -46,6 +46,7 @@ public class journeyPage extends StartUp {
 	assesmentPhase asp=new assesmentPhase();
 	feedbackPages fbp=new feedbackPages();
 	assignment assgn = new assignment();
+	Quiz qz=new Quiz();
 	
 	public journeyPage(){
 		System.out.println("Inside journey page constructor");
@@ -260,6 +261,36 @@ public class journeyPage extends StartUp {
 		});
 		return true;
 	}
+	
+	/*
+	 * Function Name : verifyAssessmentCompletionMessage
+	 * Function Parameters: Current assessment name
+	 * Description : Function is used verify if assessment completion name is displayed correctly
+	 * Return Value : Boolean
+	 * 
+	 */
+	
+	public void verifyAssessmentCompletionMessage(String assessmentName)
+	{
+		try
+		{
+			String messageFromScreen = driver.findElement(objmap.getLocator("lbl_assessmentCompletionMessage")).getText();
+			String messageExpected="You have completed "+assessmentName+"";
+			Assert.assertEquals("ThankYou message after completing assessment"+assessmentName+" not matching expected ", messageExpected, messageFromScreen);
+			
+		}
+		catch(NoSuchElementException ne)
+		{
+			Assert.assertNull("Thank you message after completing the assessment "+assessmentName+" not present", ne);
+			
+		}
+		catch(Exception e)
+		{
+			Assert.assertNull("Thank you message after completing the assessment "+assessmentName+" general ERROR", e);
+			
+		}
+	}
+	
 	
 	/*
 	 * Function Name : clickOnHomeButton
@@ -516,43 +547,52 @@ public boolean runAssessment(String assessmentName)
 	 * 
 	 */
 
-public void verifyModuleName(String moduleName,String itemName,String itemType) throws InterruptedException {
+
+public boolean verifyModuleName(String moduleName,String itemName,String itemType,Map<String,Object> moduleItem) throws InterruptedException {
      
 		System.out.println("Inside verify module name");
 		Thread.sleep(4000);
     	List<WebElement> e=driver.findElements(By.xpath("//div[contains(@class,'module-2jm6jgwkd4mep6p6g9p5rj7s886661tqjt4tmat6w1xjsweeu2z43gzyk628tx66haga3dbb4435mwkk6cvdba6ysyb5vysmn2ru4-moduleItemScreen-module-sidebar-open module-36ypdeweh3nma3gv8ygsmvuuz5y6v96ntwxw69wy8167wqc5ze79x4mvj63hhhsh61ku9pggep2y9zh1d8f91qsu2q5gddzy7cxatzc-moduleItemScreen-module-module-item-outer-cnt')]//div[contains(@class,'_6flor0 module-49qcfnxjwygbdeq6agmkwaksp2wekc55jyg1pf9y7851cfanspg95dq93t6gsy47wmn2ukvwnwhaqk8rzaykjh4xnm4y64w96mdssx4-moduleItemScreen-module-menu-container')]//span//div//div//div[contains(@class,'tobesco')]//div[contains(@class,'_1feb3ip module-3apypwr1fyrjh2vrn8ma4dc9uxybzg21wmc7repy765y6ymt37y9fhyh3yb1gmebcz3ehqdmehedhugb9n573mua5rnnednx87w96rp-sectionHeader-module-header-name')]"));
-			
+		boolean result=false;
 		for(WebElement e1:e){
 			
 			if(e1.getText().equalsIgnoreCase(moduleName)){
 				System.out.println("Module name from screen "+e1.getText());
-				try {
-					verifyItemName(itemName,itemType);
+				System.out.println("Module name Matched with test data");
+	            try {
+					result=verifyItemName(itemName,itemType,moduleItem);
+					break;
 				}
 	            catch (NoSuchElementException e2) {
 					Assert.assertNull("Exception in verifyModuleName: cant find the list of module names "+moduleName+"",e2);
 					e2.printStackTrace();
+					return false;
 				}
 	            catch (Exception e2) {
 					Assert.assertNull("Exception in verifyModuleName "+moduleName+"",e2);
 					e2.printStackTrace();
+					return false;
 				}
 			}
 		}
+		return result;
 }	
 		
 		
 	/*
-	 * Function Name : verifyItemNameAndNavigateNext
+	 * Function Name : verifyItemName
 	 * Function Parameters: Item Name which is passed from verifyModuleName function
 	 * Description : Function is used verify if the item name from screen is same as that of the test Data and navigate to next items
 	 * Return Value : void
 	 * 
 	 */
 	
-public boolean verifyItemName(String itemName,String itemType){
-    
+
+public boolean verifyItemName(String itemName, String itemType,Map<String,Object> moduleItem){
+  
 	try {
+	String feedbackItem=moduleItem.get("feedback").toString();
+	System.out.println("feedback for the item"+itemName+"="+feedbackItem);
 	cm.checkErrorComponents();
 	Thread.sleep(2000);
 	WebElement e = driver.findElement(By.xpath("//div[contains(@class,'innerListItem-module-module-item-title')]//span[contains(@class,'module-22v5yu3ffhhsgfk81kmxd65jpqpc4hrwzg5fydhjy4urrqcg2faj6em1bzckj68yxxwv96gp591877j4dy536vn4gg1dpm1nw21pwy6-innerListItem-module-title-inner') and contains(text(),'"+itemName+"')]"));
@@ -560,9 +600,9 @@ public boolean verifyItemName(String itemName,String itemType){
     
 	if(e!=null){
         Thread.sleep(2000);
-    } 
-	
-	playItem(itemName,itemType);
+    }
+    playItem(itemName,itemType);
+    fbp.likeDislikeDevItemfeedback(feedbackItem);
     return true;
 	} 
 	
@@ -591,14 +631,14 @@ public boolean verifyItemName(String itemName,String itemType){
 
 public boolean playItem(String itemName, String itemType)
 {
+	System.out.println("Inside playItem");
+	Map<String,Object> itemDetails;
 
     switch(itemType)
     {
-//        case "Quiz" :
-//
-//            qz.playQuiz(itemName);
-//
-//            break;
+    	case "Quiz" :
+    		qz.playQuiz(itemName);
+    		break;
 
         case "Assignment":
         	System.out.println("Item Type is Assignment");
@@ -609,10 +649,6 @@ public boolean playItem(String itemName, String itemType)
     return true;
 
 }
-
-
-
-
 
 	/*
 	 * Function Name : traverseThroughCourse
@@ -627,6 +663,7 @@ public boolean playItem(String itemName, String itemType)
 public boolean traverseThroughCourse(String courseName)
 {
     index=1;
+    System.out.println("In traverse through course");
     Iterator<Entry<String, Object>> it = DataObj.entrySet().iterator();
     while(it.hasNext())
     {
@@ -636,18 +673,23 @@ public boolean traverseThroughCourse(String courseName)
             ArrayList<Object> ModuleList=((ArrayList)DataObj.get(courseName));
             System.out.println("Module list size "+ModuleList.size());
             ModuleList.forEach((module)->{
+            	System.out.println("in module loop");
                 Map<String,Object> moduleItem=(Map<String,Object>)module;
+                System.out.println("the module is="+moduleItem);
                 String modulename=moduleItem.get("moduleName").toString();
                 String itemName=moduleItem.get("itemName").toString();
                 String itemType=moduleItem.get("itemType").toString();
             try {
-                    verifyModuleName(modulename,itemName,itemType);
+
+            		System.out.println("just before verify module");
+                    verifyModuleName(modulename,itemName,itemType,moduleItem);
+                    System.out.println("executed verifyModuleName function");
                     Thread.sleep(4000);
                     
-                    clickOnNextPhaseItem();    
+                    clickOnNextPhaseItem();  
                 } catch (Exception e) {
                     
-                	Assert.assertNull(e);
+                	Assert.assertNull("Traversing thorugh course not successful",e);
                     e.printStackTrace();
                 }                    
                 

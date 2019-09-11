@@ -3,8 +3,9 @@
  {
  	"moduleName" : "QUIZ & Assignment",
     "itemName" : "Normal Quiz",
-    "itemType" : "Quiz"
- },
+    "itemType" : "Quiz",
+    "feedback":"like"
+},
  {
  	"moduleName" : "QUIZ & Assignment",
     "itemName" : "Assignment with text submission",
@@ -45,6 +46,7 @@
     "itemName" : "Linked in",
     "itemType" : "Page"
  } ],
+
  
  "AssignmentData":[
  {
@@ -56,7 +58,8 @@
  {
  	"assignmentName" :"Assignment with file upload",
  	"assignmentPoints" : "20",
- 	"submissionType" : "File Upload"
+ 	"submissionType" : "File Upload",
+ 	"submissionUploadFilePath" :"/src/main/java/dataRepository/sample.csv"
  },
  {
  	"assignmentName" :"Assignment with website url submission",
@@ -64,6 +67,22 @@
  	"submissionType" : "Website URL",
  	"website_url" 	 :	"https://www.google.com"
  }],
-  "submissionUploadFilePath" :"/src/main/java/dataRepository/sample.csv"
- 
+
+ "Quiz" : [ {
+    "quizName" : "Normal Quiz",
+    "quizDesc" : "Welcome to Normal Quiz Desc",
+    "allowMultipleAttempts" : "N",
+    "noOfQuestions" : 2,
+    "qb":"N",
+    "QuestionsAnswersToPlay":
+    [{
+    "2*2=5?":["False"],
+   	"scoreReceived":10
+   	},
+    {
+    "What is AD":["Analytics & Development"],
+   	"scoreReceived":5
+   	}],
+    "pointsPerQuestion" :10
+  }]
 }
