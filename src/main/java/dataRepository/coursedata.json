@@ -44,8 +44,9 @@
  {
  	"moduleName" : "Page & External URL",
     "itemName" : "Linked in",
-    "itemType" : "Page"
- } ],
+    "itemType" : "URL",
+    "openInNewTab":"Yes"
+} ],
 
  
  "AssignmentData":[
@@ -60,13 +61,14 @@
  	"assignmentPoints" : "20",
  	"submissionType" : "File Upload",
  	"submissionUploadFilePath" :"/src/main/java/dataRepository/sample.csv"
- },
+},
  {
  	"assignmentName" :"Assignment with website url submission",
  	"assignmentPoints" : "10",
  	"submissionType" : "Website URL",
  	"website_url" 	 :	"https://www.google.com"
  }],
+
 
  "Quiz" : [ {
     "quizName" : "Normal Quiz",
