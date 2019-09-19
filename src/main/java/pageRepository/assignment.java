@@ -45,11 +45,12 @@ public class assignment extends StartUp {
 			
 		String assignmentname = assignment.get("assignmentName").toString();
 		String assignmenttype = assignment.get("submissionType").toString();
+		String filetoupload="";
+		System.out.println("assignmenttype="+assignmenttype);
 		String assignmentpoints = assignment.get("assignmentPoints").toString();
-		String assignmenttext=null;
-		String websiteurl = null;
-		String filetoupload= null;
-		
+		String assignmenttext="";
+		String websiteurl = "";
+				
 		if(assignment.get("assignmenttext")!=null){
 			assignmenttext = assignment.get("assignmenttext").toString();
 		}

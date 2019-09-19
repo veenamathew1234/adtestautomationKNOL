@@ -23,7 +23,7 @@ public class Quiz extends StartUp{
 	Map<String,Object> courseObj;
 	WebElement e;
 	public Quiz(){
-		System.out.println("Inside journey page constructor");
+		System.out.println("Inside Quiz page constructor");
 		this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/Quiz.properties");
 		courseObj=st.beforeClass("coursedata.json");
 	}
