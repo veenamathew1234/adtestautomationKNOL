@@ -591,8 +591,8 @@ public boolean verifyModuleName(String moduleName,String itemName,String itemTyp
 public boolean verifyItemName(String itemName, String itemType,Map<String,Object> moduleItem){
   
 	try {
-	String feedbackItem=moduleItem.get("feedback").toString();
-	System.out.println("feedback for the item"+itemName+"="+feedbackItem);
+	//String feedbackItem=moduleItem.get("feedback").toString();
+	//System.out.println("feedback for the item"+itemName+"="+feedbackItem);
 	cm.checkErrorComponents();
 	Thread.sleep(2000);
 	WebElement e = driver.findElement(By.xpath("//div[contains(@class,'innerListItem-module-module-item-title')]//span[contains(@class,'module-22v5yu3ffhhsgfk81kmxd65jpqpc4hrwzg5fydhjy4urrqcg2faj6em1bzckj68yxxwv96gp591877j4dy536vn4gg1dpm1nw21pwy6-innerListItem-module-title-inner') and contains(text(),'"+itemName+"')]"));
@@ -602,7 +602,7 @@ public boolean verifyItemName(String itemName, String itemType,Map<String,Object
         Thread.sleep(2000);
     }
     playItem(itemName,itemType);
-    fbp.likeDislikeDevItemfeedback(feedbackItem);
+    //fbp.likeDislikeDevItemfeedback(feedbackItem);
     return true;
 	} 
 	

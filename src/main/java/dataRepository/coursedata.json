@@ -28,8 +28,23 @@
  },
  {
  	"moduleName" : "File",
-    "itemName" : "PPT File",
+    "itemName" : "Sample PPT",
     "itemType" : "Presentation"
+ },
+ {
+ 	"moduleName" : "File",
+    "itemName" : "Sample PDF",
+    "itemType" : "Pdf"
+ },
+ {
+ 	"moduleName" : "File",
+    "itemName" : "Sample Doc",
+    "itemType" : "Document"
+ },
+  {
+ 	"moduleName" : "File",
+    "itemName" : "Sample Video",
+    "itemType" : "Video"
  },
  {
  	"moduleName" : "Simulation",

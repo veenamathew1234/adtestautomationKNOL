@@ -46,16 +46,18 @@ public class assignment extends StartUp {
 		String assignmentname = assignment.get("assignmentName").toString();
 		String assignmenttype = assignment.get("submissionType").toString();
 		String assignmentpoints = assignment.get("assignmentPoints").toString();
-		String filetoupload =  CourseDataObj.get("submissionUploadFilePath").toString();
 		String assignmenttext=null;
 		String websiteurl = null;
+		String filetoupload= null;
 		
 		if(assignment.get("assignmenttext")!=null){
 			assignmenttext = assignment.get("assignmenttext").toString();
 		}
 		if(assignment.get("website_url")!=null){
 			websiteurl=assignment.get("website_url").toString();
-			System.out.println("url is "+websiteurl);
+		}
+		if(assignment.get("submissionUploadFilePath")!=null){
+			filetoupload=assignment.get("submissionUploadFilePath").toString();
 		}
 		
 		
