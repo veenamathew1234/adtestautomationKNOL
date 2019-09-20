@@ -1,4 +1,4 @@
-Feature: JourneyPage
+Feature: D.JourneyPage
 
 Scenario: Validate journey page
 
