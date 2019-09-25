@@ -1,4 +1,4 @@
-Feature: Demographics
+Feature: B.Demographics
 
 Scenario: Skip demographics page
 
