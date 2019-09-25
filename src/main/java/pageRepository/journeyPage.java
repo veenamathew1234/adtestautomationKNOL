@@ -114,7 +114,9 @@ public class journeyPage extends StartUp {
 				// cm.verifyElementPresent("//div[contains(@class,'content-module-individual-tab')]//div[contains(text(),'"+phaseName+"')]", false,"next "+phaseName+" tab to be clicked not found");
 				 WebElement e1=driver.findElement(By.xpath("//div[contains(@class,'content-module-individual-tab')]//div[contains(text(),'"+phaseName+"')]"));
 				 e1.click();
+				
 				 //User navigates through the phase items of the particular phase	 
+				 
 				 String phaseType=phaseMap.get("phaseType").toString();
 				 System.out.println("Phase type to be clicked on next is "+phaseType);
 
@@ -126,8 +128,17 @@ public class journeyPage extends StartUp {
 					 Thread.sleep(2000);
 					 fbp.fillFeedback(phaseName,feedbackData);
 				 }
-			 clickOnHomeButton(phaseType);
-			 
+				
+				 // Function call to verify Assessment report
+				 System.out.println("Before "+phaseMap.get("phaseType").toString());
+					if(phaseType.equalsIgnoreCase("Assessment")){
+						asp.verifyAssessmentReport();
+						Map<String,Object> DataObj=st.beforeClass("coursedata.json");
+					}
+					else{
+						clickOnHomeButton(phaseType);
+					}
+					 
 			} 
 			catch(NoSuchElementException ne)
 			{
@@ -215,7 +226,6 @@ public class journeyPage extends StartUp {
 			
 			//-----function to traverse through the courses listed in test data-------
 			result=traverseThroughCourse(courseName);
-						
 			}
 		return result;
 	}
@@ -319,7 +329,6 @@ public class journeyPage extends StartUp {
 		}
 		catch(NoSuchElementException ne)
 		{	
-			//String s = ExceptionUtils.getStackTrace((Throwable) e);
 			Assert.assertNull("Home button from side bar not found"+phaseType, ne);
 		}
 		catch(Exception e)
@@ -681,9 +690,13 @@ public boolean traverseThroughCourse(String courseName)
         Map.Entry<String, Object> map = (Map.Entry<String, Object>) it.next();
         if(map.getKey().equalsIgnoreCase(courseName))
         {
+        	System.out.println("map.getkey()"+map.getKey());
+        	System.out.println("coursename "+courseName);
             ArrayList<Object> ModuleList=((ArrayList)DataObj.get(courseName));
             System.out.println("Module list size "+ModuleList.size());
+            
             ModuleList.forEach((module)->{
+            
             	System.out.println("in module loop");
                 Map<String,Object> moduleItem=(Map<String,Object>)module;
                 System.out.println("the module is="+moduleItem);
