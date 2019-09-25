@@ -12,6 +12,9 @@ import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import org.apache.http.client.methods.HttpGet;
 import org.openqa.selenium.remote.http.HttpResponse;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -58,6 +61,54 @@ public class demographicsPage extends StartUp{
 		cm.checkErrorComponents();		
 	
 }
+	
+	public void fillDemographicsPage() throws InterruptedException
+	{
+		System.out.println("hellooo");
+		//Enter Gender
+		WebElement e=driver.findElement(By.xpath("//div[contains(@class,'signup-container')]//div[contains(@class,'signup-right')]//form//div[contains(@class,'demographics-container skin-grey2')]//div[contains(@class,'personalDetails-form-field input-field')][1]//div[contains(@class,'select-wrapper')]//input[contains(@class,'select-dropdown dropdown-trigger')]"));
+        new WebDriverWait(driver, 15).until(ExpectedConditions.elementToBeClickable(e));
+        e.click();  
+
+		
+		
+		//Enter Country
+		
+        e=driver.findElement(By.xpath("//div[contains(@class,'signup-container')]//div[contains(@class,'signup-right')]//form//div[contains(@class,'demographics-container skin-grey2')]//div[contains(@class,'demographicDetails-form-field input-field')][1]//div[contains(@class,'select-wrapper')]//input[contains(@class,'select-dropdown dropdown-trigger')]"));
+        new WebDriverWait(driver, 15).until(ExpectedConditions.elementToBeClickable(e));
+        e.click();  
+		
+		//Enter Education
+		
+        e=driver.findElement(By.xpath("//div[contains(@class,'signup-container')]//div[contains(@class,'signup-right')]//form//div[contains(@class,'demographics-container skin-grey2')]//div[contains(@class,'demographicDetails-form-field input-field')][3]//div[contains(@class,'select-wrapper')]//input[contains(@class,'select-dropdown dropdown-trigger')]"));
+        new WebDriverWait(driver, 15).until(ExpectedConditions.elementToBeClickable(e));
+        e.click(); 
+		
+		//Enter Industry
+		
+        e=driver.findElement(By.xpath("//div[contains(@class,'signup-container')]//div[contains(@class,'signup-right')]//form//div[contains(@class,'demographics-container skin-grey2')]//div[contains(@class,'demographicDetails-form-field input-field')][5]//div[contains(@class,'select-wrapper')]//input[contains(@class,'select-dropdown dropdown-trigger')]"));
+        new WebDriverWait(driver, 15).until(ExpectedConditions.elementToBeClickable(e));
+        e.click(); 
+		
+		//Enter Job Category
+		
+        e=driver.findElement(By.xpath("//div[contains(@class,'signup-container')]//div[contains(@class,'signup-right')]//form//div[contains(@class,'demographics-container skin-grey2')]//div[contains(@class,'demographicDetails-form-field input-field')][7]//div[contains(@class,'select-wrapper')]//input[contains(@class,'select-dropdown dropdown-trigger')]"));
+        new WebDriverWait(driver, 15).until(ExpectedConditions.elementToBeClickable(e));
+        e.click(); 
+		
+		//WorkExperience
+		
+        driver.findElement(By.xpath("//div[contains(@class,'demographicDetails-form-field-custom')][1]//div[contains(@class,'experience-container')]//div[contains(@class,'exp-options-container')]//div[contains(@id,'ei-option-22')]/input")).click();
+		
+		//People Management
+		
+		driver.findElement(By.xpath("//div[contains(@class,'demographicDetails-form-field-custom')][2]//div[contains(@class,'experience-container')]//div[contains(@id,'ei-option-280')]/input")).click();
+		
+		//Next Button
+		
+		driver.findElement(By.xpath("//div[contains(@class,'next-button-container')]/button")).click();
+		
+	}
 }
 
 

@@ -9,27 +9,57 @@
  {
  	"moduleName" : "QUIZ & Assignment",
     "itemName" : "Assignment with text submission",
-    "itemType" : "Assignment"
+    "itemType" : "Assignment",
+     "feedback":"like"
  },
   {
  	"moduleName" : "QUIZ & Assignment",
     "itemName" : "Assignment with file upload",
-    "itemType" : "Assignment"
- },
+    "itemType" : "Assignment",
+    "feedback":"like"
+},
    {
  	"moduleName" : "QUIZ & Assignment",
     "itemName" : "Assignment with website url submission",
-    "itemType" : "Assignment"
+    "itemType" : "Assignment",
+   	"feedback":"like"
  },
- {
- 	"moduleName" : "File",
+  {
+
+    "moduleName" : "File",
     "itemName" : "Sample Image",
-    "itemType" : "Image"
+    "itemType" : "Image",
+    "feedback":"like"
  },
+
  {
- 	"moduleName" : "File",
-    "itemName" : "PPT File",
-    "itemType" : "Presentation"
+    "moduleName" : "File",
+    "itemName" : "Sample PPT",
+    "itemType" : "Presentation",
+   	"feedback":"like"
+},
+
+ {
+	"moduleName" : "File",
+	"itemName" : "Sample PDF",
+    "itemType" : "PDF",
+   	"feedback":"like"
+},
+
+ {
+
+    "moduleName" : "File",
+    "itemName" : "Sample Doc",
+    "itemType" : "Document",
+   	"feedback":"like"
+},
+
+  {
+    "moduleName" : "File",
+    "itemName" : "Sample Video",
+    "itemType" : "Video",
+  	"feedback":"like"
+
  },
  {
  	"moduleName" : "Simulation",
@@ -45,7 +75,8 @@
  	"moduleName" : "Page & External URL",
     "itemName" : "Linked in",
     "itemType" : "URL",
-    "openInNewTab":"Yes"
+    "openInNewTab":"Yes",
+    "feedback":"like"
 } ],
 
  

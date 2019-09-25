@@ -32,6 +32,7 @@ public class demographicsPageDefinition{
 		public void refresh_the_demographics_page_by_redirecting_again_to_the_same_url() throws Exception{
 
 			dp.pageRefresh();
+			//dp.fillDemographicsPage();
 
 		}
 		

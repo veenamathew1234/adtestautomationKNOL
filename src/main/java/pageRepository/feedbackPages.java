@@ -7,6 +7,8 @@ import java.util.Map;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import junit.framework.Assert;
 import utils.ObjectFactory;
@@ -38,7 +40,9 @@ public class feedbackPages extends StartUp {
 		System.out.println("phase name in f/b function is "+phaseName);
 		System.out.println("inside fill f/b function");
 		Boolean result[]= {false};
-		Thread.sleep(1000);
+		//Thread.sleep(1000);
+		WebDriverWait wait = new WebDriverWait(driver,30);
+		 wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_feedbackHeading")));
 		feedbackData.forEach((feedback)->{
 			 Map<String,Object> fb=(Map<String, Object>) (feedback);
 			if(fb.get("phaseName").toString().equalsIgnoreCase(phaseName))
@@ -130,9 +134,12 @@ public class feedbackPages extends StartUp {
 	public boolean enterItemFeedbackStars(String stars) throws Exception
 	{
 		
+		WebDriverWait wait = new WebDriverWait(driver,30);
+		wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_itemFeedback")));
 		driver.findElement(objmap.getLocator("lbl_itemFeedback")).click();
 		driver.findElement(By.xpath("//div[contains(@class,'rating-module-star')]["+stars+"]")).click();
-		Thread.sleep(1000);
+		//Thread.sleep(1000);
+		wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_closeItemFeedback")));
 		driver.findElement(objmap.getLocator("lbl_closeItemFeedback")).click();
 		
 		return true;
@@ -143,7 +150,9 @@ public class feedbackPages extends StartUp {
 		try
 		{
 			System.out.println("like Dislike Development Phase Item feedback");
-			Thread.sleep(2000);
+			Thread.sleep(1000);
+			WebDriverWait wait = new WebDriverWait(driver,30);
+			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_Howdidyoulikethecontent")));
 			switch(feedback)
 			{
 			case "like":
@@ -156,8 +165,9 @@ public class feedbackPages extends StartUp {
 				break;
 			}
 			Thread.sleep(1000);
+			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_closeFeedbackPhaseItemDev")));
 			driver.findElement(objmap.getLocator("btn_closeFeedbackPhaseItemDev")).click();
-			Thread.sleep(3000);
+			//Thread.sleep(3000);
 			System.out.println("closing like dislike");
 			return true;
 			

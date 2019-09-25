@@ -48,6 +48,7 @@ public class journeyPage extends StartUp {
 	assignment assgn = new assignment();
 	Quiz qz=new Quiz();
 	externalURL ext=new externalURL();
+	fileItems fl=new fileItems();
 	
 	public journeyPage(){
 		System.out.println("Inside journey page constructor");
@@ -68,7 +69,9 @@ public class journeyPage extends StartUp {
 	public void validateJourneyPage() throws Exception{
 		
 		int count=0;
-		Thread.sleep(4000);
+		//Thread.sleep(4000);
+		WebDriverWait wait = new WebDriverWait(driver,30);
+		 wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("phaseitem_count")));
 		 count=driver.findElements(objmap.getLocator("phaseitem_count")).size();
 		 System.out.println("Number of phase items: "+count);
 		 if(count!=0)
@@ -119,11 +122,11 @@ public class journeyPage extends StartUp {
 				 System.out.println("Phase type to be clicked on next is "+phaseType);
 
 				 navigateThroughPhaseItem(phaseType);
-				 Thread.sleep(7000);
+				 //Thread.sleep(7000);
 				 if(phaseMap.get("PhaseFeedback").toString().equalsIgnoreCase("Yes"))
 				 {
 					 System.out.println("Inside feedback phase submission");
-					 Thread.sleep(2000);
+					// Thread.sleep(2000);
 					 fbp.fillFeedback(phaseName,feedbackData);
 				 }
 			 clickOnHomeButton(phaseType);
@@ -141,6 +144,8 @@ public class journeyPage extends StartUp {
 			}
 			
 		});
+		verifyCertificate();
+		downloadCertificate();
 		}
 		catch(Exception e)
 		{
@@ -163,7 +168,9 @@ public class journeyPage extends StartUp {
 		int i;
 		//------retrieve appropriate phase item type for phase types and click on it-------- 
 		List<WebElement> phaseItems=returnPhaseItemsForPhaseType(phaseType);
-		Thread.sleep(5000);
+		//Thread.sleep(5000);
+		WebDriverWait wait = new WebDriverWait(driver,30);
+		wait.until(ExpectedConditions.visibilityOf(phaseItems.get(0)));
 		phaseItems.get(0).click();
 	
 		//-----------launching phases--------------------
@@ -206,7 +213,9 @@ public class journeyPage extends StartUp {
 		if(phaseType.equalsIgnoreCase("NormalCourse"))
 		{
 			System.out.println("Inside Normal course");
-			Thread.sleep(5000);
+			//Thread.sleep(5000);
+			WebDriverWait wait = new WebDriverWait(driver,30);
+			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_coursenamesidebar")));
 			WebElement ee=driver.findElement(objmap.getLocator("lbl_coursenamesidebar"));
 			
 			
@@ -248,7 +257,7 @@ public class journeyPage extends StartUp {
 					if(assessmentDetail.get("ItemFeedbackStars")!=null)
 					{
 						System.out.println("inside item feedback");
-						Thread.sleep(2000);
+						//Thread.sleep(2000);
 						String stars=assessmentDetail.get("ItemFeedbackStars").toString();
 						fbp.enterItemFeedbackStars(stars);
 					}
@@ -357,7 +366,9 @@ public class journeyPage extends StartUp {
 				System.out.println("size of list "+phaseItems.size());
 				break;
 			case "NormalCourse":
-				Thread.sleep(4000);
+				//Thread.sleep(4000);
+				WebDriverWait wait = new WebDriverWait(driver,30);
+				wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("normalcourse_items")));
 				phaseItems=driver.findElements(objmap.getLocator("normalcourse_items"));
 				System.out.println("size of list "+phaseItems.size());
 				break;
@@ -391,12 +402,14 @@ public class journeyPage extends StartUp {
 		try
 		{
 		//explicitWait.until(ExpectedConditions.visibilityOf(driver.findElement(objmap.getLocator("btn_start"))));
-		Thread.sleep(4000);
+		//Thread.sleep(4000);
+		WebDriverWait wait = new WebDriverWait(driver,30);
+		 wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_start")));
 		   e=driver.findElement(objmap.getLocator("btn_start"));
 			if(e!=null){
 				System.out.println("Start button found");
 				e.click();
-				Thread.sleep(4000);
+				//Thread.sleep(4000);
 				return true;
 			}
 			else return false;
@@ -432,7 +445,9 @@ public class journeyPage extends StartUp {
 
 		try
 		{
-			Thread.sleep(5000);
+			//Thread.sleep(5000);
+			WebDriverWait wait = new WebDriverWait(driver,30);
+			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_nextitem")));
 			e=driver.findElement(objmap.getLocator("btn_nextitem"));
 			if(e!=null){
 				System.out.println("Next button found ");
@@ -468,6 +483,7 @@ public class journeyPage extends StartUp {
 	
 	public boolean validateAndExitPhaseItem(String assessmentType){
 		
+		WebDriverWait wait = new WebDriverWait(driver,30);
 		try {
 		if(assessmentType.equalsIgnoreCase("Test Sim"))
 		{
@@ -476,10 +492,12 @@ public class journeyPage extends StartUp {
 				asp.submitTestSim();
 		}
 			
-			Thread.sleep(2000);
+			//Thread.sleep(2000);
+			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_exit")));
 			e=driver.findElement(objmap.getLocator("btn_exit"));
 			e.click();
-			Thread.sleep(1000);
+			//Thread.sleep(1000);
+			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_popupexit")));
 			e=driver.findElement(objmap.getLocator("btn_popupexit"));
 			if(e!=null)
 				e.click();
@@ -552,7 +570,7 @@ public boolean runAssessment(String assessmentName)
 public boolean verifyModuleName(String moduleName,String itemName,String itemType,Map<String,Object> moduleItem) throws InterruptedException {
      
 		System.out.println("Inside verify module name");
-		Thread.sleep(4000);
+		//Thread.sleep(4000);
     	List<WebElement> e=driver.findElements(By.xpath("//div[contains(@class,'module-2jm6jgwkd4mep6p6g9p5rj7s886661tqjt4tmat6w1xjsweeu2z43gzyk628tx66haga3dbb4435mwkk6cvdba6ysyb5vysmn2ru4-moduleItemScreen-module-sidebar-open module-36ypdeweh3nma3gv8ygsmvuuz5y6v96ntwxw69wy8167wqc5ze79x4mvj63hhhsh61ku9pggep2y9zh1d8f91qsu2q5gddzy7cxatzc-moduleItemScreen-module-module-item-outer-cnt')]//div[contains(@class,'_6flor0 module-49qcfnxjwygbdeq6agmkwaksp2wekc55jyg1pf9y7851cfanspg95dq93t6gsy47wmn2ukvwnwhaqk8rzaykjh4xnm4y64w96mdssx4-moduleItemScreen-module-menu-container')]//span//div//div//div[contains(@class,'tobesco')]//div[contains(@class,'_1feb3ip module-3apypwr1fyrjh2vrn8ma4dc9uxybzg21wmc7repy765y6ymt37y9fhyh3yb1gmebcz3ehqdmehedhugb9n573mua5rnnednx87w96rp-sectionHeader-module-header-name')]"));
 		boolean result=false;
 		for(WebElement e1:e){
@@ -594,7 +612,9 @@ public boolean verifyItemName(String itemName, String itemType,Map<String,Object
 	try {
 		
 	cm.checkErrorComponents();
-	Thread.sleep(2000);
+	//Thread.sleep(2000);
+	WebDriverWait wait = new WebDriverWait(driver,30);
+	wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class,'innerListItem-module-module-item-title')]//span[contains(@class,'module-22v5yu3ffhhsgfk81kmxd65jpqpc4hrwzg5fydhjy4urrqcg2faj6em1bzckj68yxxwv96gp591877j4dy536vn4gg1dpm1nw21pwy6-innerListItem-module-title-inner') and contains(text(),'"+itemName+"')]")));
 	WebElement e = driver.findElement(By.xpath("//div[contains(@class,'innerListItem-module-module-item-title')]//span[contains(@class,'module-22v5yu3ffhhsgfk81kmxd65jpqpc4hrwzg5fydhjy4urrqcg2faj6em1bzckj68yxxwv96gp591877j4dy536vn4gg1dpm1nw21pwy6-innerListItem-module-title-inner') and contains(text(),'"+itemName+"')]"));
 	System.out.println("Item Name From Screen "+e.getText());
     
@@ -639,27 +659,38 @@ public boolean playItem(String itemName, String itemType)
 {
 	System.out.println("Inside playItem");
 	Map<String,Object> itemDetails;
+	
+	try
+	{
+		switch(itemType)
+		{
+    		case "Quiz" :
+    			qz.playQuiz(itemName);
+    			break;
 
-    switch(itemType)
-    {
-    	case "Quiz" :
-    		qz.playQuiz(itemName);
-    		break;
-
-        case "Assignment":
-        	System.out.println("Item Type is Assignment");
-        	assgn.verifyAndSubmitAssignment();
-            break;
+    		case "Assignment":
+    			System.out.println("Item Type is Assignment");
+    			assgn.verifyAndSubmitAssignment();
+    			break;
        
-        
+    		case "URL":
+    			System.out.println("Item Type is External URL");
+    			ext.openExternalURL(itemName);
+    			break;
         	
-        case "URL":
-        	System.out.println("Item Type is External URL");
-        	ext.openExternalURL(itemName);
-        	break;
-    }
-    return true;
-
+    		case "Video":
+    			System.out.println("Item Type is Video");
+    			fl.checkVideoLoad();
+    			break;	
+        	
+		}
+    return true;  
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+		return false;
+	}
 }
 
 	/*
@@ -696,7 +727,7 @@ public boolean traverseThroughCourse(String courseName)
             		System.out.println("just before verify module");
                     verifyModuleName(modulename,itemName,itemType,moduleItem);
                     System.out.println("executed verifyModuleName function");
-                    Thread.sleep(4000);
+                    //Thread.sleep(4000);
                     
                     clickOnNextPhaseItem();  
                 } catch (Exception e) {
@@ -721,8 +752,6 @@ public boolean traverseThroughCourse(String courseName)
 /*
  * Function : To close browser
  * 
- * 
- * 
  */
 
 
@@ -732,4 +761,51 @@ public void closeApplication()
 	driver.quit();
 }
 
+/*
+ * Purpose: To verify the end of journey certificate
+ * 
+ */
+public void verifyCertificate()
+{
+	try
+	{
+		WebDriverWait wait = new WebDriverWait(driver,30);
+		wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_Certificate")));
+		Assert.assertEquals("Certificate Message not found", 1, driver.findElements(objmap.getLocator("lbl_Certificate")).size());
+		
+	}
+	
+	catch (NoSuchElementException e1) {
+		Assert.assertNull("Certificate after completing the journey cant be found"+e1);
+
+		e1.printStackTrace();
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+}
+
+/*
+ * Purpose: To download the end of jounrey certificate
+ * 
+ */
+public void downloadCertificate() {
+	try
+	{
+		WebDriverWait wait = new WebDriverWait(driver,30);
+		wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_DownloadCertificate"))).click();
+		
+	}
+	
+	catch(NoSuchElementException ne)
+	{
+		Assert.assertNotNull("Download report button not found", ne);
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+	
+}
 }
