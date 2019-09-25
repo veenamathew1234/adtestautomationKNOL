@@ -20,6 +20,7 @@ public class feedbackPages extends StartUp {
 	StartUp st = new StartUp();
 	List feedbackData;
 	Boolean result=false;
+	WebDriverWait wait = new WebDriverWait(driver,30);
 	
 	public feedbackPages(){
 		this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/feedbackPages.properties");
@@ -41,7 +42,6 @@ public class feedbackPages extends StartUp {
 		System.out.println("inside fill f/b function");
 		Boolean result[]= {false};
 		//Thread.sleep(1000);
-		WebDriverWait wait = new WebDriverWait(driver,30);
 		 wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_feedbackHeading")));
 		feedbackData.forEach((feedback)->{
 			 Map<String,Object> fb=(Map<String, Object>) (feedback);
@@ -158,7 +158,6 @@ public class feedbackPages extends StartUp {
 	public boolean enterItemFeedbackStars(String stars) throws Exception
 	{
 		
-		WebDriverWait wait = new WebDriverWait(driver,30);
 		wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_itemFeedback")));
 		driver.findElement(objmap.getLocator("lbl_itemFeedback")).click();
 		driver.findElement(By.xpath("//div[contains(@class,'rating-module-star')]["+stars+"]")).click();
@@ -175,7 +174,6 @@ public class feedbackPages extends StartUp {
 		{
 			System.out.println("like Dislike Development Phase Item feedback");
 			Thread.sleep(1000);
-			WebDriverWait wait = new WebDriverWait(driver,30);
 			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_Howdidyoulikethecontent")));
 			switch(feedback)
 			{

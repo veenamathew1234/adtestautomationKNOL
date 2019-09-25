@@ -31,6 +31,7 @@ import utils.StartUp;
 public class journeyPage extends StartUp {
 
 	WebDriverWait explicitWait = new WebDriverWait(driver,30);
+	WebDriverWait wait = new WebDriverWait(driver,30);
 	ObjectFactory objmap;
 	StartUp st = new StartUp();
 	public Properties prop;
@@ -70,7 +71,6 @@ public class journeyPage extends StartUp {
 		
 		int count=0;
 		//Thread.sleep(4000);
-		WebDriverWait wait = new WebDriverWait(driver,30);
 		 wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("phaseitem_count")));
 		 count=driver.findElements(objmap.getLocator("phaseitem_count")).size();
 		 System.out.println("Number of phase items: "+count);
@@ -180,7 +180,6 @@ public class journeyPage extends StartUp {
 		//------retrieve appropriate phase item type for phase types and click on it-------- 
 		List<WebElement> phaseItems=returnPhaseItemsForPhaseType(phaseType);
 		//Thread.sleep(5000);
-		WebDriverWait wait = new WebDriverWait(driver,30);
 		wait.until(ExpectedConditions.visibilityOf(phaseItems.get(0)));
 		phaseItems.get(0).click();
 	
@@ -225,7 +224,6 @@ public class journeyPage extends StartUp {
 		{
 			System.out.println("Inside Normal course");
 			//Thread.sleep(5000);
-			WebDriverWait wait = new WebDriverWait(driver,30);
 			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_coursenamesidebar")));
 			WebElement ee=driver.findElement(objmap.getLocator("lbl_coursenamesidebar"));
 			
@@ -376,7 +374,6 @@ public class journeyPage extends StartUp {
 				break;
 			case "NormalCourse":
 				//Thread.sleep(4000);
-				WebDriverWait wait = new WebDriverWait(driver,30);
 				wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("normalcourse_items")));
 				phaseItems=driver.findElements(objmap.getLocator("normalcourse_items"));
 				System.out.println("size of list "+phaseItems.size());
@@ -412,7 +409,6 @@ public class journeyPage extends StartUp {
 		{
 		//explicitWait.until(ExpectedConditions.visibilityOf(driver.findElement(objmap.getLocator("btn_start"))));
 		//Thread.sleep(4000);
-		WebDriverWait wait = new WebDriverWait(driver,30);
 		 wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_start")));
 		   e=driver.findElement(objmap.getLocator("btn_start"));
 			if(e!=null){
@@ -455,7 +451,6 @@ public class journeyPage extends StartUp {
 		try
 		{
 			//Thread.sleep(5000);
-			WebDriverWait wait = new WebDriverWait(driver,30);
 			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_nextitem")));
 			e=driver.findElement(objmap.getLocator("btn_nextitem"));
 			if(e!=null){
@@ -492,7 +487,6 @@ public class journeyPage extends StartUp {
 	
 	public boolean validateAndExitPhaseItem(String assessmentType){
 		
-		WebDriverWait wait = new WebDriverWait(driver,30);
 		try {
 		if(assessmentType.equalsIgnoreCase("Test Sim"))
 		{
@@ -621,7 +615,6 @@ public boolean verifyItemName(String itemName, String itemType,Map<String,Object
 	try {
 	cm.checkErrorComponents();
 	//Thread.sleep(2000);
-	WebDriverWait wait = new WebDriverWait(driver,30);
 	wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class,'innerListItem-module-module-item-title')]//span[contains(@class,'module-22v5yu3ffhhsgfk81kmxd65jpqpc4hrwzg5fydhjy4urrqcg2faj6em1bzckj68yxxwv96gp591877j4dy536vn4gg1dpm1nw21pwy6-innerListItem-module-title-inner') and contains(text(),'"+itemName+"')]")));
 	WebElement e = driver.findElement(By.xpath("//div[contains(@class,'innerListItem-module-module-item-title')]//span[contains(@class,'module-22v5yu3ffhhsgfk81kmxd65jpqpc4hrwzg5fydhjy4urrqcg2faj6em1bzckj68yxxwv96gp591877j4dy536vn4gg1dpm1nw21pwy6-innerListItem-module-title-inner') and contains(text(),'"+itemName+"')]"));
 	System.out.println("Item Name From Screen "+e.getText());
@@ -781,7 +774,6 @@ public void verifyCertificate()
 {
 	try
 	{
-		WebDriverWait wait = new WebDriverWait(driver,30);
 		wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_Certificate")));
 		Assert.assertEquals("Certificate Message not found", 1, driver.findElements(objmap.getLocator("lbl_Certificate")).size());
 		
@@ -805,7 +797,6 @@ public void verifyCertificate()
 public void downloadCertificate() {
 	try
 	{
-		WebDriverWait wait = new WebDriverWait(driver,30);
 		wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_DownloadCertificate"))).click();
 		
 	}
