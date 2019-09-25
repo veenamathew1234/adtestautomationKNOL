@@ -610,7 +610,6 @@ public boolean verifyModuleName(String moduleName,String itemName,String itemTyp
 public boolean verifyItemName(String itemName, String itemType,Map<String,Object> moduleItem){
   
 	try {
-		
 	cm.checkErrorComponents();
 	//Thread.sleep(2000);
 	WebDriverWait wait = new WebDriverWait(driver,30);

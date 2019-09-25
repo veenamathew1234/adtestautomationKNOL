@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import org.apache.http.client.methods.HttpGet;
 import org.openqa.selenium.remote.http.HttpResponse;
 import org.openqa.selenium.support.ui.ExpectedConditions;
