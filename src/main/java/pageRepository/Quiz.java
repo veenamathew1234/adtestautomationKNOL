@@ -213,8 +213,8 @@ public class Quiz extends StartUp{
 		try
 		{
 			System.out.println("inside findQuestionFromScreen and question number="+questionNumber);
-			Thread.sleep(10000);
-			wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(@class,'_11yezv')]")));
+			Thread.sleep(3000);
+			 wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(@class,'_11yezv')]")));
 			e=driver.findElement(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(@class,'_11yezv')]"));
 			String question=e.getText();
 			System.out.println("question inside="+question);

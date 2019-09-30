@@ -58,9 +58,10 @@ public class StartUp {
 				ChromeOptions options = new ChromeOptions();
 				DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 				options.addArguments("-incognito");
-				options.addArguments("window-size=5000x5000");
-				options.addArguments("headless");
 				options.addArguments("disable-gpu");
+				options.addArguments("window-size=5000x5000");
+				options.addArguments("--start-maximized");
+				options.addArguments("headless");
 				System.out.println("inside healdless startup");
 				capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 				driver = new ChromeDriver(options);
