@@ -666,7 +666,8 @@ public boolean playItem(String itemName, String itemType)
 		switch(itemType)
 		{
     		case "Quiz" :
-    			qz.playQuiz(itemName);
+    			//qz.playQuiz(itemName);
+    			
     			break;
 
     		case "Assignment":
