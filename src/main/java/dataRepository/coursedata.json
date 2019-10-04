@@ -2,12 +2,6 @@
 "Normal Course":[
 {
     "moduleName" : "QUIZ & Assignment",
-   "itemName" : "Normal Quiz",
-   "itemType" : "Quiz",
-   "feedback":"like"
-},
-{
-    "moduleName" : "QUIZ & Assignment",
    "itemName" : "Assignment with text submission",
    "itemType" : "Assignment",
     "feedback":"like"
@@ -90,10 +84,12 @@
    "qb":"N",
    "QuestionsAnswersToPlay":
    [{
+   "question":"2*2=5?",
    "2*2=5?":["False"],
       "scoreReceived":10
       },
    {
+   "question":"What is AD",
    "What is AD":["Analytics & Development"],
       "scoreReceived":5
       }],

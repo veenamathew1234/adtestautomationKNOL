@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -86,7 +87,6 @@ public class Quiz extends StartUp{
 	 * Function Parameters: itemName
 	 * Description : To play quiz
 	 * Return Value : boolean
-	 * 
 	 */
 	public void playQuiz(String itemName) {
 		try
@@ -187,7 +187,9 @@ public class Quiz extends StartUp{
 				System.out.println("Inside questions loop");
 				Map<String,Object> qamap=(Map<String, Object>) questionAnswers.get(i);
 				System.out.println("Qamap="+qamap);
-				question=findQuestionFromScreen(i+1);
+				
+				//question=findQuestionFromScreen(i+1);
+				question=qamap.get("question").toString();
 				System.out.println("question got="+question);
 				scoreCalc+=(Integer)qamap.get("scoreReceived");
 				answers=(ArrayList)qamap.get(question);
@@ -210,16 +212,24 @@ public class Quiz extends StartUp{
 	public String findQuestionFromScreen(int questionNumber)
 	{
 		
-		try
-		{
-			System.out.println("inside findQuestionFromScreen and question number="+questionNumber);
-			Thread.sleep(3000);
-			 wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(@class,'_11yezv')]")));
-			e=driver.findElement(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(@class,'_11yezv')]"));
-			String question=e.getText();
-			System.out.println("question inside="+question);
-			return question;
-		}
+        try
+
+        {
+
+            System.out.println("inside findQuestionFromScreen and question number="+questionNumber);
+            //Thread.sleep(10000);
+//            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(@class,'_11yezv')]")));
+//            e=driver.findElement(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(@class,'_11yezv')]"));
+//            String question=e.getText();
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+//			Object question=js.executeAsyncScript("var question = document.querySelectorAll(\"div[class*='questionList-module-question-data-cnt']:nth-of-type(1)\")[0];" + 
+//					"var questionDiv = question.querySelector(\"div[class*='_11yezv']\");" + 
+//					"questionText = questionDiv.querySelector(\"p\").innerText;");
+           String question="";
+            System.out.println("question inside="+question);
+            return question.toString();
+
+        }
 		catch(NoSuchElementException ne)
 		{
 			Assert.assertNull(""+questionNumber+"st question cannot be found on screen", ne);
@@ -228,7 +238,7 @@ public class Quiz extends StartUp{
 		}
 		catch(Exception e )
 		{
-			Assert.assertNull("Cannot find question from screen", e);
+			//Assert.assertNull("Cannot find question from screen", e);
 			e.printStackTrace();
 			return null;
 		}
@@ -239,20 +249,23 @@ public class Quiz extends StartUp{
 		try
 		{
 			System.out.println("Inside click ON Answer and the question number="+questionNumber);
-			//Thread.sleep(5000);
-			 wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]")));
-			String question=driver.findElement(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]")).getText();
-			e=driver.findElement(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(text(),'"+answer+"')]"));
+			Thread.sleep(2000);
+			 //wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]")));
+			//String question=driver.findElement(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]")).getText();
+			//e=driver.findElement(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(text(),'"+answer+"')]"));
+			e=driver.findElement(By.xpath("//div[contains(@class,'takeQuiz-module-quiz-questions-data')]//div[contains(@class,'takeQuiz-module-question-list-cnt')]//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(text(),'"+answer+"')]"));
 			e.click();
 			return true;
 		}
 		catch(NoSuchElementException ne)
 		{
+			ne.printStackTrace();
 			Assert.assertNull(""+answer+" cannot be found on screen", ne);
 			return false;
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			Assert.assertNull("Some issue in answering question",e);
 			return false;
 		
