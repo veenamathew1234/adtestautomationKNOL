@@ -59,8 +59,10 @@ public class StartUp {
 				DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 				options.addArguments("-incognito");
 				options.addArguments("window-size=5000x5000");
-				//options.addArguments("headless");
+			//	options.addArguments("headless");
 				options.addArguments("disable-gpu");
+//				options.addArguments("--proxy-server='direct://'");
+//				options.addArguments("--proxy-bypass-list=*");
 				System.out.println("inside healdless startup");
 				capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 				driver = new ChromeDriver(options);
