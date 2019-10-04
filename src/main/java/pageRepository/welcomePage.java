@@ -12,6 +12,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.http.HttpResponse;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import utils.CommonMethods;
 import utils.ObjectFactory;
@@ -27,6 +29,7 @@ public class welcomePage extends StartUp {
 	int statusCode ;
 	List<WebElement> l;
 	CommonMethods cm=new CommonMethods(); 
+	WebDriverWait wait = new WebDriverWait(driver,30);
 	int flag=0;
 	
 		
@@ -61,8 +64,8 @@ public welcomePage(){
  
 		if(isNewUser.equalsIgnoreCase("yes")){
 			System.out.println("User is new user and Accept invitation button is found");
-			Thread.sleep(7000);
-			
+			Thread.sleep(1000);
+			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_AcceptInvitation")));
 			e=driver.findElement(objmap.getLocator("btn_AcceptInvitation"));
 			Assert.assertNotNull("Accept Invitation button Not found", e);
 			e.click();

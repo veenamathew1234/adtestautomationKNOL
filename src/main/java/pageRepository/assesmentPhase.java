@@ -1,9 +1,14 @@
 package pageRepository;
 
+import java.util.Map;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.http.HttpResponse;
 
+import junit.framework.Assert;
 import utils.ObjectFactory;
 import utils.StartUp;
 
@@ -11,6 +16,8 @@ public class assesmentPhase extends StartUp{
 	
 	ObjectFactory objmap;
 	WebElement e;
+	StartUp st=new StartUp();
+	
 	public assesmentPhase(){
 		System.out.println("Inside assessment page constructor");
 		this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/assessmentPhase.properties");
@@ -102,6 +109,74 @@ public class assesmentPhase extends StartUp{
 			
 		}
 	}
+	
+	
+	/*
+	 * Function Name : verifyAssessmentreport
+	 * Function Parameters: NA
+	 * Description : Function used to verify the assessment report
+	 * Return Value : Boolean
+	 * 
+	 */
+	
+	public boolean verifyAssessmentReport() throws Exception{
+		
+		System.out.println("Inside assessment report");
+		
+		try{
+			driver.findElement(objmap.getLocator("btn_GotoMeasures")).click();
+			Thread.sleep(2000);
+			
+			int AssessmentResult=driver.findElements(objmap.getLocator("lbl_Assessmentresult")).size();
+			Assert.assertEquals("Assessment Reult Page is not found", 1,AssessmentResult );
+			Thread.sleep(2000);
+			
+			WebElement detailedanalysis= driver.findElement(objmap.getLocator("lnk_detailedanalysis"));
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", detailedanalysis);
+			Thread.sleep(1000); 
+			detailedanalysis.click();
+			
+			//function to Download report
+			downloadAssessmentReport();
+			return true;
+			
+		}
+		catch(NoSuchElementException e)
+		{
+			Assert.assertNull("Exception in verify Assessment report",e);
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+	
+	public boolean downloadAssessmentReport() throws Exception{
+		
+		try{
+			
+			WebElement assessmentreport=driver.findElement(objmap.getLocator("btn_downloadassessmentreport"));
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", assessmentreport);
+			Thread.sleep(1000); 
+			assessmentreport.click();
+			Thread.sleep(3000);
+			
+			WebElement backarrow=driver.findElement(objmap.getLocator("lnk_assessmentreportbackarrow"));
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", backarrow);
+			Thread.sleep(1000); 
+			backarrow.click();
+			
+			return true;
+		}
+		
+		catch(NoSuchElementException e){
+			Assert.assertNull("Exception in download assessment report", e);
+			return false;
+		}
+		
+		
+		
+	}
+	
 		
 		public boolean assessmentPhaseNavigation()
 		{

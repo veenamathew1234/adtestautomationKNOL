@@ -9,6 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.itextpdf.text.log.SysoCounter;
 
@@ -22,6 +23,7 @@ public class Quiz extends StartUp{
 	ObjectFactory objmap;
 	Map<String,Object> courseObj;
 	WebElement e;
+	WebDriverWait wait = new WebDriverWait(driver,30);
 	public Quiz(){
 		System.out.println("Inside Quiz page constructor");
 		this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/Quiz.properties");
@@ -209,7 +211,8 @@ public class Quiz extends StartUp{
 		try
 		{
 			System.out.println("inside findQuestionFromScreen and question number="+questionNumber);
-			Thread.sleep(3000);
+			//Thread.sleep(3000);
+			 wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(@class,'_11yezv')]")));
 			e=driver.findElement(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(@class,'_11yezv')]"));
 			String question=e.getText();
 			System.out.println("question inside="+question);
@@ -234,13 +237,9 @@ public class Quiz extends StartUp{
 		try
 		{
 			System.out.println("Inside click ON Answer and the question number="+questionNumber);
-			Thread.sleep(5000);
+			//Thread.sleep(5000);
+			 wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]")));
 			String question=driver.findElement(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]")).getText();
-			//driver.navigate().refresh();
-			//e=driver.findElement(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(text(),'"+answer+"')]"));
-			//driver.navigate().refresh();
-			//System.out.println("post refresh");
-			//Thread.sleep(3000);
 			e=driver.findElement(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(text(),'"+answer+"')]"));
 			e.click();
 			return true;
@@ -286,7 +285,8 @@ public class Quiz extends StartUp{
 		try
 		{
 			System.out.println("inside verifyScore");
-			Thread.sleep(5000);
+			//Thread.sleep(5000);
+			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_TotalScoreReceived")));
 			e=driver.findElement(objmap.getLocator("lbl_TotalScoreReceived"));
 			System.out.println("The string before int parse="+e.getText());
 			float scoreFromScreentemp=Float.parseFloat(e.getText());

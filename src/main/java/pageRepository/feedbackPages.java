@@ -7,6 +7,8 @@ import java.util.Map;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import junit.framework.Assert;
 import utils.ObjectFactory;
@@ -18,6 +20,7 @@ public class feedbackPages extends StartUp {
 	StartUp st = new StartUp();
 	List feedbackData;
 	Boolean result=false;
+	WebDriverWait wait = new WebDriverWait(driver,30);
 	
 	public feedbackPages(){
 		this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/feedbackPages.properties");
@@ -38,7 +41,8 @@ public class feedbackPages extends StartUp {
 		System.out.println("phase name in f/b function is "+phaseName);
 		System.out.println("inside fill f/b function");
 		Boolean result[]= {false};
-		Thread.sleep(1000);
+		//Thread.sleep(1000);
+		 wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_feedbackHeading")));
 		feedbackData.forEach((feedback)->{
 			 Map<String,Object> fb=(Map<String, Object>) (feedback);
 			if(fb.get("phaseName").toString().equalsIgnoreCase(phaseName))
@@ -49,7 +53,7 @@ public class feedbackPages extends StartUp {
 				System.out.println("indide f/b try block");	
 				result[0]=enterFeedbackDetailsForm(fb);
 				verifyThankYouFeedbackPage();
-						}
+			}
 				catch(Exception e)
 				{
 					e.printStackTrace();
@@ -85,7 +89,6 @@ public class feedbackPages extends StartUp {
 		String overallRating=fb.get("overallRating").toString();
 		String recommend=fb.get("recommendValue").toString();
 		driver.findElement(By.xpath("//div[contains(@class,'module-4d12mstux7kz6kx16r2e8csqgx5wze318bdeea8bnug4byhh8nu7fzfs82ck8e7ntvgnfk478xt475dbahu496asmz7xz13s9thqknz-starRating-module-individual-star')]["+overallRating+"]")).click();
-		//driver.findElement(By.xpath("//div[contains(@class,'module-4d12mstux7kz6kx16r2e8csqgx5wze318bdeea8bnug4byhh8nu7fzfs82ck8e7ntvgnfk478xt475dbahu496asmz7xz13s9thqknz-starRating-module-individual-star'")])
 		driver.findElement(By.xpath("//div[contains(@class,'_508t3c module-2dds1v9tuexvbh1njfs1gpvgf7rk981dc2hutw3hp84jkv6ufr5d5j5vxwfbv5czk9m4gtj1fmdmv6pmdt935rz5jz771cpkxaade7y-scaleRating-module-individual-score')]["+recommend+"]")).click();
 		
 		//--- Scrolling to accomodate the submit button-----
@@ -126,13 +129,40 @@ public class feedbackPages extends StartUp {
 		Thread.sleep(2000);
 		return true;
 	}
+
+	
+//	/*
+//	 * Function Name : verifyAssessmentreport
+//	 * Function Parameters: NA
+//	 * Description : Function used to verify the assessment report
+//	 * Return Value : Boolean
+//	 * 
+//	 */
+//	
+//	public boolean verifyAssessmentReport() throws Exception{
+//		
+//		driver.findElement(objmap.getLocator("btn_GotoMeasures")).click();
+//		Thread.sleep(2000);
+//		
+//		int AssessmentResult=driver.findElements(objmap.getLocator("lbl_Assessmentresult")).size();
+//		System.out.println("Size of Assessment result" +AssessmentResult);
+//		Assert.assertEquals("Assessment Reult Page is not found", 1,AssessmentResult );
+//		Thread.sleep(2000);
+//		return true;
+//		
+//		
+//	}
+//	
+	
 	
 	public boolean enterItemFeedbackStars(String stars) throws Exception
 	{
 		
+		wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_itemFeedback")));
 		driver.findElement(objmap.getLocator("lbl_itemFeedback")).click();
 		driver.findElement(By.xpath("//div[contains(@class,'rating-module-star')]["+stars+"]")).click();
-		Thread.sleep(1000);
+		//Thread.sleep(1000);
+		wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_closeItemFeedback")));
 		driver.findElement(objmap.getLocator("lbl_closeItemFeedback")).click();
 		
 		return true;
@@ -143,7 +173,8 @@ public class feedbackPages extends StartUp {
 		try
 		{
 			System.out.println("like Dislike Development Phase Item feedback");
-			Thread.sleep(2000);
+			Thread.sleep(1000);
+			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_Howdidyoulikethecontent")));
 			switch(feedback)
 			{
 			case "like":
@@ -156,8 +187,9 @@ public class feedbackPages extends StartUp {
 				break;
 			}
 			Thread.sleep(1000);
+			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_closeFeedbackPhaseItemDev")));
 			driver.findElement(objmap.getLocator("btn_closeFeedbackPhaseItemDev")).click();
-			Thread.sleep(3000);
+			//Thread.sleep(3000);
 			System.out.println("closing like dislike");
 			return true;
 			
