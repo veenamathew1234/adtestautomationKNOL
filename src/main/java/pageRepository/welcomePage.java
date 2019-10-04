@@ -45,7 +45,8 @@ public welcomePage(){
 	 cm.checkErrorComponents();
 	 Thread.sleep(2000);
 	 String currenturl=driver.getCurrentUrl();
-	 if(currenturl.startsWith("https://stg-aktivplatform.knolskape.io")){
+	 System.out.println("currenturl"+currenturl);
+	 if(currenturl.startsWith("https://plus.aktivlearn.com/")){
 		 flag=1;
 		 isNewUser = DataObj.get("isNewUser").toString();
 		 if(isNewUser.equalsIgnoreCase("yes")){
