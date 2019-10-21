@@ -68,6 +68,8 @@ public class StartUp {
 				driver = new ChromeDriver(options);
 				driver.manage().window().maximize(); 
 		 }
+		 
+		 
 //		  }
 //		 
 //		 finally{
