@@ -34,12 +34,14 @@ public class loginPage extends StartUp{
 	public void launchPage(){
 		
 		driver.get(DataObj.get("url").toString());
+		System.out.println("Trying out the url");
 	}
 	
 	public void validateLoginPage(){
 		String title=driver.getTitle();
 		System.out.println("Page title :"+title);
-		Assert.assertEquals("Incorrect Login page","Login to Kompass", title);
+                System.out.println("2nd trial message from staging");
+       Assert.assertEquals("Incorrect Login page","Login to Kompass", title);
 		
 	}
 	
