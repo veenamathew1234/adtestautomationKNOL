@@ -34,6 +34,7 @@ public class loginPage extends StartUp{
 	public void launchPage(){
 		
 		driver.get(DataObj.get("url").toString());
+		System.out.println("Trying out the url");
 	}
 	
 	public void validateLoginPage(){
