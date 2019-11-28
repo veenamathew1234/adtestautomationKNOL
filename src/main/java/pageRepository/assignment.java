@@ -95,7 +95,7 @@ public class assignment extends StartUp {
 			e.click();
 			Thread.sleep(2000);
 			e.sendKeys(System.getProperty("user.dir")+filetoupload);
-			//Thread.sleep(1000);
+			Thread.sleep(1000);
 			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_submit")));
 			driver.findElement(objmap.getLocator("btn_submit")).click();
 		}

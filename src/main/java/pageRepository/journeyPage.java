@@ -574,7 +574,7 @@ public boolean verifyModuleName(String moduleName,String itemName,String itemTyp
      
 		System.out.println("Inside verify module name");
 		//Thread.sleep(4000);
-    	List<WebElement> e=driver.findElements(By.xpath("//div[contains(@class,'module-2jm6jgwkd4mep6p6g9p5rj7s886661tqjt4tmat6w1xjsweeu2z43gzyk628tx66haga3dbb4435mwkk6cvdba6ysyb5vysmn2ru4-moduleItemScreen-module-sidebar-open module-36ypdeweh3nma3gv8ygsmvuuz5y6v96ntwxw69wy8167wqc5ze79x4mvj63hhhsh61ku9pggep2y9zh1d8f91qsu2q5gddzy7cxatzc-moduleItemScreen-module-module-item-outer-cnt')]//div[contains(@class,'_6flor0 module-49qcfnxjwygbdeq6agmkwaksp2wekc55jyg1pf9y7851cfanspg95dq93t6gsy47wmn2ukvwnwhaqk8rzaykjh4xnm4y64w96mdssx4-moduleItemScreen-module-menu-container')]//span//div//div//div[contains(@class,'tobesco')]//div[contains(@class,'_1feb3ip module-3apypwr1fyrjh2vrn8ma4dc9uxybzg21wmc7repy765y6ymt37y9fhyh3yb1gmebcz3ehqdmehedhugb9n573mua5rnnednx87w96rp-sectionHeader-module-header-name')]"));
+    	List<WebElement> e=driver.findElements(By.xpath("//div[contains(@class,'moduleItemScreen-module-sidebar-open module-36ypdeweh3nma3gv8ygsmvuuz5y6v96ntwxw69wy8167wqc5ze79x4mvj63hhhsh61ku9pggep2y9zh1d8f91qsu2q5gddzy7cxatzc-moduleItemScreen-module-module-item-outer-cnt')]//div[contains(@class,'moduleItemScreen-module-menu-container')]//span//div//div//div[contains(@class,'tobesco')]//div[contains(@class,'sectionHeader-module-header-name')]"));
 		boolean result=false;
 		for(WebElement e1:e){
 			
@@ -728,6 +728,7 @@ public boolean traverseThroughCourse(String courseName)
                 String modulename=moduleItem.get("moduleName").toString();
                 String itemName=moduleItem.get("itemName").toString();
                 String itemType=moduleItem.get("itemType").toString();
+                System.out.println("names="+modulename+" "+itemName+" "+itemType);
             try {
 
             		System.out.println("just before verify module");
