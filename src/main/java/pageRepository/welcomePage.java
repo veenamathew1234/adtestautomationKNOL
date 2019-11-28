@@ -51,6 +51,8 @@ public welcomePage(){
 		 if(isNewUser.equalsIgnoreCase("yes")){
 			 l=driver.findElements(objmap.getLocator("lbl_greetings"));
 			 Assert.assertEquals("Incorrect Welcome Page",1,l.size());
+			 Thread.sleep(1000);
+			 driver.findElement(objmap.getLocator("lbl_ContinueLearning")).click();
 		 }
 	 }
 	 else
