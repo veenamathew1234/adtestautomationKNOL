@@ -98,8 +98,6 @@ public class Quiz extends StartUp{
 			int flag=0;
 		//Click on the take quiz button
 			Thread.sleep(2000);
-//			e=driver.findElement(objmap.getLocator("btn_TakeQuiz"));
-//			e.click();
 			for(int i=0;i<quizDetails.size();i++)
 			{
 				Map<String,Object>q1=(Map<String, Object>) quizDetails.get(i);
@@ -217,14 +215,7 @@ public class Quiz extends StartUp{
         {
 
             System.out.println("inside findQuestionFromScreen and question number="+questionNumber);
-            //Thread.sleep(10000);
-//            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(@class,'_11yezv')]")));
-//            e=driver.findElement(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(@class,'_11yezv')]"));
-//            String question=e.getText();
             JavascriptExecutor js = (JavascriptExecutor) driver;
-//			Object question=js.executeAsyncScript("var question = document.querySelectorAll(\"div[class*='questionList-module-question-data-cnt']:nth-of-type(1)\")[0];" + 
-//					"var questionDiv = question.querySelector(\"div[class*='_11yezv']\");" + 
-//					"questionText = questionDiv.querySelector(\"p\").innerText;");
            String question="";
             System.out.println("question inside="+question);
             return question.toString();
@@ -250,9 +241,6 @@ public class Quiz extends StartUp{
 		{
 			System.out.println("Inside click ON Answer and the question number="+questionNumber);
 			Thread.sleep(2000);
-			 //wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]")));
-			//String question=driver.findElement(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]")).getText();
-			//e=driver.findElement(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(text(),'"+answer+"')]"));
 			e=driver.findElement(By.xpath("//div[contains(@class,'takeQuiz-module-quiz-questions-data')]//div[contains(@class,'takeQuiz-module-question-list-cnt')]//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(text(),'"+answer+"')]"));
 			e.click();
 			return true;
