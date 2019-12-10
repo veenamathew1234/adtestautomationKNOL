@@ -39,8 +39,8 @@ public class loginPage extends StartUp{
 	public void validateLoginPage(){
 		String title=driver.getTitle();
 		System.out.println("Page title :"+title);
-		System.out.println("Check to verify the git clone in staging");
-		Assert.assertEquals("Incorrect Login page","Login to Kompass", title);
+                System.out.println("2nd trial message from staging");
+       Assert.assertEquals("Incorrect Login page","Login to Kompass", title);
 		
 	}
 	
