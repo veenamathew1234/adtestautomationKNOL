@@ -241,7 +241,8 @@ public class Quiz extends StartUp{
 		{
 			System.out.println("Inside click ON Answer and the question number="+questionNumber);
 			Thread.sleep(2000);
-			e=driver.findElement(By.xpath("//div[contains(@class,'takeQuiz-module-quiz-questions-data')]//div[contains(@class,'takeQuiz-module-question-list-cnt')]//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(text(),'"+answer+"')]"));
+			//e=driver.findElement(By.xpath("//div[contains(@class,'takeQuiz-module-quiz-questions-data')]//div[contains(@class,'takeQuiz-module-question-list-cnt')]//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(text(),'"+answer+"')]"));
+			e=driver.findElement(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(@class,'mcq-module-mcq-cnt')]//div[contains(@class,'mcq-module-answer-options-cnt')]//div[contains(@class,'mcq-module-selected-option-text') and contains(text(),'"+answer+"')]"));
 			e.click();
 			return true;
 		}

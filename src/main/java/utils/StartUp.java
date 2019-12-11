@@ -59,14 +59,21 @@ public class StartUp {
 				DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 				options.addArguments("-incognito");
 				options.addArguments("window-size=5000x5000");
-			//	options.addArguments("headless");
-				options.addArguments("disable-gpu");
+				//options.addArguments("headless");
+				options.setAcceptInsecureCerts(true);
+				options.addArguments("--allow-insecure-localhost");
+				options.addArguments("--ignore-certificate-errors");
+				//options.addAdditionalCapability("acceptInsecureCerts", true, true);
+				
+				//options.addArguments("disable-gpu");
+				//options.addArguments("--remote-debugging-port=9222");
 //				options.addArguments("--proxy-server='direct://'");
 //				options.addArguments("--proxy-bypass-list=*");
 				System.out.println("inside healdless startup");
 				capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+				capabilities.setAcceptInsecureCerts(true);
 				driver = new ChromeDriver(options);
-				driver.manage().window().maximize(); 
+				//driver.manage().window().maximize(); 
 		 }
 		 
 		 
