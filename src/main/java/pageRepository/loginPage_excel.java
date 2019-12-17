@@ -72,8 +72,7 @@ public class loginPage_excel extends StartUp{
 		e=driver.findElement(objmap.getLocator("btn_Signin"));
 		e.click();
 		Thread.sleep(1000);
-		Assert.assertEquals("Incorrect credentials",0,driver.findElements(By.xpath("//div[contains(@class,'error-box')]")).size());
-		//cm.changeToNewUser();
+		Assert.assertEquals("Incorrect user credentials",0,driver.findElements(By.xpath("//div[contains(@class,'error-box')]")).size());
 		readexcel.deleteRow(path);
 	}
 	
