@@ -1,0 +1,27 @@
+{
+"QuizCheckVeenaM":[
+ {
+ 	"moduleName" : "Quiz",
+    "itemName" : "Normal Quiz",
+    "itemType" : "Quiz",
+    "feedback":"like"
+}], "Quiz" : [ {
+   "quizName" : "Normal Quiz",
+   "quizDesc" : "Welcome to Normal Quiz Desc",
+   "allowMultipleAttempts" : "N",
+   "noOfQuestions" : 2,
+   "qb":"N",
+   "QuestionsAnswersToPlay":
+   [{
+   "question":"2*2=5?",
+   "2*2=5?":["False"],
+      "scoreReceived":10
+      },
+   {
+   "question":"What is AD",
+   "What is AD":["Analytics & Development"],
+      "scoreReceived":10
+      }],
+   "pointsPerQuestion" :10
+ }]
+}
