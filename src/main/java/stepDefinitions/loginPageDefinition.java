@@ -18,10 +18,11 @@ import java.util.Properties;
 
 import org.junit.Assert;
 import pageRepository.loginPage;
+import pageRepository.loginPage_excel;
 
 public class loginPageDefinition {
 	
-	loginPage lp=new loginPage();
+	loginPage_excel lp=new loginPage_excel();
 	
 	@Given("^User is already in login page$")
 	public void user_is_already_in_login_page(){

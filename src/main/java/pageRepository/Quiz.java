@@ -1,5 +1,6 @@
 package pageRepository;
 
+import java.sql.Time;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class Quiz extends StartUp{
 	Map<String,Object> courseObj;
 	WebElement e;
 	WebDriverWait wait = new WebDriverWait(driver,30);
+	
 	public Quiz(){
 		System.out.println("Inside Quiz page constructor");
 		this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/Quiz.properties");
@@ -209,7 +211,18 @@ public class Quiz extends StartUp{
 	
 	public String findQuestionFromScreen(int questionNumber)
 	{
-		
+
+//		try
+//		{
+//			System.out.println("inside findQuestionFromScreen and question number="+questionNumber);
+//			//Thread.sleep(10000);
+//			wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(@class,'_11yezv')]")));
+//			e=driver.findElement(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(@class,'_11yezv')]"));
+//			String question=e.getText();
+//			System.out.println("question inside="+question);
+//			return question;
+//		}
+
         try
 
         {
@@ -228,6 +241,7 @@ public class Quiz extends StartUp{
             return question.toString();
 
         }
+
 		catch(NoSuchElementException ne)
 		{
 			Assert.assertNull(""+questionNumber+"st question cannot be found on screen", ne);
