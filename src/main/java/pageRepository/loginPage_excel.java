@@ -74,6 +74,9 @@ public class loginPage_excel extends StartUp{
 		Thread.sleep(1000);
 		Assert.assertEquals("Incorrect user credentials",0,driver.findElements(By.xpath("//div[contains(@class,'error-box')]")).size());
 		readexcel.deleteRow(path);
+		Thread.sleep(2000);
+		e=driver.findElement(objmap.getLocator("btn_Skip"));
+		e.click();
 	}
 	
 

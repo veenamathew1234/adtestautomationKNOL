@@ -14,6 +14,7 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.http.HttpResponse;
@@ -67,14 +68,37 @@ public class journeyPage extends StartUp {
 	 * 
 	 */
 	
-	public void validateJourneyPage() throws Exception{
+	public void validateJourneyPage() {
 		
 		int count=0;
 		//Thread.sleep(4000);
-		 wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("phaseitem_count")));
+		
+		//if(driver.findElement(objmap.getLocator("phaseitem_count").isEnabled()||driver.findElement(objmap.getLocator("phaseitem_count")).isEnabled()))
+		try 
+		{
+			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("phaseitem_count")));
 		 count=driver.findElements(objmap.getLocator("phaseitem_count")).size();
 		 System.out.println("Number of phase items: "+count);
-		 if(count!=0)
+		}
+		catch(TimeoutException ne)
+		{
+			System.out.println("Inside catch1");
+			try
+			{	
+				wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("phaseitem_dev_count")));
+				count=driver.findElements(objmap.getLocator("phaseitem_dev_count")).size();
+			}
+			catch(Exception e1)
+			{
+				System.out.println("inside nested catch");
+				e1.printStackTrace();
+			}
+		}
+		catch (Exception e) {
+			System.out.println("Inside main catch");
+			e.printStackTrace();
+		}
+		if(count!=0)
 			 System.out.println("Sucessfully landed on journey page");
 		 Assert.assertNotSame("Journey Landing page not loaded properly",0, count);
 		
@@ -115,9 +139,8 @@ public class journeyPage extends StartUp {
 				 String phaseName=phaseMap.get("phaseName").toString();
 				 System.out.println("Phase name to be clicked on next is "+phaseName);
 				// cm.verifyElementPresent("//div[contains(@class,'content-module-individual-tab')]//div[contains(text(),'"+phaseName+"')]", false,"next "+phaseName+" tab to be clicked not found");
-				 WebElement e1=driver.findElement(By.xpath("//div[contains(@class,'content-module-individual-tab')]//div[contains(text(),'"+phaseName+"')]"));
+				 WebElement e1=driver.findElement(By.xpath("//div[contains(@class,'content-module-tabs-content')]//div[contains(text(),'"+phaseName+"')]"));
 				 e1.click();
-				
 				 //User navigates through the phase items of the particular phase	 
 				 
 				 String phaseType=phaseMap.get("phaseType").toString();
@@ -136,10 +159,14 @@ public class journeyPage extends StartUp {
 				 System.out.println("Before "+phaseMap.get("phaseType").toString());
 					if(phaseType.equalsIgnoreCase("Assessment")){
 						asp.verifyAssessmentReport();
-						Map<String,Object> DataObj=st.beforeClass("coursedata.json");
+						//Map<String,Object> DataObj=st.beforeClass("coursedata.json");
 					}
 					else{
+					if(driver.findElements(objmap.getLocator("lbl_Certificate")).size()==0)
+					{
+						System.out.println("Inside expecting to click HomeButton when certificate has not appeared");
 						clickOnHomeButton(phaseType);
+					}
 					}
 					 
 			} 
@@ -574,7 +601,7 @@ public boolean verifyModuleName(String moduleName,String itemName,String itemTyp
      
 		System.out.println("Inside verify module name");
 		//Thread.sleep(4000);
-    	List<WebElement> e=driver.findElements(By.xpath("//div[contains(@class,'module-2jm6jgwkd4mep6p6g9p5rj7s886661tqjt4tmat6w1xjsweeu2z43gzyk628tx66haga3dbb4435mwkk6cvdba6ysyb5vysmn2ru4-moduleItemScreen-module-sidebar-open module-36ypdeweh3nma3gv8ygsmvuuz5y6v96ntwxw69wy8167wqc5ze79x4mvj63hhhsh61ku9pggep2y9zh1d8f91qsu2q5gddzy7cxatzc-moduleItemScreen-module-module-item-outer-cnt')]//div[contains(@class,'_6flor0 module-49qcfnxjwygbdeq6agmkwaksp2wekc55jyg1pf9y7851cfanspg95dq93t6gsy47wmn2ukvwnwhaqk8rzaykjh4xnm4y64w96mdssx4-moduleItemScreen-module-menu-container')]//span//div//div//div[contains(@class,'tobesco')]//div[contains(@class,'_1feb3ip module-3apypwr1fyrjh2vrn8ma4dc9uxybzg21wmc7repy765y6ymt37y9fhyh3yb1gmebcz3ehqdmehedhugb9n573mua5rnnednx87w96rp-sectionHeader-module-header-name')]"));
+    	List<WebElement> e=driver.findElements(By.xpath("//div[contains(@class,'moduleItemScreen-module-sidebar-open module-36ypdeweh3nma3gv8ygsmvuuz5y6v96ntwxw69wy8167wqc5ze79x4mvj63hhhsh61ku9pggep2y9zh1d8f91qsu2q5gddzy7cxatzc-moduleItemScreen-module-module-item-outer-cnt')]//div[contains(@class,'moduleItemScreen-module-menu-container')]//span//div//div//div[contains(@class,'tobesco')]//div[contains(@class,'sectionHeader-module-header-name')]"));
 		boolean result=false;
 		for(WebElement e1:e){
 			
@@ -666,7 +693,7 @@ public boolean playItem(String itemName, String itemType)
 		switch(itemType)
 		{
     		case "Quiz" :
-    			//qz.playQuiz(itemName);
+    			qz.playQuiz(itemName);
     			
     			break;
 
@@ -708,11 +735,14 @@ public boolean playItem(String itemName, String itemType)
 public boolean traverseThroughCourse(String courseName)
 {
     index=1;
-    System.out.println("In traverse through course");
+    Map<String,Object> DataObj=st.beforeClass("coursedata.json");
+    System.out.println("In traverse through course : "+ courseName);
     Iterator<Entry<String, Object>> it = DataObj.entrySet().iterator();
     while(it.hasNext())
     {
+    	System.out.println("inside it.hasNext()");
         Map.Entry<String, Object> map = (Map.Entry<String, Object>) it.next();
+        System.out.println(" outside if: "+map.getKey());
         if(map.getKey().equalsIgnoreCase(courseName))
         {
         	System.out.println("map.getkey()"+map.getKey());
@@ -728,6 +758,7 @@ public boolean traverseThroughCourse(String courseName)
                 String modulename=moduleItem.get("moduleName").toString();
                 String itemName=moduleItem.get("itemName").toString();
                 String itemType=moduleItem.get("itemType").toString();
+                System.out.println("names="+modulename+" "+itemName+" "+itemType);
             try {
 
             		System.out.println("just before verify module");
@@ -771,23 +802,33 @@ public void closeApplication()
  * Purpose: To verify the end of journey certificate
  * 
  */
-public void verifyCertificate()
+public boolean verifyCertificate()
 {
 	try
 	{
 		wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_Certificate")));
 		Assert.assertEquals("Certificate Message not found", 1, driver.findElements(objmap.getLocator("lbl_Certificate")).size());
-		
+		return true;
 	}
 	
 	catch (NoSuchElementException e1) {
 		Assert.assertNull("Certificate after completing the journey cant be found"+e1);
 
 		e1.printStackTrace();
+		return false;
 	}
+	
+	catch (TimeoutException te) {
+		Assert.assertNull("Certificate after completing the journey cant be found"+te);
+
+		te.printStackTrace();
+		return false;
+	}
+	
 	catch(Exception e)
 	{
 		e.printStackTrace();
+		return false;
 	}
 }
 

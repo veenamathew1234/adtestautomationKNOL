@@ -34,6 +34,7 @@ public class loginPage extends StartUp{
 	public void launchPage(){
 		
 		driver.get(DataObj.get("url").toString());
+		System.out.println("Trying out the url");
 	}
 	
 	public void validateLoginPage(){
@@ -61,6 +62,9 @@ public class loginPage extends StartUp{
 		e.click();
 		Thread.sleep(1000);
 		Assert.assertEquals("Incorrect credentials",0,driver.findElements(By.xpath("//div[contains(@class,'error-box')]")).size());
+		Thread.sleep(2000);
+		e=driver.findElement(objmap.getLocator("btn_Skip"));
+		e.click();
 		cm.changeToNewUser();
 	}
 	

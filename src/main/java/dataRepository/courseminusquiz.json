@@ -1,0 +1,98 @@
+{
+"Normal Course":[
+{
+    "moduleName" : "QUIZ & Assignment",
+   "itemName" : "Assignment with text submission",
+   "itemType" : "Assignment",
+    "feedback":"like"
+},
+ {
+    "moduleName" : "QUIZ & Assignment",
+   "itemName" : "Assignment with file upload",
+   "itemType" : "Assignment",
+   "feedback":"like"
+},
+  {
+    "moduleName" : "QUIZ & Assignment",
+   "itemName" : "Assignment with website url submission",
+   "itemType" : "Assignment",
+      "feedback":"like"
+},
+ {    "moduleName" : "File",
+   "itemName" : "Sample Image",
+   "itemType" : "Image",
+   "feedback":"like"
+}, {
+   "moduleName" : "File",
+   "itemName" : "Sample PPT",
+   "itemType" : "Presentation",
+      "feedback":"like"
+}, {
+    "moduleName" : "File",
+    "itemName" : "Sample PDF",
+   "itemType" : "PDF",
+      "feedback":"like"
+}, {    "moduleName" : "File",
+   "itemName" : "Sample Doc",
+   "itemType" : "Document",
+      "feedback":"like"
+},  {
+   "moduleName" : "File",
+   "itemName" : "Sample Video",
+   "itemType" : "Video",
+     "feedback":"like"
+},
+{
+    "moduleName" : "Simulation",
+   "itemName" : "Treasure Trailer",
+   "itemType" : "Simulation"
+},
+{
+    "moduleName" : "Page & External URL",
+   "itemName" : "Content PAGE",
+   "itemType" : "Page"
+},
+{
+    "moduleName" : "Page & External URL",
+   "itemName" : "Linked in",
+   "itemType" : "URL",
+   "openInNewTab":"Yes",
+   "feedback":"like"
+} ], "AssignmentData":[
+{
+    "assignmentName" :"Assignment with text submission",
+    "assignmentPoints" : "50",
+    "submissionType" : "Text Entry",
+    "assignmenttext" :"Trial test given for assignment"
+ },
+{
+    "assignmentName" :"Assignment with file upload",
+    "assignmentPoints" : "20",
+    "submissionType" : "File Upload",
+    "submissionUploadFilePath" :"/src/main/java/dataRepository/sample.csv"
+},
+{
+    "assignmentName" :"Assignment with website url submission",
+    "assignmentPoints" : "10",
+    "submissionType" : "Website URL",
+    "website_url"      :    "https://www.google.com"
+}], "Quiz" : [ {
+   "quizName" : "Normal Quiz",
+   "quizDesc" : "Welcome to Normal Quiz Desc",
+   "allowMultipleAttempts" : "N",
+   "noOfQuestions" : 2,
+   "qb":"N",
+   "QuestionsAnswersToPlay":
+   [{
+   "question":"2*2=5?",
+   "2*2=5?":["False"],
+      "scoreReceived":10
+      },
+   {
+   "question":"What is AD",
+   "What is AD":["Analytics & Development"],
+      "scoreReceived":5
+      }],
+   "pointsPerQuestion" :10
+ }]
+}
