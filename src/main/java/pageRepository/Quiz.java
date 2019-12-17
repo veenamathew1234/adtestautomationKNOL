@@ -1,14 +1,18 @@
 package pageRepository;
 
+import java.io.File;
 import java.sql.Time;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -104,6 +108,7 @@ public class Quiz extends StartUp{
 				System.out.println("quizName from Json="+q1.get("quizName"));
 				if(q1.get("quizName").toString().equalsIgnoreCase(itemName))
 				{
+					System.out.println("Inside identifying");
 					flag=1;
 					try {
 						verifyQuizLandingPage(q1);
@@ -117,6 +122,7 @@ public class Quiz extends StartUp{
 						Assert.assertNull("Take Quiz button throwing general exception", e1);
 					}
 					e.click();
+					Thread.sleep(2000);
 					System.out.println("identified");
 					int scoreCalc=answerQuestions(q1);
 					submitQuiz();
@@ -177,6 +183,9 @@ public class Quiz extends StartUp{
 		{
 			System.out.println("Inside answerQuestions function");
 			List questionAnswers=(List) quiz.get("QuestionsAnswersToPlay");
+			File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+			// Now you can do whatever you need to do with it, for example copy somewhere
+			FileUtils.copyFile(scrFile, new File("/home/knolly/Pictures/Wallpapers/scrr.png"));
 			ArrayList<String> answers;
 			String question="";
 			int scoreCalc=0;
@@ -240,9 +249,12 @@ public class Quiz extends StartUp{
 		try
 		{
 			System.out.println("Inside click ON Answer and the question number="+questionNumber);
-			Thread.sleep(2000);
+			Thread.sleep(3000);
 			//e=driver.findElement(By.xpath("//div[contains(@class,'takeQuiz-module-quiz-questions-data')]//div[contains(@class,'takeQuiz-module-question-list-cnt')]//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(text(),'"+answer+"')]"));
-			e=driver.findElement(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(@class,'mcq-module-mcq-cnt')]//div[contains(@class,'mcq-module-answer-options-cnt')]//div[contains(@class,'mcq-module-selected-option-text') and contains(text(),'"+answer+"')]"));
+			e=driver.findElement(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(@class,'mcq-module-mcq-cnt')]//div[contains(@class,'mcq-module-answer-options-cnt')]//div[contains(@class,'mcq-module-option-text') and contains(text(),'"+answer+"')]"));
+			//JavascriptExecutor js = (JavascriptExecutor) driver;
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", e);
+			Thread.sleep(500);
 			e.click();
 			return true;
 		}

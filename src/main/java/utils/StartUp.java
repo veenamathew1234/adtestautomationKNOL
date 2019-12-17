@@ -59,7 +59,7 @@ public class StartUp {
 				DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 				options.addArguments("-incognito");
 				options.addArguments("window-size=5000x5000");
-				//options.addArguments("headless");
+				options.addArguments("headless");
 				options.setAcceptInsecureCerts(true);
 				options.addArguments("--allow-insecure-localhost");
 				options.addArguments("--ignore-certificate-errors");
@@ -73,7 +73,8 @@ public class StartUp {
 				capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 				capabilities.setAcceptInsecureCerts(true);
 				driver = new ChromeDriver(options);
-				//driver.manage().window().maximize(); 
+				//System.out.println("window size="+ driver.get_);
+				driver.manage().window().maximize(); 
 		 }
 		 
 		 

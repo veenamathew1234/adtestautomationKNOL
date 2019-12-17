@@ -162,7 +162,11 @@ public class journeyPage extends StartUp {
 						//Map<String,Object> DataObj=st.beforeClass("coursedata.json");
 					}
 					else{
+					if(driver.findElements(objmap.getLocator("lbl_Certificate")).size()==0)
+					{
+						System.out.println("Inside expecting to click HomeButton when certificate has not appeared");
 						clickOnHomeButton(phaseType);
+					}
 					}
 					 
 			} 
@@ -798,23 +802,33 @@ public void closeApplication()
  * Purpose: To verify the end of journey certificate
  * 
  */
-public void verifyCertificate()
+public boolean verifyCertificate()
 {
 	try
 	{
 		wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_Certificate")));
 		Assert.assertEquals("Certificate Message not found", 1, driver.findElements(objmap.getLocator("lbl_Certificate")).size());
-		
+		return true;
 	}
 	
 	catch (NoSuchElementException e1) {
 		Assert.assertNull("Certificate after completing the journey cant be found"+e1);
 
 		e1.printStackTrace();
+		return false;
 	}
+	
+	catch (TimeoutException te) {
+		Assert.assertNull("Certificate after completing the journey cant be found"+te);
+
+		te.printStackTrace();
+		return false;
+	}
+	
 	catch(Exception e)
 	{
 		e.printStackTrace();
+		return false;
 	}
 }
 

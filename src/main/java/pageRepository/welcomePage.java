@@ -6,14 +6,17 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.TimeoutException;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.http.HttpResponse;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.TimeBombSkipException;
 
 import utils.CommonMethods;
 import utils.ObjectFactory;
@@ -41,26 +44,37 @@ public welcomePage(){
 }
 
  public void validateWelcomePage() throws Exception{
-	 
-	 cm.checkErrorComponents();
-	 Thread.sleep(2000);
-	 String currenturl=driver.getCurrentUrl();
-	 System.out.println("currenturl"+currenturl);
-	 if(currenturl.startsWith("https://stg-aktivplatform.knolskape.io/")){
-		 flag=1;
-		 isNewUser = DataObj.get("isNewUser").toString();
-		 if(isNewUser.equalsIgnoreCase("yes")){
-			 l=driver.findElements(objmap.getLocator("lbl_greetings"));
-			 Assert.assertEquals("Incorrect Welcome Page",1,l.size());
-			 //Thread.sleep(1000);
-			 wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_ContinueLearning")));
-			 driver.findElement(objmap.getLocator("lbl_ContinueLearning")).click();
+	
+	 try
+	 {
+		 cm.checkErrorComponents();
+		 Thread.sleep(2000);
+		 String currenturl=driver.getCurrentUrl();
+		 System.out.println("currenturl"+currenturl);
+		 if(currenturl.startsWith("https://stg-aktivplatform.knolskape.io/")){
+			 System.out.println("Inside validate welcome page");
+			 flag=1;
+			 isNewUser = DataObj.get("isNewUser").toString();
+			 if(isNewUser.equalsIgnoreCase("yes")){
+				 System.out.println("inside new user");
+				 l=driver.findElements(objmap.getLocator("lbl_greetings"));
+				 Assert.assertEquals("Incorrect Welcome Page",1,l.size());
+				 //Thread.sleep(1000);
+				 wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_ContinueLearning")));
+				 driver.findElement(objmap.getLocator("lbl_ContinueLearning")).click();
+			 }
 		 }
+		 else
+			 Assert.assertEquals("User not landed on correct page", 1, flag);
 	 }
-	 else
-		 Assert.assertEquals("User not landed on correct page", 1, flag);
-	 
-	 
+	 catch(NoSuchElementException ne)
+	 {
+		 Assert.assertNull("Continue/Start learning button not available to click", ne);
+	 }
+	 catch(TimeoutException te)
+	 {
+		 Assert.assertNull("Continue/Start learning button not available to click even after waiting for 30 seconds", te);
+	 }
 	 
  }
  
