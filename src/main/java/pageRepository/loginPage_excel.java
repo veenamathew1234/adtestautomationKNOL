@@ -9,9 +9,12 @@ import org.jsoup.helper.HttpConnection.Response;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import utils.CommonMethods;
 import utils.ObjectFactory;
@@ -26,6 +29,7 @@ public class loginPage_excel extends StartUp{
 	WebElement e;
 	String username,password;
 	CommonMethods cm=new CommonMethods();
+	WebDriverWait wait = new WebDriverWait(driver,30);
 	String path = System.getProperty("user.dir")+"/src/main/java/dataRepository/logindata.xlsx";
 	
 	public loginPage_excel(){
@@ -72,11 +76,24 @@ public class loginPage_excel extends StartUp{
 		e=driver.findElement(objmap.getLocator("btn_Signin"));
 		e.click();
 		Thread.sleep(1000);
-		Assert.assertEquals("Incorrect user credentials",0,driver.findElements(By.xpath("//div[contains(@class,'error-box')]")).size());
+		Assert.assertEquals("Invalid user credentials",0,driver.findElements(By.xpath("//div[contains(@class,'error-box')]")).size());
 		readexcel.deleteRow(path);
-		Thread.sleep(2000);
-		e=driver.findElement(objmap.getLocator("btn_Skip"));
-		e.click();
+
+		try{
+			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_Skip"))).click();
+		}
+		catch(NoSuchElementException ne)
+		{
+			Assert.assertNull("Skip button is not found in Change Password screen", ne);
+			ne.printStackTrace();
+			
+		}
+		catch(TimeoutException te)
+		{
+			Assert.assertNull("Skip button is not found in Change Password screen", te);
+			te.printStackTrace();
+			
+		}
 	}
 	
 

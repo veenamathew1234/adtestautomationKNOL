@@ -39,17 +39,7 @@ public class StartUp {
 		
 	  protected WebDriver getDriver(){
 		  
-	//---------------In Case if we wanted code to run with UI uncomment the below code block------
-//
-//			if(driver==null){
-//				driver=new ChromeDriver();
-//				driver.manage().window().maximize();
-//			}
-//			return driver;
-
-		  
-	//--------------code to run script headless--------------	  
-
+	  
 //		  try
 //		  {
 		 if(driver==null){

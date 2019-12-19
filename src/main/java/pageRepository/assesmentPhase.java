@@ -5,8 +5,12 @@ import java.util.Map;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.http.HttpResponse;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import junit.framework.Assert;
 import utils.ObjectFactory;
@@ -17,6 +21,7 @@ public class assesmentPhase extends StartUp{
 	ObjectFactory objmap;
 	WebElement e;
 	StartUp st=new StartUp();
+	WebDriverWait wait = new WebDriverWait(driver,30);
 	
 	public assesmentPhase(){
 		System.out.println("Inside assessment page constructor");
@@ -34,12 +39,15 @@ public class assesmentPhase extends StartUp{
 	
 	public boolean submitTestSim() throws Exception
 	{
-		System.out.println("inside submit test sim");
-		Thread.sleep(2000);
-		driver.switchTo().frame(1);
-		driver.findElement(objmap.getLocator("btn_TestSimSubmit")).click();
-		driver.switchTo().parentFrame();
-		return true;
+			Boolean flag=false;
+			System.out.println("Inside submit test sim");
+			driver.switchTo().frame(1);
+			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_TestSimSubmit"))).click();
+			driver.switchTo().parentFrame();
+			flag=true;
+			Assert.assertTrue("Submit button inside test sim is not found",flag);
+			return true;
+
 	}
 	
 	
@@ -53,60 +61,82 @@ public class assesmentPhase extends StartUp{
 	
 	public boolean launchAssessmentItem() throws Exception
 	{
-		
-		//explicitWait.until(ExpectedConditions.visibilityOf(driver.findElement(objmap.getLocator("btn_start"))));
-		Thread.sleep(2000);
-		e=driver.findElement(objmap.getLocator("btn_start"));
-			if(e!=null){
-				System.out.println("Start button found");
-				e.click();
-				Thread.sleep(4000);
-				return true;
-			}
+		try{
+			
+			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_start")));
+			e=driver.findElement(objmap.getLocator("btn_start"));
+				if(e!=null){
+					System.out.println("Start button found");
+					e.click();
+					Thread.sleep(4000);
+					return true;
+				}
+				return false;
+				
+		}
+		catch(NoSuchElementException ne)
+		{
+			Assert.assertNull("Start button for assessment phase is not found", ne);
+			ne.printStackTrace();
 			return false;
+		}
+			
+			catch(TimeoutException te){
+				Assert.assertNull("Start button for assessment phase is not found", te);
+				te.printStackTrace();
+				return false;
+			}
+			
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				return false;
+			}
 		
 	}
-	
-	
-	/* Function Name : validatePhaseItem
-	 * Parameter:Name of the simulation that is expected to be launched. It is fetched from testdata.json
-	 * 
-	 * 
-	 * 
-	 */
-	public boolean validateAssessmentItem()
-	{
-		return true;
-	}
-		
-	
 	
 	/*
-	 * Function Name : exitPhaseItem
+	 * Function Name : validate and exitPhaseItem
 	 * Function Parameters: None.
 	 * Description : Function used to exit an existing assessment/simulation
-	 * Return Value : Boolean
+	 * Return Value : void
 	 * 
 	 */
 	
 	
-	public void exitPhaseItem() throws Exception{
-
-		int statusCode=new HttpResponse().getStatus();
-		System.out.println("Status Code "+statusCode);
+	public boolean validateAndExitPhaseItem(String assessmentType){
 		
-		if(statusCode==200){
-			System.out.println("hello 200");
-			//explicitWait.until(ExpectedConditions.elementToBeClickable(driver.findElement(objmap.getLocator("btn_exit"))));
-			e=driver.findElement(objmap.getLocator("btn_exit"));
-			e.click();
-			Thread.sleep(1000);
-			//explicitWait.until(ExpectedConditions.visibilityOf(driver.findElement(objmap.getLocator("btn_popupexit"))));
+		try {
+		if(assessmentType.equalsIgnoreCase("Test Sim"))
+		{
+			System.out.println("Inside Test SIm ");
+			
+				submitTestSim();
+		}
+			
+			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_exit"))).click();
+			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_popupexit")));
 			e=driver.findElement(objmap.getLocator("btn_popupexit"));
 			if(e!=null)
 				e.click();
 			Thread.sleep(2000);
-			
+			return true;
+		} 
+		catch (NoSuchElementException ne) {
+			Assert.assertNull("Button to exit or exit pop up from simulation/game is not found",ne );
+			ne.printStackTrace();
+			return false;
+		}
+		
+		catch (TimeoutException te) {
+			Assert.assertNull("Button to exit or exit pop up from simulation/game is not found",te );
+			te.printStackTrace();
+			return false;
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			return false;
 		}
 	}
 	
@@ -121,6 +151,7 @@ public class assesmentPhase extends StartUp{
 	
 	public boolean verifyAssessmentReport() throws Exception{
 		
+		Boolean flag=false;
 		System.out.println("Inside assessment report");
 		
 		try{
@@ -128,10 +159,9 @@ public class assesmentPhase extends StartUp{
 			Thread.sleep(2000);
 			
 			int AssessmentResult=driver.findElements(objmap.getLocator("lbl_Assessmentresult")).size();
-			Assert.assertEquals("Assessment Reult Page is not found", 1,AssessmentResult );
-			Thread.sleep(2000);
-			
-			WebElement detailedanalysis= driver.findElement(objmap.getLocator("lnk_detailedanalysis"));
+			Assert.assertEquals("Assessment Result Page is not found", 1,AssessmentResult );
+						
+			WebElement detailedanalysis= wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lnk_detailedanalysis")));
 			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", detailedanalysis);
 			Thread.sleep(1000); 
 			detailedanalysis.click();
@@ -141,26 +171,30 @@ public class assesmentPhase extends StartUp{
 			return true;
 			
 		}
-		catch(NoSuchElementException e)
+		catch(NoSuchElementException ne)
 		{
-			Assert.assertNull("Exception in verify Assessment report",e);
-			e.printStackTrace();
+			Assert.assertNull("Error while verifying Assessment report",ne);
+			ne.printStackTrace();
 			return false;
 		}
-		
+		catch(TimeoutException te)
+		{
+			Assert.assertNull("Error while verifying Assessment report",te);
+			te.printStackTrace();
+			return false;
+		}
 	}
 	
 	public boolean downloadAssessmentReport() throws Exception{
 		
 		try{
 			
-			WebElement assessmentreport=driver.findElement(objmap.getLocator("btn_downloadassessmentreport"));
+			WebElement assessmentreport=wait.until(ExpectedConditions.elementToBeClickable(objmap.getLocator("btn_downloadassessmentreport")));
 			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", assessmentreport);
 			Thread.sleep(1000); 
 			assessmentreport.click();
-			Thread.sleep(3000);
-			
-			WebElement backarrow=driver.findElement(objmap.getLocator("lnk_assessmentreportbackarrow"));
+						
+			WebElement backarrow=wait.until(ExpectedConditions.elementToBeClickable(objmap.getLocator("lnk_assessmentreportbackarrow")));
 			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", backarrow);
 			Thread.sleep(1000); 
 			backarrow.click();
@@ -168,19 +202,18 @@ public class assesmentPhase extends StartUp{
 			return true;
 		}
 		
-		catch(NoSuchElementException e){
-			Assert.assertNull("Exception in download assessment report", e);
+		catch(NoSuchElementException ne){
+			Assert.assertNull("Error in download assessment report", ne);
+			ne.printStackTrace();
+			return false;
+		}
+		catch(TimeoutException te){
+			Assert.assertNull("Error in download assessment report", te);
+			te.printStackTrace();
 			return false;
 		}
 		
 		
-		
 	}
-	
-		
-		public boolean assessmentPhaseNavigation()
-		{
-			return true;
-		}
-	
+
 }

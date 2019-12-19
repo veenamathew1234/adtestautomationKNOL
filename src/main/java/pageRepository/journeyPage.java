@@ -56,7 +56,7 @@ public class journeyPage extends StartUp {
 		System.out.println("Inside journey page constructor");
 		this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/JourneyPage.properties");
 		Map<String,Object> DataObj=st.beforeClass("testData.json");
-//		Map<String,Object>CourseDataObj=st.beforeClass("coursedata.json");
+
 	}
 	
 	
@@ -71,37 +71,41 @@ public class journeyPage extends StartUp {
 	public void validateJourneyPage() {
 		
 		int count=0;
-		//Thread.sleep(4000);
+		Boolean flag=false;;
 		
-		//if(driver.findElement(objmap.getLocator("phaseitem_count").isEnabled()||driver.findElement(objmap.getLocator("phaseitem_count")).isEnabled()))
 		try 
 		{
-			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("phaseitem_count")));
+		 wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("phaseitem_count")));
 		 count=driver.findElements(objmap.getLocator("phaseitem_count")).size();
-		 System.out.println("Number of phase items: "+count);
+		 System.out.println("Number of phase items in Asessment phase: "+count);
+		 flag=true;
 		}
 		catch(TimeoutException ne)
 		{
-			System.out.println("Inside catch1");
+			System.out.println("Inside catch block for Assessment phase");
 			try
 			{	
 				wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("phaseitem_dev_count")));
 				count=driver.findElements(objmap.getLocator("phaseitem_dev_count")).size();
+				System.out.println("Number of phase items in Development phase: "+count);
+				flag=true;
 			}
 			catch(Exception e1)
 			{
-				System.out.println("inside nested catch");
+				System.out.println("inside catch block for Development phase");
+				flag=false;
+				Assert.assertTrue("Journey Landing page not loaded properly", flag);
 				e1.printStackTrace();
 			}
 		}
 		catch (Exception e) {
 			System.out.println("Inside main catch");
+			flag=false;
+			Assert.assertTrue("Journey Landing page not loaded properly", flag);
 			e.printStackTrace();
 		}
-		if(count!=0)
-			 System.out.println("Sucessfully landed on journey page");
-		 Assert.assertNotSame("Journey Landing page not loaded properly",0, count);
 		
+			 System.out.println("Sucessfully landed on journey page");
 		}
 	
 	
@@ -138,29 +142,26 @@ public class journeyPage extends StartUp {
 				 Map<String,Object> phaseMap=(Map<String, Object>) (phase);
 				 String phaseName=phaseMap.get("phaseName").toString();
 				 System.out.println("Phase name to be clicked on next is "+phaseName);
-				// cm.verifyElementPresent("//div[contains(@class,'content-module-individual-tab')]//div[contains(text(),'"+phaseName+"')]", false,"next "+phaseName+" tab to be clicked not found");
 				 WebElement e1=driver.findElement(By.xpath("//div[contains(@class,'content-module-tabs-content')]//div[contains(text(),'"+phaseName+"')]"));
 				 e1.click();
+				 
 				 //User navigates through the phase items of the particular phase	 
 				 
 				 String phaseType=phaseMap.get("phaseType").toString();
 				 System.out.println("Phase type to be clicked on next is "+phaseType);
 
 				 navigateThroughPhaseItem(phaseType);
-				 //Thread.sleep(7000);
 				 if(phaseMap.get("PhaseFeedback").toString().equalsIgnoreCase("Yes"))
 				 {
 					 System.out.println("Inside feedback phase submission");
-					// Thread.sleep(2000);
 					 fbp.fillFeedback(phaseName,feedbackData);
 				 }
 				
 				 // Function call to verify Assessment report
-				 System.out.println("Before "+phaseMap.get("phaseType").toString());
+				 	System.out.println("Before "+phaseMap.get("phaseType").toString());
 					if(phaseType.equalsIgnoreCase("Assessment")){
 						asp.verifyAssessmentReport();
-						//Map<String,Object> DataObj=st.beforeClass("coursedata.json");
-					}
+				}
 					else{
 					if(driver.findElements(objmap.getLocator("lbl_Certificate")).size()==0)
 					{
@@ -176,7 +177,18 @@ public class journeyPage extends StartUp {
 				 String phaseName1=phaseMap1.get("phaseName").toString();
 				 System.out.println("phaseName1="+phaseName1);
 				Assert.assertNull("Phase Tab-"+phaseName1+" in the landing page not clickable or not found", ne);
+				ne.printStackTrace();
 			}
+			
+			catch(TimeoutException te)
+			{
+				 Map<String,Object> phaseMap1=(Map<String, Object>) (phase);
+				 String phaseName1=phaseMap1.get("phaseName").toString();
+				 System.out.println("phaseName1="+phaseName1);
+				Assert.assertNull("Phase Tab-"+phaseName1+" in the landing page not clickable or not found", te);
+				te.printStackTrace();
+			}
+			
 			catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -203,10 +215,11 @@ public class journeyPage extends StartUp {
 	 */
 	
 	public boolean navigateThroughPhaseItem(String phaseType) throws Exception{
+		
 		int i;
+		
 		//------retrieve appropriate phase item type for phase types and click on it-------- 
 		List<WebElement> phaseItems=returnPhaseItemsForPhaseType(phaseType);
-		//Thread.sleep(5000);
 		wait.until(ExpectedConditions.visibilityOf(phaseItems.get(0)));
 		phaseItems.get(0).click();
 	
@@ -228,8 +241,6 @@ public class journeyPage extends StartUp {
 				}
 		}
 			System.out.println("outside");
-					
-		
 		
 		return true;
 	
@@ -250,11 +261,8 @@ public class journeyPage extends StartUp {
 		if(phaseType.equalsIgnoreCase("NormalCourse"))
 		{
 			System.out.println("Inside Normal course");
-			//Thread.sleep(5000);
 			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_coursenamesidebar")));
 			WebElement ee=driver.findElement(objmap.getLocator("lbl_coursenamesidebar"));
-			
-			
 			String courseName=ee.getText();
 			System.out.println("CourseName from screen="+courseName);
 			
@@ -283,16 +291,14 @@ public class journeyPage extends StartUp {
 			System.out.println("assess Type= "+assessmentType);
 			try
 			{
-			//Thread.sleep(2000);	
-			if(launchPhaseItem()==true)
+			if(asp.launchAssessmentItem()==true)	
+				
 				{
-					System.out.println("inside start button found");
 					cm.checkErrorComponents();
-					validateAndExitPhaseItem(assessmentType);
+					asp.validateAndExitPhaseItem(assessmentType);
 					if(assessmentDetail.get("ItemFeedbackStars")!=null)
 					{
-						System.out.println("inside item feedback");
-						//Thread.sleep(2000);
+						System.out.println("Inside item feedback");
 						String stars=assessmentDetail.get("ItemFeedbackStars").toString();
 						fbp.enterItemFeedbackStars(stars);
 					}
@@ -400,7 +406,6 @@ public class journeyPage extends StartUp {
 				System.out.println("size of list "+phaseItems.size());
 				break;
 			case "NormalCourse":
-				//Thread.sleep(4000);
 				wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("normalcourse_items")));
 				phaseItems=driver.findElements(objmap.getLocator("normalcourse_items"));
 				System.out.println("size of list "+phaseItems.size());
@@ -431,17 +436,13 @@ public class journeyPage extends StartUp {
 	
 	public boolean launchPhaseItem()
 	{
-		
 		try
 		{
-		//explicitWait.until(ExpectedConditions.visibilityOf(driver.findElement(objmap.getLocator("btn_start"))));
-		//Thread.sleep(4000);
-		 wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_start")));
-		   e=driver.findElement(objmap.getLocator("btn_start"));
-			if(e!=null){
+			System.out.println("launch phase item inside journey page");
+			e=wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_start")));
+		   	if(e!=null){
 				System.out.println("Start button found");
 				e.click();
-				//Thread.sleep(4000);
 				return true;
 			}
 			else return false;
@@ -449,8 +450,14 @@ public class journeyPage extends StartUp {
 		}
 		catch(NoSuchElementException ne)
 		{
-			//Dont know which assessment
-			Assert.assertNotNull("Start button for assessment phase is not found", ne);
+			Assert.assertNull("Start button for assessment phase is not found", ne);
+			ne.printStackTrace();
+			return false;
+		}
+		
+		catch(TimeoutException te){
+			Assert.assertNull("Start button for assessment phase is not found", te);
+			te.printStackTrace();
 			return false;
 		}
 		
@@ -459,6 +466,7 @@ public class journeyPage extends StartUp {
 			e.printStackTrace();
 			return false;
 		}
+		
 			
 		
 	}
@@ -477,7 +485,6 @@ public class journeyPage extends StartUp {
 
 		try
 		{
-			//Thread.sleep(5000);
 			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_nextitem")));
 			e=driver.findElement(objmap.getLocator("btn_nextitem"));
 			if(e!=null){
@@ -491,6 +498,12 @@ public class journeyPage extends StartUp {
 		catch(NoSuchElementException ne)
 		{
 			Assert.assertNull("Next button at the phase item is not found", ne);
+			ne.printStackTrace();
+			return false;
+		}
+		catch(TimeoutException te)
+		{
+			Assert.assertNull("Next button at the phase item is not found", te);
 			return false;
 		}
 		catch(Exception e)
@@ -500,65 +513,9 @@ public class journeyPage extends StartUp {
 		}
 	}
 	
+
 	
-	
-	
-	/*
-	 * Function Name : validate and exitPhaseItem
-	 * Function Parameters: None.
-	 * Description : Function used to exit an existing assessment/simulation
-	 * Return Value : void
-	 * 
-	 */
-	
-	
-	public boolean validateAndExitPhaseItem(String assessmentType){
-		
-		try {
-		if(assessmentType.equalsIgnoreCase("Test Sim"))
-		{
-			System.out.println("Inside Test SIm ");
-			
-				asp.submitTestSim();
-		}
-			
-			//Thread.sleep(2000);
-			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_exit")));
-			e=driver.findElement(objmap.getLocator("btn_exit"));
-			e.click();
-			//Thread.sleep(1000);
-			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_popupexit")));
-			e=driver.findElement(objmap.getLocator("btn_popupexit"));
-			if(e!=null)
-				e.click();
-			Thread.sleep(2000);
-			return true;
-		} 
-		catch (NoSuchElementException ne) {
-			Assert.assertNull("Button to exit or exit pop up from simulation/game is not found",ne );
-			return false;
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			return false;
-		}
-	}
-	
-	
-	/*
-	 * Function Name : runAssessment
-	 * Function Parameters: None.
-	 * Description : Function used to exit an existing assessment/simulation
-	 * Return Value : boolean
-	 * 
-	 */
-	
-public boolean runAssessment(String assessmentName)
-{
-	
-	return true;
-}
+
 	/*
 		 * Function Name : Logout
 		 * Function Parameters: pNA.
@@ -578,6 +535,12 @@ public boolean runAssessment(String assessmentName)
 		}
 		catch (NoSuchElementException ne) {
 			Assert.assertNull("Button to Logout from application is not found",ne );
+			ne.printStackTrace();
+			return false;
+		}
+		catch (TimeoutException te) {
+			Assert.assertNull("Button to Logout from application is not found",te );
+			te.printStackTrace();
 			return false;
 		}
 		catch (Exception e)
@@ -600,8 +563,10 @@ public boolean runAssessment(String assessmentName)
 public boolean verifyModuleName(String moduleName,String itemName,String itemType,Map<String,Object> moduleItem) throws InterruptedException {
      
 		System.out.println("Inside verify module name");
-		//Thread.sleep(4000);
-    	List<WebElement> e=driver.findElements(By.xpath("//div[contains(@class,'moduleItemScreen-module-sidebar-open module-36ypdeweh3nma3gv8ygsmvuuz5y6v96ntwxw69wy8167wqc5ze79x4mvj63hhhsh61ku9pggep2y9zh1d8f91qsu2q5gddzy7cxatzc-moduleItemScreen-module-module-item-outer-cnt')]//div[contains(@class,'moduleItemScreen-module-menu-container')]//span//div//div//div[contains(@class,'tobesco')]//div[contains(@class,'sectionHeader-module-header-name')]"));
+    	//List<WebElement> e=driver.findElements(By.xpath("//div[contains(@class,'moduleItemScreen-module-sidebar-open module-36ypdeweh3nma3gv8ygsmvuuz5y6v96ntwxw69wy8167wqc5ze79x4mvj63hhhsh61ku9pggep2y9zh1d8f91qsu2q5gddzy7cxatzc-moduleItemScreen-module-module-item-outer-cnt')]//div[contains(@class,'moduleItemScreen-module-menu-container')]//span//div//div//div[contains(@class,'tobesco')]//div[contains(@class,'sectionHeader-module-header-name')]"));
+		try
+		{
+		List<WebElement> e=driver.findElements(objmap.getLocator("coursemodules_count"));
 		boolean result=false;
 		for(WebElement e1:e){
 			
@@ -611,20 +576,34 @@ public boolean verifyModuleName(String moduleName,String itemName,String itemTyp
 	            try {
 					result=verifyItemName(itemName,itemType,moduleItem);
 					break;
+					
 				}
 	            catch (NoSuchElementException e2) {
-					Assert.assertNull("Exception in verifyModuleName: cant find the list of module names "+moduleName+"",e2);
+					Assert.assertNull("The module "+moduleName+" cannot be found / is unidentifiable from the left hand tab.(For QA-Function to check :verifyModuleName)",e2);
 					e2.printStackTrace();
 					return false;
 				}
 	            catch (Exception e2) {
-					Assert.assertNull("Exception in verifyModuleName "+moduleName+"",e2);
+					Assert.assertNull("Exception while trying to identify module "+moduleName+".(For QA-Function to check :verifyModuleName) ",e2);
 					e2.printStackTrace();
 					return false;
 				}
 			}
 		}
+		System.out.println("just before returning result of verifyModuleName");
 		return result;
+		}
+		catch(NoSuchElementException ne)
+		{
+			Assert.assertNull("Cannot find the list of modules from the screen .(For QA-Function to check :verifyModuleName)", ne);
+			return false;
+		}
+		catch (Exception e2) {
+			Assert.assertNull("Exception while trying to find the list of modules from the screen .(For QA-Function to check :verifyModuleName):",e2);
+			e2.printStackTrace();
+			return false;
+		}
+		
 }	
 		
 		
@@ -641,7 +620,6 @@ public boolean verifyItemName(String itemName, String itemType,Map<String,Object
   
 	try {
 	cm.checkErrorComponents();
-	//Thread.sleep(2000);
 	wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class,'innerListItem-module-module-item-title')]//span[contains(@class,'module-22v5yu3ffhhsgfk81kmxd65jpqpc4hrwzg5fydhjy4urrqcg2faj6em1bzckj68yxxwv96gp591877j4dy536vn4gg1dpm1nw21pwy6-innerListItem-module-title-inner') and contains(text(),'"+itemName+"')]")));
 	WebElement e = driver.findElement(By.xpath("//div[contains(@class,'innerListItem-module-module-item-title')]//span[contains(@class,'module-22v5yu3ffhhsgfk81kmxd65jpqpc4hrwzg5fydhjy4urrqcg2faj6em1bzckj68yxxwv96gp591877j4dy536vn4gg1dpm1nw21pwy6-innerListItem-module-title-inner') and contains(text(),'"+itemName+"')]"));
 	System.out.println("Item Name From Screen "+e.getText());
@@ -655,19 +633,27 @@ public boolean verifyItemName(String itemName, String itemType,Map<String,Object
     	System.out.println("Feedback found");
     	String feedbackItem=moduleItem.get("feedback").toString();
     	System.out.println("feedback for the item"+itemName+"="+feedbackItem);
-    	fbp.likeDislikeDevItemfeedback(feedbackItem);
+    	fbp.likeDislikeDevItemfeedback(feedbackItem,itemName);
     }
+    
+    System.out.println("just before returning from verifyItemName");
     return true;
 	} 
 	
 	catch (NoSuchElementException e1) {
-		Assert.assertNull("Exception in verifyItemName : The item "+itemName+"is not present",e1);
+		Assert.assertNull("The item "+itemName+"is not present or identifiable. (For QA-Function to check :verifyItemName) ",e1);
+		e1.printStackTrace();
+		return false;
+	}
+	
+	catch (TimeoutException e1) {
+		Assert.assertNull("The item "+itemName+"is not present or identifiable. (For QA-Function to check :verifyItemName) ",e1);
 
 		e1.printStackTrace();
 		return false;
 	}
 	catch (Exception e1) {
-		Assert.assertNull("Exception in verifyItemName "+itemName+"",e1);
+		Assert.assertNull("Exception while trying to identify item "+itemName+". (For QA-Function to check :verifyItemName)",e1);
 
 		e1.printStackTrace();
 		return false;
@@ -694,7 +680,6 @@ public boolean playItem(String itemName, String itemType)
 		{
     		case "Quiz" :
     			qz.playQuiz(itemName);
-    			
     			break;
 
     		case "Assignment":
@@ -717,6 +702,7 @@ public boolean playItem(String itemName, String itemType)
 	}
 	catch(Exception e)
 	{
+		Assert.assertNull("Unable to play the item "+itemName+" in the Development Phase", e);
 		e.printStackTrace();
 		return false;
 	}
@@ -764,7 +750,6 @@ public boolean traverseThroughCourse(String courseName)
             		System.out.println("just before verify module");
                     verifyModuleName(modulename,itemName,itemType,moduleItem);
                     System.out.println("executed verifyModuleName function");
-                    //Thread.sleep(4000);
                     
                     clickOnNextPhaseItem();  
                 } catch (Exception e) {
@@ -780,10 +765,6 @@ public boolean traverseThroughCourse(String courseName)
     
     return true;
 }
-
-
-
-
 
 
 /*
@@ -804,23 +785,23 @@ public void closeApplication()
  */
 public boolean verifyCertificate()
 {
+	Boolean flag=false;
 	try
 	{
 		wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_Certificate")));
-		Assert.assertEquals("Certificate Message not found", 1, driver.findElements(objmap.getLocator("lbl_Certificate")).size());
+		//flag=true;
+		//Assert.assertTrue("Certificate Message not found after completion of journey",flag);
 		return true;
 	}
 	
-	catch (NoSuchElementException e1) {
-		Assert.assertNull("Certificate after completing the journey cant be found"+e1);
-
-		e1.printStackTrace();
+	catch (NoSuchElementException ne) {
+		Assert.assertNull("Certificate after completing the journey cant be found",ne);
+		ne.printStackTrace();
 		return false;
 	}
 	
 	catch (TimeoutException te) {
-		Assert.assertNull("Certificate after completing the journey cant be found"+te);
-
+		Assert.assertNull("Certificate after completing the journey cant be found",te);
 		te.printStackTrace();
 		return false;
 	}
@@ -845,7 +826,13 @@ public void downloadCertificate() {
 	
 	catch(NoSuchElementException ne)
 	{
-		Assert.assertNotNull("Download report button not found", ne);
+		Assert.assertNull("Download button for certificate download on completion of journey not found", ne);
+		ne.printStackTrace();
+	}
+	catch(TimeoutException te)
+	{
+		Assert.assertNotNull("Download report button not found", te);
+		te.printStackTrace();
 	}
 	catch(Exception e)
 	{
