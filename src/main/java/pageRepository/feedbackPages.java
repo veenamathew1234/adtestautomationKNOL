@@ -3,6 +3,7 @@ package pageRepository;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.concurrent.TimeoutException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -102,7 +103,7 @@ public class feedbackPages extends StartUp {
 		
 		catch(NoSuchElementException ne)
 		{
-			Assert.assertNull(""+fb.get("phaseName")+" feedback form issue while user enters data", ne);
+			Assert.assertNull(""+fb.get("phaseName")+" feedback form issue while user enters data.For QA-check the function enterFeedbackDetailsForm", ne);
 			return false;
 		}
 		catch(Exception e)
@@ -121,31 +122,51 @@ public class feedbackPages extends StartUp {
 	 * Return Value : Boolean
 	 * 
 	 */
-	public boolean verifyThankYouFeedbackPage() throws Exception
+	public boolean verifyThankYouFeedbackPage()
 	{
+		try
+		{
+			int thankYouPage=driver.findElements(objmap.getLocator("lbl_ThankYouFeedbackPage")).size();
+			Assert.assertEquals("Thank you feedback page not displaying", 1, thankYouPage);
+			Thread.sleep(2000);
+			return true;
+		}
+		catch(NoSuchElementException ne)
+		{
+			Assert.assertNull("Thank You page aftee feedback submission not displayed.For QA-check the function verifyThankYouFeedbackPage", ne);
+			return false;
+		}
 		
-		int thankYouPage=driver.findElements(objmap.getLocator("lbl_ThankYouFeedbackPage")).size();
-		Assert.assertEquals("Thank you feedback page not displaying", 1, thankYouPage);
-		Thread.sleep(2000);
-		return true;
+		catch(Exception ne)
+		{
+			Assert.assertNull("Error in displaying Thank You page aftee feedback submission.For QA-check the function verifyThankYouFeedbackPage", ne);
+			return false;
+		}
 	}
 
-
+	
+	
 	
 	public boolean enterItemFeedbackStars(String stars) throws Exception
 	{
-		
-		wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_itemFeedback")));
-		driver.findElement(objmap.getLocator("lbl_itemFeedback")).click();
-		driver.findElement(By.xpath("//div[contains(@class,'rating-module-star')]["+stars+"]")).click();
-		
-		wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_closeItemFeedback")));
-		driver.findElement(objmap.getLocator("lbl_closeItemFeedback")).click();
-		
-		return true;
+		try
+		{
+			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_itemFeedback")));
+			driver.findElement(objmap.getLocator("lbl_itemFeedback")).click();
+			driver.findElement(By.xpath("//div[contains(@class,'rating-module-star')]["+stars+"]")).click();
+			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_closeItemFeedback")));
+			driver.findElement(objmap.getLocator("lbl_closeItemFeedback")).click();
+			return true;
+		}
+		catch(TimeoutException te)
+		{
+			Assert.assertNull("Unable to give ratings(star) for assessment items.For QA- check the function enterItemFeedbackStars", te);
+			te.printStackTrace();
+			return false;
+		}
 	}
 	
-	public boolean likeDislikeDevItemfeedback(String feedback)
+	public boolean likeDislikeDevItemfeedback(String feedback,String itemName)
 	{
 		try
 		{
@@ -174,12 +195,12 @@ public class feedbackPages extends StartUp {
 		
 		catch(NoSuchElementException ne)
 		{
-			Assert.assertNull("Cannot find the thumbs up /down in development phase item", ne);
+			Assert.assertNull("Cannot find the thumbs up /down in development phase for the item :"+itemName+".(For QA-Check the function : likeDislikeDevItemfeedback", ne);
 			return false;
 		}
 		catch(Exception e)
 		{
-			Assert.assertNull("General exception in the Like/Dislike Dev Phase item", e);
+			Assert.assertNull("Error while trying to Like/Dislike in Development Phase for the item: "+itemName+".(For QA-Check the function : likeDislikeDevItemfeedback", e);
 			return false;
 		}
 	}

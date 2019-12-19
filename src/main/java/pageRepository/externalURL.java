@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.openqa.selenium.WebElement;
 
+import junit.framework.Assert;
 import utils.ObjectFactory;
 import utils.StartUp;
 
@@ -53,7 +54,7 @@ public class externalURL extends StartUp {
 		}
 		catch(Exception e)
 		{
-			
+			Assert.assertNull("Unable to open an external URL in development phase. For QA-function to check openExternalURL ", e);
 		}
 	}
 	

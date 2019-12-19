@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeoutException;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import junit.framework.Assert;
 import utils.ObjectFactory;
 import utils.StartUp;
 
@@ -36,8 +39,9 @@ public class assignment extends StartUp {
 			Map<String,Object> assignment = (Map<String, Object>) assignmentDetails;
 			try {
 				verifyAssignmentName(assignment);
+				System.out.println("leaving verifyAssignmentName");
 			} catch (Exception e) {
-				
+				Assert.assertNull("Error while playing the assignment in the development phase",e);
 				e.printStackTrace();
 			}
 		
@@ -64,12 +68,21 @@ public class assignment extends StartUp {
 			filetoupload=assignment.get("submissionUploadFilePath").toString();
 		}
 		
-		
-		e=driver.findElement(objmap.getLocator("lbl_assignmentname"));
-		//Thread.sleep(3000);
-		wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_points")));
-		e1=driver.findElement(objmap.getLocator("lbl_points"));
-				
+
+		try
+		{
+			e=driver.findElement(objmap.getLocator("lbl_assignmentname"));
+			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_points")));
+			e1=driver.findElement(objmap.getLocator("lbl_points"));
+		}
+		catch(NoSuchElementException ne)
+		{
+			Assert.assertNull("Assignment Name is not displayed on screen for the assignment : "+assignmentname+". For QA- check function verifyAssignmentName ", ne);
+		}
+		catch(TimeoutException te)
+		{
+			Assert.assertNull("Points assigned for the assignment is not displayed on screen for the assignment : "+assignmentname+". For QA- check function verifyAssignmentName ", te);
+		}
 		if(e.getText().equalsIgnoreCase(assignmentname) && e1.getText().equalsIgnoreCase(assignmentpoints)){
 			Thread.sleep(2000);
 			submitAssignment(assignmenttype,assignmenttext,filetoupload,websiteurl);
@@ -79,6 +92,8 @@ public class assignment extends StartUp {
 	
 	public void submitAssignment(String assignmenttype,String assignmenttext,String filetoupload,String websiteurl) throws Exception{
 		
+		try
+		{
 		
 		if(assignmenttype.equalsIgnoreCase("Text Entry")){
 			
@@ -107,7 +122,17 @@ public class assignment extends StartUp {
 			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_submit")));
 			driver.findElement(objmap.getLocator("btn_submit")).click();
 			
-			
+		}
+		}
+		catch(NoSuchElementException ne)
+		{
+			Assert.assertNull("Error while submitting the assignment : "+assignmenttype+".For QA-Check the function submitAssignment", ne);
+		}
+		catch(TimeoutException te)
+		{
+			Assert.assertNull("Error while submitting the assignment : "+assignmenttype+".For QA-Check the function submitAssignment", te);
+		
+		
 		}
 	}
 	
