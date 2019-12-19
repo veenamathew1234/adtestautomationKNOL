@@ -19,6 +19,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 
 import utils.CommonMethods;
@@ -27,7 +29,7 @@ import utils.StartUp;
 
 public class demographicsPage extends StartUp{
 	
-	int flag;
+	Boolean flag;
 	ObjectFactory objmap;
 	StartUp st = new StartUp();
 	String currenturl;
@@ -49,10 +51,10 @@ public class demographicsPage extends StartUp{
 	public void validateDemographicsPageLoad(){
 		
 		currenturl=driver.getCurrentUrl();
-		flag=0;
+		flag=false;
 		if(currenturl.startsWith(DataObj.get("Demographics_url").toString()))
-		flag=1;
-		Assert.assertEquals("Incorrect Demographics Page",1,flag);
+		flag=true;
+		Assert.assertTrue("Demographics page not loading", flag);
 		
 	}
 	
@@ -67,66 +69,82 @@ public class demographicsPage extends StartUp{
 	public void fillDemographicsPage() throws InterruptedException
 
     {
-		WebDriverWait wait;
-        System.out.println("Inside Demographics Page");
+		try{
+			WebDriverWait wait;
+	        System.out.println("Inside Demographics Page");
 
-        WebElement e=driver.findElement(By.xpath("//div[contains(@class,'signup-container')]//div[contains(@class,'signup-right')]//form//div[contains(@class,'demographics-container skin-grey2')]//div[contains(@class,'personalDetails-form-field input-field')][1]//div[contains(@class,'select-wrapper')]//input[contains(@class,'select-dropdown dropdown-trigger')]"));
-        new WebDriverWait(driver, 15).until(ExpectedConditions.elementToBeClickable(e));
-        e.click();  
-        driver.findElement(By.xpath("//li[contains(@id,'select-options')]/span[contains(text(),'Male')]")).click();
+	        WebElement e=driver.findElement(By.xpath("//div[contains(@class,'signup-container')]//div[contains(@class,'signup-right')]//form//div[contains(@class,'demographics-container skin-grey2')]//div[contains(@class,'personalDetails-form-field input-field')][1]//div[contains(@class,'select-wrapper')]//input[contains(@class,'select-dropdown dropdown-trigger')]"));
+	        new WebDriverWait(driver, 15).until(ExpectedConditions.elementToBeClickable(e));
+	        e.click();  
+	        driver.findElement(By.xpath("//li[contains(@id,'select-options')]/span[contains(text(),'Male')]")).click();
 
-        //Enter Country
-        e=driver.findElement(By.xpath("//div[contains(@class,'signup-container')]//div[contains(@class,'signup-right')]//form//div[contains(@class,'demographics-container skin-grey2')]//div[contains(@class,'demographicDetails-form-field input-field')][1]//div[contains(@class,'select-wrapper')]//input[contains(@class,'select-dropdown dropdown-trigger')]"));
-        new WebDriverWait(driver, 15).until(ExpectedConditions.elementToBeClickable(e));
-        e.click(); 
-        driver.findElement(By.xpath("//li[contains(@id,'select-options')]/span[(text()='Afghanistan')]")).click();
-        
-        //Enter Education
- 
-        e=driver.findElement(By.xpath("//div[contains(@class,'signup-container')]//div[contains(@class,'signup-right')]//form//div[contains(@class,'demographics-container skin-grey2')]//div[contains(@class,'demographicDetails-form-field input-field')][3]//div[contains(@class,'select-wrapper')]//input[contains(@class,'select-dropdown dropdown-trigger')]"));
-        new WebDriverWait(driver, 15).until(ExpectedConditions.elementToBeClickable(e));
-        e.click(); 
-        driver.findElement(By.xpath("//li[contains(@id,'select-options')]/span[(text()='Less than a high school diploma')]")).click();
+	        //Enter Country
+	        e=driver.findElement(By.xpath("//div[contains(@class,'signup-container')]//div[contains(@class,'signup-right')]//form//div[contains(@class,'demographics-container skin-grey2')]//div[contains(@class,'demographicDetails-form-field input-field')][1]//div[contains(@class,'select-wrapper')]//input[contains(@class,'select-dropdown dropdown-trigger')]"));
+	        new WebDriverWait(driver, 15).until(ExpectedConditions.elementToBeClickable(e));
+	        e.click(); 
+	        driver.findElement(By.xpath("//li[contains(@id,'select-options')]/span[(text()='Afghanistan')]")).click();
+	        
+	        //Enter Education
+	 
+	        e=driver.findElement(By.xpath("//div[contains(@class,'signup-container')]//div[contains(@class,'signup-right')]//form//div[contains(@class,'demographics-container skin-grey2')]//div[contains(@class,'demographicDetails-form-field input-field')][3]//div[contains(@class,'select-wrapper')]//input[contains(@class,'select-dropdown dropdown-trigger')]"));
+	        new WebDriverWait(driver, 15).until(ExpectedConditions.elementToBeClickable(e));
+	        e.click(); 
+	        driver.findElement(By.xpath("//li[contains(@id,'select-options')]/span[(text()='Less than a high school diploma')]")).click();
 
-        //Enter Industry
+	        //Enter Industry
 
-        e=driver.findElement(By.xpath("//div[contains(@class,'signup-container')]//div[contains(@class,'signup-right')]//form//div[contains(@class,'demographics-container skin-grey2')]//div[contains(@class,'demographicDetails-form-field input-field')][5]//div[contains(@class,'select-wrapper')]//input[contains(@class,'select-dropdown dropdown-trigger')]"));
-        new WebDriverWait(driver, 15).until(ExpectedConditions.elementToBeClickable(e));
-        e.click(); 
-        driver.findElement(By.xpath("//li[contains(@id,'select-options')]/span[(text()='Agriculture, Forestry and Fishing')]")).click();
+	        e=driver.findElement(By.xpath("//div[contains(@class,'signup-container')]//div[contains(@class,'signup-right')]//form//div[contains(@class,'demographics-container skin-grey2')]//div[contains(@class,'demographicDetails-form-field input-field')][5]//div[contains(@class,'select-wrapper')]//input[contains(@class,'select-dropdown dropdown-trigger')]"));
+	        new WebDriverWait(driver, 15).until(ExpectedConditions.elementToBeClickable(e));
+	        e.click(); 
+	        driver.findElement(By.xpath("//li[contains(@id,'select-options')]/span[(text()='Agriculture, Forestry and Fishing')]")).click();
 
-        //Enter Job Category
-        
-        e=driver.findElement(By.xpath("//div[contains(@class,'signup-container')]//div[contains(@class,'signup-right')]//form//div[contains(@class,'demographics-container skin-grey2')]//div[contains(@class,'demographicDetails-form-field input-field')][6]//div[contains(@class,'select-wrapper')]//input[contains(@class,'select-dropdown dropdown-trigger')]"));
-        new WebDriverWait(driver, 15).until(ExpectedConditions.elementToBeClickable(e));
-        e.click(); 
-        driver.findElement(By.xpath("//li[contains(@id,'select-options')]/span[(text()='Individual Contributors')]")).click();
+	        //Enter Job Category
+	        
+	        e=driver.findElement(By.xpath("//div[contains(@class,'signup-container')]//div[contains(@class,'signup-right')]//form//div[contains(@class,'demographics-container skin-grey2')]//div[contains(@class,'demographicDetails-form-field input-field')][6]//div[contains(@class,'select-wrapper')]//input[contains(@class,'select-dropdown dropdown-trigger')]"));
+	        new WebDriverWait(driver, 15).until(ExpectedConditions.elementToBeClickable(e));
+	        e.click(); 
+	        driver.findElement(By.xpath("//li[contains(@id,'select-options')]/span[(text()='Individual Contributors')]")).click();
 
 
-        //WorkExperience
+	        //WorkExperience
 
-        driver.findElement(By.xpath("//div[contains(@class,'demographicDetails-form-field-custom')][1]//div[contains(@class,'experience-container')]//div[contains(@class,'exp-options-container')]//div[contains(@id,'ei-option-22')]")).click();
+	        driver.findElement(By.xpath("//div[contains(@class,'demographicDetails-form-field-custom')][1]//div[contains(@class,'experience-container')]//div[contains(@class,'exp-options-container')]//div[contains(@id,'ei-option-22')]")).click();
 
-       //People Management
+	       //People Management
 
-        driver.findElement(By.xpath("//div[contains(@class,'demographicDetails-form-field-custom')][2]//div[contains(@class,'experience-container')]//div[contains(@class,'exp-options-container')]//div[contains(@id,'ei-option-279')]")).click();
+	        driver.findElement(By.xpath("//div[contains(@class,'demographicDetails-form-field-custom')][2]//div[contains(@class,'experience-container')]//div[contains(@class,'exp-options-container')]//div[contains(@id,'ei-option-279')]")).click();
 
-       //Next Button 
+	       //Next Button 
 
-        driver.findElement(By.xpath("//div[contains(@class,'next-button-container')]/button")).click();
-        Thread.sleep(2000);
-        
-        //policy check box
-        
-        e=driver.findElement(By.xpath("//div[contains(@class,'signup-container')]//div[contains(@class,'signup-right')]//form//div[contains(@class,'policy-container')]//div[contains(@class,'policy-box')]//div[contains(@class,'agree-conditions')]//label//span[contains(@class,'agree-conditions-text skin-grey1')]"));
-        new WebDriverWait(driver, 15).until(ExpectedConditions.elementToBeClickable(e));
-        e.click();
-        
-        //Proceed button
-        
-        e=driver.findElement(By.xpath("//button[(@id='policySubmitBtn')]"));
-        new WebDriverWait(driver, 15).until(ExpectedConditions.elementToBeClickable(e));
-        e.click();
+	        driver.findElement(By.xpath("//div[contains(@class,'next-button-container')]/button")).click();
+	        Thread.sleep(2000);
+	        
+	        //policy check box
+	        
+	        e=driver.findElement(By.xpath("//div[contains(@class,'signup-container')]//div[contains(@class,'signup-right')]//form//div[contains(@class,'policy-container')]//div[contains(@class,'policy-box')]//div[contains(@class,'agree-conditions')]//label//span[contains(@class,'agree-conditions-text skin-grey1')]"));
+	        new WebDriverWait(driver, 15).until(ExpectedConditions.elementToBeClickable(e));
+	        e.click();
+	        
+	        //Proceed button
+	        
+	        e=driver.findElement(By.xpath("//button[(@id='policySubmitBtn')]"));
+	        new WebDriverWait(driver, 15).until(ExpectedConditions.elementToBeClickable(e));
+	        e.click();
+		}
+		
+		catch(NoSuchElementException ne)
+		{
+			Assert.assertNull("One of the elements is not found in demographics/policy page", ne);
+			ne.printStackTrace();
+			
+		}
+		catch(TimeoutException te)
+		{
+			Assert.assertNull("One of the elements is not found in demographics/policy page", te);
+			te.printStackTrace();
+			
+		}
+		
 
     }
 }

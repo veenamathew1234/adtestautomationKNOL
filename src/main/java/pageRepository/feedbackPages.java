@@ -130,30 +130,7 @@ public class feedbackPages extends StartUp {
 		return true;
 	}
 
-	
-//	/*
-//	 * Function Name : verifyAssessmentreport
-//	 * Function Parameters: NA
-//	 * Description : Function used to verify the assessment report
-//	 * Return Value : Boolean
-//	 * 
-//	 */
-//	
-//	public boolean verifyAssessmentReport() throws Exception{
-//		
-//		driver.findElement(objmap.getLocator("btn_GotoMeasures")).click();
-//		Thread.sleep(2000);
-//		
-//		int AssessmentResult=driver.findElements(objmap.getLocator("lbl_Assessmentresult")).size();
-//		System.out.println("Size of Assessment result" +AssessmentResult);
-//		Assert.assertEquals("Assessment Reult Page is not found", 1,AssessmentResult );
-//		Thread.sleep(2000);
-//		return true;
-//		
-//		
-//	}
-//	
-	
+
 	
 	public boolean enterItemFeedbackStars(String stars) throws Exception
 	{
@@ -161,7 +138,7 @@ public class feedbackPages extends StartUp {
 		wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_itemFeedback")));
 		driver.findElement(objmap.getLocator("lbl_itemFeedback")).click();
 		driver.findElement(By.xpath("//div[contains(@class,'rating-module-star')]["+stars+"]")).click();
-		//Thread.sleep(1000);
+		
 		wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_closeItemFeedback")));
 		driver.findElement(objmap.getLocator("lbl_closeItemFeedback")).click();
 		
