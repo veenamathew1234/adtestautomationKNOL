@@ -450,7 +450,7 @@ public class journeyPage extends StartUp {
 		catch(NoSuchElementException ne)
 		{
 			//Dont know which assessment
-			Assert.assertNotNull("Start button for assessment phase is not found", ne);
+			Assert.assertNull("Start button for assessment phase is not found", ne);
 			return false;
 		}
 		
@@ -477,7 +477,6 @@ public class journeyPage extends StartUp {
 
 		try
 		{
-			//Thread.sleep(5000);
 			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_nextitem")));
 			e=driver.findElement(objmap.getLocator("btn_nextitem"));
 			if(e!=null){
@@ -491,6 +490,11 @@ public class journeyPage extends StartUp {
 		catch(NoSuchElementException ne)
 		{
 			Assert.assertNull("Next button at the phase item is not found", ne);
+			return false;
+		}
+		catch(TimeoutException te)
+		{
+			Assert.assertNull("Next button at the phase item is not found", te);
 			return false;
 		}
 		catch(Exception e)
@@ -600,8 +604,10 @@ public boolean runAssessment(String assessmentName)
 public boolean verifyModuleName(String moduleName,String itemName,String itemType,Map<String,Object> moduleItem) throws InterruptedException {
      
 		System.out.println("Inside verify module name");
-		//Thread.sleep(4000);
-    	List<WebElement> e=driver.findElements(By.xpath("//div[contains(@class,'moduleItemScreen-module-sidebar-open module-36ypdeweh3nma3gv8ygsmvuuz5y6v96ntwxw69wy8167wqc5ze79x4mvj63hhhsh61ku9pggep2y9zh1d8f91qsu2q5gddzy7cxatzc-moduleItemScreen-module-module-item-outer-cnt')]//div[contains(@class,'moduleItemScreen-module-menu-container')]//span//div//div//div[contains(@class,'tobesco')]//div[contains(@class,'sectionHeader-module-header-name')]"));
+    	//List<WebElement> e=driver.findElements(By.xpath("//div[contains(@class,'moduleItemScreen-module-sidebar-open module-36ypdeweh3nma3gv8ygsmvuuz5y6v96ntwxw69wy8167wqc5ze79x4mvj63hhhsh61ku9pggep2y9zh1d8f91qsu2q5gddzy7cxatzc-moduleItemScreen-module-module-item-outer-cnt')]//div[contains(@class,'moduleItemScreen-module-menu-container')]//span//div//div//div[contains(@class,'tobesco')]//div[contains(@class,'sectionHeader-module-header-name')]"));
+		try
+		{
+		List<WebElement> e=driver.findElements(objmap.getLocator("coursemodules_count"));
 		boolean result=false;
 		for(WebElement e1:e){
 			
@@ -611,20 +617,34 @@ public boolean verifyModuleName(String moduleName,String itemName,String itemTyp
 	            try {
 					result=verifyItemName(itemName,itemType,moduleItem);
 					break;
+					
 				}
 	            catch (NoSuchElementException e2) {
-					Assert.assertNull("Exception in verifyModuleName: cant find the list of module names "+moduleName+"",e2);
+					Assert.assertNull("The module "+moduleName+" cannot be found / is unidentifiable from the left hand tab.(For QA-Function to check :verifyModuleName)",e2);
 					e2.printStackTrace();
 					return false;
 				}
 	            catch (Exception e2) {
-					Assert.assertNull("Exception in verifyModuleName "+moduleName+"",e2);
+					Assert.assertNull("Exception while trying to identify module "+moduleName+".(For QA-Function to check :verifyModuleName) ",e2);
 					e2.printStackTrace();
 					return false;
 				}
 			}
 		}
+		System.out.println("just before returning result of verifyModuleName");
 		return result;
+		}
+		catch(NoSuchElementException ne)
+		{
+			Assert.assertNull("Cannot find the list of modules from the screen .(For QA-Function to check :verifyModuleName)", ne);
+			return false;
+		}
+		catch (Exception e2) {
+			Assert.assertNull("Exception while trying to find the list of modules from the screen .(For QA-Function to check :verifyModuleName):",e2);
+			e2.printStackTrace();
+			return false;
+		}
+		
 }	
 		
 		
@@ -641,7 +661,6 @@ public boolean verifyItemName(String itemName, String itemType,Map<String,Object
   
 	try {
 	cm.checkErrorComponents();
-	//Thread.sleep(2000);
 	wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class,'innerListItem-module-module-item-title')]//span[contains(@class,'module-22v5yu3ffhhsgfk81kmxd65jpqpc4hrwzg5fydhjy4urrqcg2faj6em1bzckj68yxxwv96gp591877j4dy536vn4gg1dpm1nw21pwy6-innerListItem-module-title-inner') and contains(text(),'"+itemName+"')]")));
 	WebElement e = driver.findElement(By.xpath("//div[contains(@class,'innerListItem-module-module-item-title')]//span[contains(@class,'module-22v5yu3ffhhsgfk81kmxd65jpqpc4hrwzg5fydhjy4urrqcg2faj6em1bzckj68yxxwv96gp591877j4dy536vn4gg1dpm1nw21pwy6-innerListItem-module-title-inner') and contains(text(),'"+itemName+"')]"));
 	System.out.println("Item Name From Screen "+e.getText());
@@ -655,19 +674,27 @@ public boolean verifyItemName(String itemName, String itemType,Map<String,Object
     	System.out.println("Feedback found");
     	String feedbackItem=moduleItem.get("feedback").toString();
     	System.out.println("feedback for the item"+itemName+"="+feedbackItem);
-    	fbp.likeDislikeDevItemfeedback(feedbackItem);
+    	fbp.likeDislikeDevItemfeedback(feedbackItem,itemName);
     }
+    
+    System.out.println("just before returning from verifyItemName");
     return true;
 	} 
 	
 	catch (NoSuchElementException e1) {
-		Assert.assertNull("Exception in verifyItemName : The item "+itemName+"is not present",e1);
+		Assert.assertNull("The item "+itemName+"is not present or identifiable. (For QA-Function to check :verifyItemName) ",e1);
+		e1.printStackTrace();
+		return false;
+	}
+	
+	catch (TimeoutException e1) {
+		Assert.assertNull("The item "+itemName+"is not present or identifiable. (For QA-Function to check :verifyItemName) ",e1);
 
 		e1.printStackTrace();
 		return false;
 	}
 	catch (Exception e1) {
-		Assert.assertNull("Exception in verifyItemName "+itemName+"",e1);
+		Assert.assertNull("Exception while trying to identify item "+itemName+". (For QA-Function to check :verifyItemName)",e1);
 
 		e1.printStackTrace();
 		return false;
@@ -694,7 +721,6 @@ public boolean playItem(String itemName, String itemType)
 		{
     		case "Quiz" :
     			qz.playQuiz(itemName);
-    			
     			break;
 
     		case "Assignment":
@@ -717,6 +743,7 @@ public boolean playItem(String itemName, String itemType)
 	}
 	catch(Exception e)
 	{
+		Assert.assertNull("Unable to play the item "+itemName+" in the Development Phase", e);
 		e.printStackTrace();
 		return false;
 	}
@@ -764,7 +791,6 @@ public boolean traverseThroughCourse(String courseName)
             		System.out.println("just before verify module");
                     verifyModuleName(modulename,itemName,itemType,moduleItem);
                     System.out.println("executed verifyModuleName function");
-                    //Thread.sleep(4000);
                     
                     clickOnNextPhaseItem();  
                 } catch (Exception e) {
@@ -845,7 +871,7 @@ public void downloadCertificate() {
 	
 	catch(NoSuchElementException ne)
 	{
-		Assert.assertNotNull("Download report button not found", ne);
+		Assert.assertNull("Download button for certificate download on completion of journey not found", ne);
 	}
 	catch(Exception e)
 	{
