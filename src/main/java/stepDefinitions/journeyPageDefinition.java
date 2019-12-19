@@ -25,11 +25,7 @@ public class journeyPageDefinition {
 	   
 		
 		jp.navigateThroughPhases();
-//		 for (int row = 0; row < twod.length; row++) {
-//	            //for (int col = 0; col < twod[row].length; col++) {
-//	            	Assert.assertEquals(twod[row][1],twod[row][0],"");
-//	            }
-//	        }
+	        }
 	
 	}
-}
+

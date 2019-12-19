@@ -1,14 +1,18 @@
 package pageRepository;
 
+import java.io.File;
 import java.sql.Time;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -95,30 +99,30 @@ public class Quiz extends StartUp{
 			System.out.println("itemName passed="+itemName);
 			ArrayList quizDetails=(ArrayList) courseObj.get("Quiz");
 			System.out.println("The quiz details="+quizDetails);
-			int flag=0;
+			boolean flag=false;
 		//Click on the take quiz button
 			Thread.sleep(2000);
-//			e=driver.findElement(objmap.getLocator("btn_TakeQuiz"));
-//			e.click();
 			for(int i=0;i<quizDetails.size();i++)
 			{
 				Map<String,Object>q1=(Map<String, Object>) quizDetails.get(i);
 				System.out.println("quizName from Json="+q1.get("quizName"));
 				if(q1.get("quizName").toString().equalsIgnoreCase(itemName))
 				{
-					flag=1;
+					System.out.println("Inside identifying");
+					flag=true;
 					try {
 						verifyQuizLandingPage(q1);
 						e=driver.findElement(objmap.getLocator("btn_TakeQuiz"));
 					}
 					catch(NoSuchElementException ne1)
 					{
-						Assert.assertNull("Take Quiz button cannot be found for the quiz "+itemName+"", ne1);
+						Assert.assertNull("Take Quiz button cannot be found for the quiz "+itemName+".For QA-Function to check :playQuiz ", ne1);
 					}
 					catch (Exception e1) {
-						Assert.assertNull("Take Quiz button throwing general exception", e1);
+						Assert.assertNull("Error while clicking on Take Quiz button. For QA-Function to check :playQuiz", e1);
 					}
 					e.click();
+					Thread.sleep(2000);
 					System.out.println("identified");
 					int scoreCalc=answerQuestions(q1);
 					submitQuiz();
@@ -127,45 +131,16 @@ public class Quiz extends StartUp{
 				}
 			}
 	
-			Assert.assertEquals("Couldnot find matching quizName",1,flag);
-			
-//			quizDetails.forEach((quiz)->{
-//			Map<String,Object>q1=(Map<String, Object>) quiz;
-//			System.out.println("quizName from Json="+q1.get("quizName"));
-//			if(q1.get("quizName").toString().equalsIgnoreCase(itemName))
-//			{
-//				//flag=1;
-//				try {
-//					verifyQuizLandingPage(q1);
-//					e=driver.findElement(objmap.getLocator("btn_TakeQuiz"));
-//				}
-//				catch(NoSuchElementException ne1)
-//				{
-//					Assert.assertNull("Take Quiz button cannot be found for the quiz "+itemName+"", ne1);
-//				}
-//				catch (Exception e1) {
-//					Assert.assertNull("Take Quiz button throwing general exception", e1);
-//				}
-//				e.click();
-//				System.out.println("identified");
-//				int scoreCalc=answerQuestions(q1);
-//				submitQuiz();
-//				verifyScore(scoreCalc);
-//				//break;
-//			}
-//			
-//		});
-			
-			//verifyScore(score)
+			Assert.assertTrue("Could not find the quiz:"+itemName+".(For QA-Function to check :playQuiz)",flag);
 			
 		}
 		catch(NoSuchElementException ne)
 		{
-			Assert.assertNull("Take Quiz button cannot be found for the quiz "+itemName+"", ne);
+			Assert.assertNull("Take Quiz button cannot be found for the quiz "+itemName+".(For QA-Function to check :playQuiz)", ne);
 		}
 		catch(Exception e)
 		{
-			Assert.assertNull("Take Quiz function which loops through Quiz data having some issues", e);
+			Assert.assertNull("Error while trying to play quiz.(For QA-Function to check :playQuiz)", e);
 			e.printStackTrace();
 		}	
 		
@@ -203,7 +178,7 @@ public class Quiz extends StartUp{
 		}
 		catch(Exception e)
 		{
-			Assert.assertNull("main quiz questions answers having problem", e);
+			Assert.assertNull("Error while trying to enter answers for the quiz.(For QA-Function to check :answerQuestions)", e);
 			return 0;
 		}
 		
@@ -211,25 +186,19 @@ public class Quiz extends StartUp{
 	
 	public String findQuestionFromScreen(int questionNumber)
 	{
-		
+
         try
 
         {
 
             System.out.println("inside findQuestionFromScreen and question number="+questionNumber);
-            //Thread.sleep(10000);
-//            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(@class,'_11yezv')]")));
-//            e=driver.findElement(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(@class,'_11yezv')]"));
-//            String question=e.getText();
             JavascriptExecutor js = (JavascriptExecutor) driver;
-//			Object question=js.executeAsyncScript("var question = document.querySelectorAll(\"div[class*='questionList-module-question-data-cnt']:nth-of-type(1)\")[0];" + 
-//					"var questionDiv = question.querySelector(\"div[class*='_11yezv']\");" + 
-//					"questionText = questionDiv.querySelector(\"p\").innerText;");
            String question="";
             System.out.println("question inside="+question);
             return question.toString();
 
         }
+
 		catch(NoSuchElementException ne)
 		{
 			Assert.assertNull(""+questionNumber+"st question cannot be found on screen", ne);
@@ -249,24 +218,25 @@ public class Quiz extends StartUp{
 		try
 		{
 			System.out.println("Inside click ON Answer and the question number="+questionNumber);
-			Thread.sleep(2000);
-			 //wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]")));
-			//String question=driver.findElement(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]")).getText();
-			//e=driver.findElement(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(text(),'"+answer+"')]"));
-			e=driver.findElement(By.xpath("//div[contains(@class,'takeQuiz-module-quiz-questions-data')]//div[contains(@class,'takeQuiz-module-question-list-cnt')]//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(text(),'"+answer+"')]"));
+			Thread.sleep(3000);
+			e=driver.findElement(By.xpath("//div[contains(@class,'questionList-module-question-data-cnt')]["+questionNumber+"]//div[contains(@class,'mcq-module-mcq-cnt')]//div[contains(@class,'mcq-module-answer-options-cnt')]//div[contains(@class,'mcq-module-option-text') and contains(text(),'"+answer+"')]"));
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", e);
+			Thread.sleep(500);
 			e.click();
 			return true;
 		}
 		catch(NoSuchElementException ne)
 		{
+			
+			Assert.assertNull(""+answer+" for the quiz cannot be found on screen.(For QA-Function to check :clickOnAnswer", ne);
 			ne.printStackTrace();
-			Assert.assertNull(""+answer+" cannot be found on screen", ne);
+			
 			return false;
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			Assert.assertNull("Some issue in answering question",e);
+			Assert.assertNull("Issue while clicking on an answer in quiz.(For QA-Function to check :clickOnAnswer)",e);
 			return false;
 		
 		}
@@ -284,12 +254,12 @@ public class Quiz extends StartUp{
 		}
 		catch(NoSuchElementException ne )
 		{
-			Assert.assertNull("Unable to submit quiz", ne);
+			Assert.assertNull("Unable to submit quiz. (For QA-Function to check :submitQuiz)", ne);
 			return false;
 		}
 		catch(Exception e)
 		{
-			Assert.assertNull("Some issue in submitting quiz",e);
+			Assert.assertNull("Issue while submitting quiz. (For QA-Function to check :submitQuiz)",e);
 			return false;
 		
 		}
@@ -299,8 +269,7 @@ public class Quiz extends StartUp{
 	{
 		try
 		{
-			System.out.println("inside verifyScore");
-			//Thread.sleep(5000);
+			System.out.println("inside verifyScore and the calculated score is: "+score+"");
 			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_TotalScoreReceived")));
 			e=driver.findElement(objmap.getLocator("lbl_TotalScoreReceived"));
 			System.out.println("The string before int parse="+e.getText());
@@ -321,12 +290,12 @@ public class Quiz extends StartUp{
 		}
 		catch(NoSuchElementException ne)
 		{
-			Assert.assertNull("Score cannot be found on the platform after quiz", ne);
+			Assert.assertNull("Score not displayed on the platform after quiz. (For QA-Function to check :verifyScore)", ne);
 			return false;
 		}
 		catch(Exception e)
 		{
-			Assert.assertNull("Score Calc function issue", e);
+			Assert.assertNull("Score Calc issue after quiz. (For QA-Function to check :verifyScore)", e);
 			System.out.println("Issues while matching scores");
 			return false;
 		}
