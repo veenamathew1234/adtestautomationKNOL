@@ -81,6 +81,7 @@ public class loginPage_excel extends StartUp{
 
 		try{
 			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_Skip"))).click();
+			System.out.println("Skip button found");
 		}
 		catch(NoSuchElementException ne)
 		{
