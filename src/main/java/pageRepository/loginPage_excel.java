@@ -15,7 +15,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import utils.CommonMethods;
 import utils.ObjectFactory;
 import io.restassured.RestAssured;
@@ -93,7 +92,6 @@ public class loginPage_excel extends StartUp{
 		{
 			Assert.assertNull("Skip button is not found in Change Password screen", te);
 			te.printStackTrace();
-			
 		}
 	}
 	
