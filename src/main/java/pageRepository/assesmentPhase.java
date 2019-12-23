@@ -155,7 +155,7 @@ public class assesmentPhase extends StartUp{
 		System.out.println("Inside assessment report");
 		
 		try{
-			driver.findElement(objmap.getLocator("btn_GotoMeasures")).click();
+			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_GotoMeasures"))).click();
 			Thread.sleep(2000);
 			
 			int AssessmentResult=driver.findElements(objmap.getLocator("lbl_Assessmentresult")).size();
@@ -193,7 +193,7 @@ public class assesmentPhase extends StartUp{
 			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", assessmentreport);
 			Thread.sleep(1000); 
 			assessmentreport.click();
-						
+									
 			WebElement backarrow=wait.until(ExpectedConditions.elementToBeClickable(objmap.getLocator("lnk_assessmentreportbackarrow")));
 			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", backarrow);
 			Thread.sleep(1000); 
@@ -215,5 +215,4 @@ public class assesmentPhase extends StartUp{
 		
 		
 	}
-
 }
