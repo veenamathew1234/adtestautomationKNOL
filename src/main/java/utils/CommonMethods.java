@@ -2,11 +2,17 @@ package utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -126,5 +132,20 @@ public class CommonMethods extends StartUp {
 			}
 		  return true;
 	  }
+	
+	//----------------------Function to take screenshot----------------
+	
+	public void screenShot() throws IOException{
+
+		System.out.println("inside screenshot block");
+        File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        driver.manage().window().setSize(new Dimension (1280, 1024));
+        String timestamp = new SimpleDateFormat("yyyy_MM_dd__hh_mm_ss").format(new Date());
+        String screenshotspath=System.getProperty("user.dir")+"/Screenshots/";
+        FileHandler.copy(scrFile, new File(screenshotspath + "issue: " +" "+timestamp+".png"));
+        
+
+}
+
 
 }

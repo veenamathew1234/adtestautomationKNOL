@@ -73,26 +73,37 @@ public class demographicsPage extends StartUp{
 		try{
 			
 	        System.out.println("Inside Demographics Page");
+	        cm.screenShot();
 	        
+	        Thread.sleep(2000);
+	        System.out.println("1");
 	        wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("dropdown_gender"))).click();
+	        System.out.println("1 click");
 	        wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("option_gender"))).click();
 	
 	        //Enter Country
+	        System.out.println("2");
 	        wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("dropdown_country"))).click();
+	        Thread.sleep(1000);
+	       System.out.println("2 click");
 	        wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("option_country"))).click();
 	       
 	        //Enter Education
+	        System.out.println("3");
 	        wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("dropdown_education"))).click();
+	        System.out.println("3 click");
 	        wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("option_education"))).click();
 
 	        //Enter Industry
-
+	        System.out.println("4");
 	        wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("dropdown_industry"))).click();
+	        System.out.println("4 click");
 	        wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("option_industry"))).click();
 
 	        //Enter Job Category
-	        
+	        System.out.println("5"); 
 	        wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("dropdown_jobcategory"))).click();
+	        System.out.println("5 click");
 	        wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("option_jobcategory"))).click();
 
 
@@ -117,12 +128,14 @@ public class demographicsPage extends StartUp{
 		
 		catch(NoSuchElementException ne)
 		{
+			cm.screenShot();
 			Assert.assertNull("One of the elements is not found in demographics/policy page", ne);
 			ne.printStackTrace();
 			
 		}
 		catch(TimeoutException te)
 		{
+			cm.screenShot();
 			Assert.assertNull("One of the elements is not found in demographics/policy page", te);
 			te.printStackTrace();
 			

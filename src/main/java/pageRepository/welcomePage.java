@@ -68,11 +68,13 @@ public welcomePage(){
 	 }
 	 catch(NoSuchElementException ne)
 	 {
+		 cm.screenShot();
 		 Assert.assertNull("Continue/Start learning button not available to click", ne);
 		 ne.printStackTrace();
 	 }
 	 catch(TimeoutException te)
 	 {
+		 cm.screenShot();
 		 Assert.assertNull("Continue/Start learning button not available to click even after waiting for 30 seconds", te);
 		 te.printStackTrace();
 	 }
@@ -90,12 +92,14 @@ public welcomePage(){
 	 }
 		 catch(NoSuchElementException ne)
 			{
+			 	cm.screenShot();
 				Assert.assertNull("Accept Invitation button is not found in Welcome Page", ne);
 				ne.printStackTrace();
 				
 			}
 			catch(TimeoutException te)
 			{
+				cm.screenShot();
 				Assert.assertNull("Accept Invitation button is not found in Welcome Page", te);
 				te.printStackTrace();
 				

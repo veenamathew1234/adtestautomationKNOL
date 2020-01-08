@@ -1,5 +1,6 @@
 package pageRepository;
 
+import java.io.IOException;
 import java.util.Map;
 
 import org.openqa.selenium.By;
@@ -13,6 +14,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import junit.framework.Assert;
+import utils.CommonMethods;
 import utils.ObjectFactory;
 import utils.StartUp;
 
@@ -22,6 +24,7 @@ public class assesmentPhase extends StartUp{
 	WebElement e;
 	StartUp st=new StartUp();
 	WebDriverWait wait = new WebDriverWait(driver,30);
+	CommonMethods cm=new CommonMethods();
 	
 	public assesmentPhase(){
 		System.out.println("Inside assessment page constructor");
@@ -76,12 +79,14 @@ public class assesmentPhase extends StartUp{
 		}
 		catch(NoSuchElementException ne)
 		{
+			cm.screenShot();
 			Assert.assertNull("Start button for assessment phase is not found", ne);
 			ne.printStackTrace();
 			return false;
 		}
 			
 			catch(TimeoutException te){
+				cm.screenShot();
 				Assert.assertNull("Start button for assessment phase is not found", te);
 				te.printStackTrace();
 				return false;
@@ -104,7 +109,7 @@ public class assesmentPhase extends StartUp{
 	 */
 	
 	
-	public boolean validateAndExitPhaseItem(String assessmentType){
+	public boolean validateAndExitPhaseItem(String assessmentType) throws IOException{
 		
 		try {
 		if(assessmentType.equalsIgnoreCase("Test Sim"))
@@ -123,12 +128,14 @@ public class assesmentPhase extends StartUp{
 			return true;
 		} 
 		catch (NoSuchElementException ne) {
+			cm.screenShot();
 			Assert.assertNull("Button to exit or exit pop up from simulation/game is not found",ne );
 			ne.printStackTrace();
 			return false;
 		}
 		
 		catch (TimeoutException te) {
+			cm.screenShot();
 			Assert.assertNull("Button to exit or exit pop up from simulation/game is not found",te );
 			te.printStackTrace();
 			return false;
@@ -173,12 +180,14 @@ public class assesmentPhase extends StartUp{
 		}
 		catch(NoSuchElementException ne)
 		{
+			cm.screenShot();
 			Assert.assertNull("Error while verifying Assessment report",ne);
 			ne.printStackTrace();
 			return false;
 		}
 		catch(TimeoutException te)
 		{
+			cm.screenShot();
 			Assert.assertNull("Error while verifying Assessment report",te);
 			te.printStackTrace();
 			return false;
@@ -203,11 +212,13 @@ public class assesmentPhase extends StartUp{
 		}
 		
 		catch(NoSuchElementException ne){
+			cm.screenShot();
 			Assert.assertNull("Error in download assessment report", ne);
 			ne.printStackTrace();
 			return false;
 		}
 		catch(TimeoutException te){
+			cm.screenShot();
 			Assert.assertNull("Error in download assessment report", te);
 			te.printStackTrace();
 			return false;

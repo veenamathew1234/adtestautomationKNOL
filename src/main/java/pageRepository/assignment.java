@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import junit.framework.Assert;
+import utils.CommonMethods;
 import utils.ObjectFactory;
 import utils.StartUp;
 
@@ -23,6 +24,7 @@ public class assignment extends StartUp {
 	WebElement e,e1;
 	Map<String,Object> CourseDataObj;
 	WebDriverWait wait = new WebDriverWait(driver,30);
+	CommonMethods cm=new CommonMethods();
 	
 	
 	public assignment(){
@@ -40,7 +42,8 @@ public class assignment extends StartUp {
 			try {
 				verifyAssignmentName(assignment);
 				System.out.println("leaving verifyAssignmentName");
-			} catch (Exception e) {
+			} 
+			catch (Exception e) {
 				Assert.assertNull("Error while playing the assignment in the development phase",e);
 				e.printStackTrace();
 			}
@@ -77,11 +80,15 @@ public class assignment extends StartUp {
 		}
 		catch(NoSuchElementException ne)
 		{
+			cm.screenShot();
 			Assert.assertNull("Assignment Name is not displayed on screen for the assignment : "+assignmentname+". For QA- check function verifyAssignmentName ", ne);
+			ne.printStackTrace();
 		}
 		catch(TimeoutException te)
 		{
+			cm.screenShot();
 			Assert.assertNull("Points assigned for the assignment is not displayed on screen for the assignment : "+assignmentname+". For QA- check function verifyAssignmentName ", te);
+			te.printStackTrace();
 		}
 		if(e.getText().equalsIgnoreCase(assignmentname) && e1.getText().equalsIgnoreCase(assignmentpoints)){
 			Thread.sleep(2000);
@@ -99,7 +106,6 @@ public class assignment extends StartUp {
 			
 			System.out.println("Inside text assignment submission");
 			driver.findElement(objmap.getLocator("txt_assignment")).sendKeys(assignmenttext);
-			//Thread.sleep(2000);
 			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_submit")));
 			driver.findElement(objmap.getLocator("btn_submit")).click();
 			
@@ -118,7 +124,6 @@ public class assignment extends StartUp {
 			System.out.println("Inside website url assignment submission");
 			e=driver.findElement(objmap.getLocator("txt_assignmenturl"));
 			e.sendKeys(websiteurl);
-			//Thread.sleep(2000);
 			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_submit")));
 			driver.findElement(objmap.getLocator("btn_submit")).click();
 			
@@ -126,12 +131,15 @@ public class assignment extends StartUp {
 		}
 		catch(NoSuchElementException ne)
 		{
+			cm.screenShot();
 			Assert.assertNull("Error while submitting the assignment : "+assignmenttype+".For QA-Check the function submitAssignment", ne);
+			ne.printStackTrace();
 		}
 		catch(TimeoutException te)
 		{
+			cm.screenShot();
 			Assert.assertNull("Error while submitting the assignment : "+assignmenttype+".For QA-Check the function submitAssignment", te);
-		
+			te.printStackTrace();
 		
 		}
 	}
