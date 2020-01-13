@@ -92,7 +92,6 @@ public class loginPage_excel extends StartUp{
 		{
 			Assert.assertNull("Skip button is not found in Change Password screen", te);
 			te.printStackTrace();
-			
 		}
 	}
 	
