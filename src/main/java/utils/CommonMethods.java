@@ -1,5 +1,8 @@
 package utils;
 
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -11,6 +14,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -143,7 +147,8 @@ public class CommonMethods extends StartUp {
         String timestamp = new SimpleDateFormat("yyyy_MM_dd__hh_mm_ss").format(new Date());
         String screenshotspath=System.getProperty("user.dir")+"/Screenshots/";
         FileHandler.copy(scrFile, new File(screenshotspath + "issue: " +" "+timestamp+".png"));
-        
+		
+   
 
 }
 
