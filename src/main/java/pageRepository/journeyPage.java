@@ -51,6 +51,7 @@ public class journeyPage extends StartUp {
 	Quiz qz=new Quiz();
 	externalURL ext=new externalURL();
 	fileItems fl=new fileItems();
+	int i=0;
 	
 	public journeyPage(){
 		System.out.println("Inside journey page constructor");
@@ -138,15 +139,14 @@ public class journeyPage extends StartUp {
 		 * journeyInfo contains data from the testData.json
 		 */
 		
+		
 		journeyInfo.forEach((phase) -> {
-			try {
-				
+			try {	
 				 Map<String,Object> phaseMap=(Map<String, Object>) (phase);
 				 String phaseName=phaseMap.get("phaseName").toString();
 				 System.out.println("Phase name to be clicked on next is "+phaseName);
-				 WebElement e1=driver.findElement(By.xpath("//div[contains(@class,'content-module-tabs-content')]//div[contains(text(),'"+phaseName+"')]"));
+				 WebElement e1=driver.findElement(By.xpath("//div[contains(@class,'content-module-tabs-content')]//div[contains(text(),'"+phaseName+"')]//parent::div"));
 				 e1.click();
-				 
 				 //User navigates through the phase items of the particular phase	 
 				 
 				 String phaseType=phaseMap.get("phaseType").toString();
@@ -194,6 +194,7 @@ public class journeyPage extends StartUp {
 			catch (Exception e) {
 				e.printStackTrace();
 			}
+			i++;
 			
 		});
 		verifyCertificate();

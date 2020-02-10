@@ -62,6 +62,9 @@ public class loginPage_excel extends StartUp{
 	public void validateLoginPage(){
 		String title=driver.getTitle();
 		System.out.println("Page title :"+title);
+		System.out.println("message from server");
+		System.out.println("Test for git lab connection");
+		System.out.println("shalini veena");
         Assert.assertEquals("Incorrect Login page","Login to Kompass", title);
 		
 	}
@@ -104,7 +107,6 @@ public class loginPage_excel extends StartUp{
 			cm.screenShot();
 			Assert.assertNull("Skip button is not found in Change Password screen", te);
 			te.printStackTrace();
-			
 		}
 	}
 	
