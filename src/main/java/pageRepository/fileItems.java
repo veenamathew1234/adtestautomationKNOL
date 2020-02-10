@@ -1,16 +1,19 @@
 package pageRepository;
 
+import java.io.IOException;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 
+import utils.CommonMethods;
 import utils.StartUp;
 
 public class fileItems  extends StartUp {
 	
-	
+	CommonMethods cm=new CommonMethods();
 	/*
 	 * To be added at later phases in case of multiple pages
 	 * 
@@ -27,7 +30,8 @@ public class fileItems  extends StartUp {
 		
 	}
 	
-	public boolean checkVideoLoad() throws InterruptedException
+	public boolean checkVideoLoad() throws InterruptedException, IOException
+	
 	{
 		try
 		{
@@ -41,7 +45,9 @@ public class fileItems  extends StartUp {
 		}
 		catch(NoSuchElementException ne)
 		{
+			cm.screenShot();
 			Assert.assertNull(ne, "Unable to play video in the development phase. For QA-check the function checkVideoLoad");
+			ne.printStackTrace();
 			return false;
 		}
 	}
