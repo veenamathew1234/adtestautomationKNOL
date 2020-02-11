@@ -54,7 +54,7 @@ public class loginPage_excel extends StartUp{
 	}
 
 	public void launchPage() throws IOException{
-		
+
 		driver.get(DataObj.get("url").toString());
 		cm.screenShot();
 	}
