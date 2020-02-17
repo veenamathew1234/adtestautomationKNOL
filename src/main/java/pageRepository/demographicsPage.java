@@ -1,148 +1,264 @@
 package pageRepository;
 
 import java.io.FileInputStream;
+
 import java.io.IOException;
+
 import java.net.HttpURLConnection;
+
 import java.net.MalformedURLException;
+
 import java.net.URL;
+
 import java.util.ArrayList;
+
 import java.util.List;
+
 import java.util.Map;
+
 import java.util.Properties;
+
 import java.util.concurrent.ExecutorService;
+
 import java.util.concurrent.TimeUnit;
 
 import org.apache.http.client.methods.HttpGet;
+
 import org.openqa.selenium.remote.http.HttpResponse;
+
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import org.openqa.selenium.support.ui.Select;
+
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import org.junit.Assert;
+
 import org.openqa.selenium.By;
+
 import org.openqa.selenium.NoSuchElementException;
+
 import org.openqa.selenium.TimeoutException;
+
 import org.openqa.selenium.WebElement;
 
 import utils.CommonMethods;
+
 import utils.ObjectFactory;
+
 import utils.StartUp;
 
 public class demographicsPage extends StartUp{
-	
-	Boolean flag;
-	ObjectFactory objmap;
-	StartUp st = new StartUp();
-	String currenturl;
-	int statusCode;
-	public Properties prop;
-	WebElement e;
-	HttpURLConnection huc = null;
-	ExecutorService executor;
-	CommonMethods cm=new CommonMethods();
-	public static List<String> errorList = new ArrayList<String>();
-	WebDriverWait wait=new WebDriverWait(driver,30);
-	
-	
-	public demographicsPage(){
-		
-		this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/DemographicsPage.properties");
-		Map<String,Object> DataObj=st.beforeClass("testData.json");
-	}
-	
-	public void validateDemographicsPageLoad(){
-		
-		currenturl=driver.getCurrentUrl();
-		flag=false;
-		if(currenturl.startsWith(DataObj.get("Demographics_url").toString()))
-		flag=true;
-		Assert.assertTrue("Demographics page not loading", flag);
-		
-	}
-	
-	public void pageRefresh() throws Exception{
-		
-		driver.get(DataObj.get("url").toString());
-		Thread.sleep(2000);
-		cm.checkErrorComponents();		
-	
-}
 
-	public void fillDemographicsPage() throws Exception
+    Boolean flag;
 
-    {
-		try{
-			
-	        System.out.println("Inside Demographics Page");
-	        cm.screenShot();
-	        
-	        Thread.sleep(2000);
-	        System.out.println("1");
-	        wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("dropdown_gender"))).click();
-	        System.out.println("1 click");
-	        wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("option_gender"))).click();
-	
-	        //Enter Country
-	        System.out.println("2");
-	        wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("dropdown_country"))).click();
-	        Thread.sleep(1000);
-	       System.out.println("2 click");
-	        wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("option_country"))).click();
-	       
-	        //Enter Education
-	        System.out.println("3");
-	        wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("dropdown_education"))).click();
-	        System.out.println("3 click");
-	        wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("option_education"))).click();
+    ObjectFactory objmap;
 
-	        //Enter Industry
-	        System.out.println("4");
-	        wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("dropdown_industry"))).click();
-	        System.out.println("4 click");
-	        wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("option_industry"))).click();
+    StartUp st = new StartUp();
 
-	        //Enter Job Category
-	        System.out.println("5"); 
-	        wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("dropdown_jobcategory"))).click();
-	        System.out.println("5 click");
-	        wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("option_jobcategory"))).click();
+    String currenturl;
 
+    int statusCode;
 
-	        //WorkExperience
+    public Properties prop;
 
-	        wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("option_workexperience"))).click();
+    WebElement e;
 
-	        //People Management
+    HttpURLConnection huc = null;
 
-	        wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("option_peoplemanagement"))).click();
+    ExecutorService executor;
 
-	        //Next Button 
-	        wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_next"))).click();
-	        
-	        //policy check box
-	         wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("checkbox_policy"))).click();
-	        
-	        //Proceed button
-	        
-	         wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_proceed"))).click();
-		}
-		
-		catch(NoSuchElementException ne)
-		{
-			cm.screenShot();
-			Assert.assertNull("One of the elements is not found in demographics/policy page", ne);
-			ne.printStackTrace();
-			
-		}
-		catch(TimeoutException te)
-		{
-			cm.screenShot();
-			Assert.assertNull("One of the elements is not found in demographics/policy page", te);
-			te.printStackTrace();
-			
-		}
-		
+    CommonMethods cm=new CommonMethods();
+
+    public static List<String> errorList = new ArrayList<String>();
+
+    public demographicsPage(){
+
+        
+
+        this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/DemographicsPage.properties");
+
+        Map<String,Object> DataObj=st.beforeClass("testData.json");
 
     }
+
+    
+
+    public void validateDemographicsPageLoad(){
+
+        
+
+        currenturl=driver.getCurrentUrl();
+
+        flag=false;
+
+        if(currenturl.startsWith(DataObj.get("Demographics_url").toString()))
+
+        flag=true;
+
+        Assert.assertTrue("Demographics page not loading", flag);
+   }
+
+    
+
+    public void pageRefresh() throws Exception{
+
+        
+
+        driver.get(DataObj.get("url").toString());
+
+        Thread.sleep(2000);
+
+        cm.checkErrorComponents();      
+
+    
+
 }
 
+    public void fillDemographicsPage() throws InterruptedException
 
+    {
+
+        try{
+
+            WebDriverWait wait;
+
+            System.out.println("Inside Demographics Page");
+
+            WebElement e=driver.findElement(By.xpath("//div[contains(@class,'signup-container')]//div[contains(@class,'signup-right')]//form//div[contains(@class,'demographics-container skin-grey2')]//div[contains(@class,'personalDetails-form-field input-field')][1]//div[contains(@class,'select-wrapper')]//input[contains(@class,'select-dropdown dropdown-trigger')]"));
+
+            new WebDriverWait(driver, 30).until(ExpectedConditions.elementToBeClickable(e));
+
+            e.click();  
+
+            new WebDriverWait(driver, 30).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//li[contains(@id,'select-options')]/span[contains(text(),'Male')]")))).click();
+
+           // driver.findElement(By.xpath("//li[contains(@id,'select-options')]/span[contains(text(),'Male')]")).click();
+
+            //Enter Country
+
+            e=driver.findElement(By.xpath("//div[contains(@class,'signup-container')]//div[contains(@class,'signup-right')]//form//div[contains(@class,'demographics-container skin-grey2')]//div[contains(@class,'demographicDetails-form-field input-field')][1]//div[contains(@class,'select-wrapper')]//input[contains(@class,'select-dropdown dropdown-trigger')]"));
+
+            new WebDriverWait(driver, 30).until(ExpectedConditions.elementToBeClickable(e));
+
+            e.click(); 
+
+            new WebDriverWait(driver, 30).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//li[contains(@id,'select-options')]/span[(text()='Afghanistan')]")))).click();
+
+            //driver.findElement(By.xpath("//li[contains(@id,'select-options')]/span[(text()='Afghanistan')]")).click();
+
+            
+
+            //Enter Education
+
+     
+
+            e=driver.findElement(By.xpath("//div[contains(@class,'signup-container')]//div[contains(@class,'signup-right')]//form//div[contains(@class,'demographics-container skin-grey2')]//div[contains(@class,'demographicDetails-form-field input-field')][3]//div[contains(@class,'select-wrapper')]//input[contains(@class,'select-dropdown dropdown-trigger')]"));
+
+            new WebDriverWait(driver, 30).until(ExpectedConditions.elementToBeClickable(e));
+
+            e.click(); 
+
+            new WebDriverWait(driver, 30).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//li[contains(@id,'select-options')]/span[(text()='Less than a high school diploma')]")))).click();
+
+            //driver.findElement(By.xpath("//li[contains(@id,'select-options')]/span[(text()='Less than a high school diploma')]")).click();
+
+            //Enter Industry
+
+            e=driver.findElement(By.xpath("//div[contains(@class,'signup-container')]//div[contains(@class,'signup-right')]//form//div[contains(@class,'demographics-container skin-grey2')]//div[contains(@class,'demographicDetails-form-field input-field')][5]//div[contains(@class,'select-wrapper')]//input[contains(@class,'select-dropdown dropdown-trigger')]"));
+
+            new WebDriverWait(driver, 30).until(ExpectedConditions.elementToBeClickable(e));
+
+            e.click();
+
+            new WebDriverWait(driver, 30).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//li[contains(@id,'select-options')]/span[(text()='Agriculture, Forestry and Fishing')]")))).click();
+
+            //driver.findElement(By.xpath("//li[contains(@id,'select-options')]/span[(text()='Agriculture, Forestry and Fishing')]")).click();
+
+            //Enter Job Category
+
+            
+
+            e=driver.findElement(By.xpath("//div[contains(@class,'signup-container')]//div[contains(@class,'signup-right')]//form//div[contains(@class,'demographics-container skin-grey2')]//div[contains(@class,'demographicDetails-form-field input-field')][6]//div[contains(@class,'select-wrapper')]//input[contains(@class,'select-dropdown dropdown-trigger')]"));
+
+            new WebDriverWait(driver, 30).until(ExpectedConditions.elementToBeClickable(e));
+
+            e.click(); 
+
+            //driver.findElement(By.xpath("//li[contains(@id,'select-options')]/span[(text()='Individual Contributors')]")).click();
+
+            new WebDriverWait(driver, 30).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//li[contains(@id,'select-options')]/span[(text()='Individual Contributors')]")))).click();
+
+            //WorkExperience
+
+            new WebDriverWait(driver, 30).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div[contains(@class,'demographicDetails-form-field-custom')][1]//div[contains(@class,'experience-container')]//div[contains(@class,'exp-options-container')]//div[contains(@id,'ei-option-22')]")))).click();
+
+            //driver.findElement(By.xpath("//div[contains(@class,'demographicDetails-form-field-custom')][1]//div[contains(@class,'experience-container')]//div[contains(@class,'exp-options-container')]//div[contains(@id,'ei-option-22')]")).click();
+
+           //People Management
+
+            driver.findElement(By.xpath("//div[contains(@class,'demographicDetails-form-field-custom')][2]//div[contains(@class,'experience-container')]//div[contains(@class,'exp-options-container')]//div[contains(@id,'ei-option-279')]")).click();
+
+           //Next Button 
+
+            driver.findElement(By.xpath("//div[contains(@class,'next-button-container')]/button")).click();
+
+            Thread.sleep(2000);
+
+            
+
+            //policy check box
+
+            
+
+            e=driver.findElement(By.xpath("//div[contains(@class,'signup-container')]//div[contains(@class,'signup-right')]//form//div[contains(@class,'policy-container')]//div[contains(@class,'policy-box')]//div[contains(@class,'agree-conditions')]//label//span[contains(@class,'agree-conditions-text skin-grey1')]"));
+
+            new WebDriverWait(driver, 30).until(ExpectedConditions.elementToBeClickable(e));
+
+            e.click();
+
+            
+
+            //Proceed button
+
+            
+
+            e=driver.findElement(By.xpath("//button[(@id='policySubmitBtn')]"));
+
+            new WebDriverWait(driver, 30).until(ExpectedConditions.elementToBeClickable(e));
+
+            e.click();
+
+        }
+
+        
+
+        catch(NoSuchElementException ne)
+
+        {
+
+            Assert.assertNull("One of the elements is not found in demographics/policy page", ne);
+
+            ne.printStackTrace();
+
+            
+
+        }
+
+        catch(TimeoutException te)
+
+        {
+
+            Assert.assertNull("One of the elements is not found in demographics/policy page", te);
+
+            te.printStackTrace();
+
+            
+
+        }
+
+        
+
+    }
+
+}
