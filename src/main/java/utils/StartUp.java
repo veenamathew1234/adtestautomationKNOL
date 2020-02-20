@@ -41,6 +41,7 @@ public class StartUp {
 		  
 
 		 if(driver==null){
+			 
 				System.setProperty("webdriver.chrome.driver",chromepath);
 				ChromeOptions options = new ChromeOptions();
 				DesiredCapabilities capabilities = DesiredCapabilities.chrome();
@@ -57,6 +58,7 @@ public class StartUp {
 				capabilities.setAcceptInsecureCerts(true);
 				driver = new ChromeDriver(options);
 				driver.manage().window().maximize(); 
+			 
 		 }
 		 
  

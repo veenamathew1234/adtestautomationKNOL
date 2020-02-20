@@ -48,6 +48,7 @@ public class journeyPage extends StartUp {
 	assesmentPhase asp=new assesmentPhase();
 	feedbackPages fbp=new feedbackPages();
 	assignment assgn = new assignment();
+	phaseCompletionValidations pv=new phaseCompletionValidations();
 	Quiz qz=new Quiz();
 	externalURL ext=new externalURL();
 	fileItems fl=new fileItems();
@@ -230,7 +231,7 @@ public class journeyPage extends StartUp {
 		
 		if(phaseType.equalsIgnoreCase("Assessment"))
 		{
-			navigateThroughAssessmentPhase();
+			navigateThroughAssessmentPhase(phaseType);
 		}
 		
 		if(phaseType.equalsIgnoreCase("NormalCourse")||phaseType.equalsIgnoreCase("R2S"))
@@ -285,13 +286,15 @@ public class journeyPage extends StartUp {
 	 */
 	
 	
-	public boolean navigateThroughAssessmentPhase()
+	public boolean navigateThroughAssessmentPhase(String phaseType)
 	{
 		List AssessmentNames=datalist("Assessments");
 		AssessmentNames.forEach((assessment)->{
 			Map<String,Object> assessmentDetail=(Map<String, Object>) (assessment);
 			String assessmentType=assessmentDetail.get("AssessmentType").toString();
+			String itemName=assessmentDetail.get("AssessmentName").toString();
 			System.out.println("assess Type= "+assessmentType);
+			System.out.println("Assessment Name= "+itemName);
 			try
 			{
 			if(asp.launchAssessmentItem()==true)	
@@ -299,6 +302,9 @@ public class journeyPage extends StartUp {
 				{
 					cm.checkErrorComponents();
 					asp.validateAndExitPhaseItem(assessmentType);
+					
+					pv.checkPhaseItemStatus(phaseType,itemName);
+					
 					if(assessmentDetail.get("ItemFeedbackStars")!=null)
 					{
 						System.out.println("Inside item feedback");
@@ -579,7 +585,7 @@ public class journeyPage extends StartUp {
 public boolean verifyModuleName(String moduleName,String itemName,String itemType,Map<String,Object> moduleItem) throws InterruptedException, IOException {
      
 		System.out.println("Inside verify module name");
-    	//List<WebElement> e=driver.findElements(By.xpath("//div[contains(@class,'moduleItemScreen-module-sidebar-open module-36ypdeweh3nma3gv8ygsmvuuz5y6v96ntwxw69wy8167wqc5ze79x4mvj63hhhsh61ku9pggep2y9zh1d8f91qsu2q5gddzy7cxatzc-moduleItemScreen-module-module-item-outer-cnt')]//div[contains(@class,'moduleItemScreen-module-menu-container')]//span//div//div//div[contains(@class,'tobesco')]//div[contains(@class,'sectionHeader-module-header-name')]"));
+    	
 		try
 		{
 		List<WebElement> e=driver.findElements(objmap.getLocator("coursemodules_count"));
@@ -638,16 +644,28 @@ public boolean verifyModuleName(String moduleName,String itemName,String itemTyp
 
 public boolean verifyItemName(String itemName, String itemType,Map<String,Object> moduleItem) throws IOException{
   
+	Map<String,Object> DataObj=st.beforeClass("coursedata.json");
+	
+	String phasetype=DataObj.get("phaseType").toString();
+	System.out.println("Development phase type check: "+phasetype);
+	
 	try {
 	cm.checkErrorComponents();
 	wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class,'innerListItem-module-module-item-title')]//span[contains(@class,'module-22v5yu3ffhhsgfk81kmxd65jpqpc4hrwzg5fydhjy4urrqcg2faj6em1bzckj68yxxwv96gp591877j4dy536vn4gg1dpm1nw21pwy6-innerListItem-module-title-inner') and contains(text(),'"+itemName+"')]")));
 	WebElement e = driver.findElement(By.xpath("//div[contains(@class,'innerListItem-module-module-item-title')]//span[contains(@class,'module-22v5yu3ffhhsgfk81kmxd65jpqpc4hrwzg5fydhjy4urrqcg2faj6em1bzckj68yxxwv96gp591877j4dy536vn4gg1dpm1nw21pwy6-innerListItem-module-title-inner') and contains(text(),'"+itemName+"')]"));
+	String itemnamefromscreen=e.getText();
 	System.out.println("Item Name From Screen "+e.getText());
     
 	if(e!=null){
         Thread.sleep(2000);
     }
     playItem(itemName,itemType);
+   
+   if(!(itemnamefromscreen.contains("Optional")))
+   {
+	   pv.checkPhaseItemStatus(phasetype, itemnamefromscreen);
+   }
+     
     if(moduleItem.get("feedback")!=null)
     {
     	System.out.println("Feedback found");

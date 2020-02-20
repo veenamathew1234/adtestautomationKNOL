@@ -42,6 +42,7 @@ public class assignment extends StartUp {
 			try {
 				verifyAssignmentName(assignment);
 				System.out.println("leaving verifyAssignmentName");
+			
 			} 
 			catch (Exception e) {
 				Assert.assertNull("Error while playing the assignment in the development phase",e);
