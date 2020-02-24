@@ -33,7 +33,7 @@ public class externalURL extends StartUp {
 	{
 		try
 		{
-		ArrayList courseDetails=(ArrayList) courseObj.get("Normal Course");
+		ArrayList courseDetails=(ArrayList) courseObj.get(courseObj.get("courseName"));
 		for(int i=0;i<courseDetails.size();i++)
 		{
 			Map<String,Object>q1=(Map<String, Object>) courseDetails.get(i);
@@ -58,6 +58,7 @@ public class externalURL extends StartUp {
 		catch(Exception e)
 		{
 			cm.screenShot();
+			e.printStackTrace();
 			Assert.assertNull("Unable to open an external URL in development phase. For QA-function to check openExternalURL ", e);
 		}
 	}

@@ -45,27 +45,34 @@ public class feedbackPages extends StartUp {
 		System.out.println("phase name in f/b function is "+phaseName);
 		System.out.println("inside fill f/b function");
 		Boolean result[]= {false};
-		 wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_feedbackHeading")));
-		feedbackData.forEach((feedback)->{
+		try
+		{
+			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_feedbackHeading")));
+			feedbackData.forEach((feedback)->{
 			 Map<String,Object> fb=(Map<String, Object>) (feedback);
-			if(fb.get("phaseName").toString().equalsIgnoreCase(phaseName))
-			{
+			 if(fb.get("phaseName").toString().equalsIgnoreCase(phaseName))
+			 {
 				System.out.println("Phase names matched");
 				try 
 				{
-				System.out.println("indide f/b try block");	
-				result[0]=enterFeedbackDetailsForm(fb);
-				verifyThankYouFeedbackPage();
-			}
+					System.out.println("indide f/b try block");	
+					result[0]=enterFeedbackDetailsForm(fb);
+					verifyThankYouFeedbackPage();
+				}
+				
 				catch(Exception e)
 				{
 					e.printStackTrace();
 				}
 				
-				
 			}
 			});
-		
+		}
+		catch(TimeoutException te)
+		{
+			Assert.assertNull("Feedback form not displayed for the phase "+phaseName+".For QA-check the function :fillFeedback", te);
+			return false;
+		}
 		return true;
 		
 	}
@@ -192,7 +199,6 @@ public class feedbackPages extends StartUp {
 			Thread.sleep(1000);
 			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_closeFeedbackPhaseItemDev")));
 			driver.findElement(objmap.getLocator("btn_closeFeedbackPhaseItemDev")).click();
-			//Thread.sleep(3000);
 			System.out.println("closing like dislike");
 			return true;
 			

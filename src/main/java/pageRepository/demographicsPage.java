@@ -49,7 +49,8 @@ import utils.ObjectFactory;
 import utils.StartUp;
 
 public class demographicsPage extends StartUp{
-    Boolean flag;
+
+      Boolean flag;
 
     ObjectFactory objmap;
 
@@ -95,9 +96,8 @@ public class demographicsPage extends StartUp{
         flag=true;
 
         Assert.assertTrue("Demographics page not loading", flag);
-   }
-
-    
+    }
+ 
 
     public void pageRefresh() throws Exception{
 

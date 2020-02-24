@@ -45,7 +45,7 @@ public class loginPage_excel extends StartUp{
 		Map<String,Object> DataObj=st.beforeClass("testData.json");
 		
 		try {
-			readexcel.setExcelFile(path, "logindata");
+			readexcel.setExcelFile(path, "logindata");	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
