@@ -58,9 +58,10 @@ public welcomePage(){
 			 isNewUser = DataObj.get("isNewUser").toString();
 			 if(isNewUser.equalsIgnoreCase("yes")){
 				 System.out.println("Inside new user");
+				 wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_greetings")));
 				 l=driver.findElements(objmap.getLocator("lbl_greetings"));
 				 Assert.assertEquals("Welcome Page not loaded after clicking on accept invitation",1,l.size());
-				 wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_ContinueLearning"))).click();
+				 wait.until(ExpectedConditions.elementToBeClickable(objmap.getLocator("lbl_ContinueLearning"))).click();
 			 }
 		 }
 		 else

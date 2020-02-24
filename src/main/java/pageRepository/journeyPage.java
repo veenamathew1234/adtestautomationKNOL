@@ -14,6 +14,7 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -48,9 +49,11 @@ public class journeyPage extends StartUp {
 	assesmentPhase asp=new assesmentPhase();
 	feedbackPages fbp=new feedbackPages();
 	assignment assgn = new assignment();
+	developmentPhase dev=new developmentPhase();
 	Quiz qz=new Quiz();
 	externalURL ext=new externalURL();
 	fileItems fl=new fileItems();
+	int i=0;
 	
 	public journeyPage(){
 		System.out.println("Inside journey page constructor");
@@ -136,15 +139,16 @@ public class journeyPage extends StartUp {
 		 * journeyInfo contains data from the testData.json
 		 */
 		
+		
 		journeyInfo.forEach((phase) -> {
-			try {
-				
+			try {	
 				 Map<String,Object> phaseMap=(Map<String, Object>) (phase);
 				 String phaseName=phaseMap.get("phaseName").toString();
 				 System.out.println("Phase name to be clicked on next is "+phaseName);
-				 WebElement e1=driver.findElement(By.xpath("//div[contains(@class,'content-module-tabs-content')]//div[contains(text(),'"+phaseName+"')]"));
-				 e1.click();
-				 
+				 WebElement e1=driver.findElement(By.xpath("//div[contains(@class,'content-module-tabs-content')]//div[contains(text(),'"+phaseName+"')]//parent::div"));
+				 JavascriptExecutor ex=(JavascriptExecutor)driver;
+				 ex.executeScript("arguments[0].click()", e1);
+				 //e1.click();
 				 //User navigates through the phase items of the particular phase	 
 				 
 				 String phaseType=phaseMap.get("phaseType").toString();
@@ -169,6 +173,7 @@ public class journeyPage extends StartUp {
 						clickOnHomeButton(phaseType);
 					}
 					}
+					
 					 
 			} 
 			catch(NoSuchElementException ne)
@@ -192,6 +197,7 @@ public class journeyPage extends StartUp {
 			catch (Exception e) {
 				e.printStackTrace();
 			}
+			i++;
 			
 		});
 		verifyCertificate();
@@ -218,19 +224,33 @@ public class journeyPage extends StartUp {
 		
 		int i;
 		
-		//------retrieve appropriate phase item type for phase types and click on it-------- 
-		List<WebElement> phaseItems=returnPhaseItemsForPhaseType(phaseType);
-		wait.until(ExpectedConditions.visibilityOf(phaseItems.get(0)));
-		phaseItems.get(0).click();
-	
+		
+			//------retrieve appropriate phase item type for phase types and click on it-------- 
+			
+		try
+		{
+			/*
+			 * Next line to be deleted
+			 * 
+			 
+				if(phaseType.equalsIgnoreCase("P2P"))
+				wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(text(),'P2P- Development')]"))).click();;
+				*/
+			List<WebElement> phaseItems=returnPhaseItemsForPhaseType(phaseType);
+			//Assert.assertNotNull("After completion of a phase,the navigation did not go automatically to the next phase as expected", phaseItems);
+			wait.until(ExpectedConditions.visibilityOf(phaseItems.get(0)));
+			phaseItems.get(0).click();
+
 		//-----------launching phases--------------------
 		
 		if(phaseType.equalsIgnoreCase("Assessment"))
 		{
 			navigateThroughAssessmentPhase();
+			
+			
 		}
 		
-		if(phaseType.equalsIgnoreCase("NormalCourse")||phaseType.equalsIgnoreCase("R2S"))
+		if(phaseType.equalsIgnoreCase("NormalCourse")||phaseType.equalsIgnoreCase("P2P"))
 		{
 		for(i=0;i<=phaseItems.size()-1;i++){
 			
@@ -242,8 +262,19 @@ public class journeyPage extends StartUp {
 		}
 			System.out.println("outside");
 		
+		
+		
+		}
+		catch(StaleElementReferenceException ste)
+		{
+			System.out.println("inside catch of stale element exception");
+//			List<WebElement> phaseItems=returnPhaseItemsForPhaseType(phaseType);
+//			wait.until(ExpectedConditions.visibilityOf(phaseItems.get(0)));
+//			phaseItems.get(0).click();
+			driver.navigate().refresh();
+		}
 		return true;
-	
+		
 	}
 	
 	
@@ -269,6 +300,20 @@ public class journeyPage extends StartUp {
 			//-----function to traverse through the courses listed in test data-------
 			result=traverseThroughCourse(courseName);
 			}
+		
+		 
+		 // P2P condition to be included here
+		  
+		   if(phaseType.equalsIgnoreCase("P2P"))
+		   {
+			   System.out.println("Inside p2p course");
+			   e=wait.until(ExpectedConditions.elementToBeClickable(objmap.getLocator("btn_p2pLaunchContent")));
+			   e.click();
+			   //traverse through the scrom course
+			   dev.traverseThroughP2P_SCORM("p2P Automation");
+		   	
+		   }
+		 
 		return result;
 	}
 	
@@ -408,6 +453,11 @@ public class journeyPage extends StartUp {
 			case "NormalCourse":
 				wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("normalcourse_items")));
 				phaseItems=driver.findElements(objmap.getLocator("normalcourse_items"));
+				System.out.println("size of list "+phaseItems.size());
+				break;
+			case "P2P":
+				wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("p2p_items")));
+				phaseItems=driver.findElements(objmap.getLocator("p2p_items"));
 				System.out.println("size of list "+phaseItems.size());
 				break;
 		}
@@ -696,6 +746,12 @@ public boolean playItem(String itemName, String itemType)
     			System.out.println("Item Type is Video");
     			fl.checkVideoLoad();
     			break;	
+    		case "P2P":
+    			System.out.println("Item Type is P2P");
+    			e=wait.until(ExpectedConditions.elementToBeClickable(objmap.getLocator("btn_p2pLaunchContent")));
+ 			   	e.click();
+    			dev.traverseThroughP2P_SCORM(itemName);
+    			break;
         	
 		}
     return true;  
@@ -840,4 +896,5 @@ public void downloadCertificate() {
 	}
 	
 }
+
 }

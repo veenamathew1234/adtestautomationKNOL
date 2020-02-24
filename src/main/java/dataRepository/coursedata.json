@@ -1,5 +1,6 @@
 {
-"Normal Course":[
+"courseName":"Normal D",
+"Normal D":[
  {
  	"moduleName" : "QUIZ & Assignment",
     "itemName" : "Normal Quiz",
@@ -75,6 +76,11 @@
     "itemName" : "Linked in",
     "itemType" : "URL",
     "openInNewTab":"Yes",
+    "feedback":"like"
+},{
+ 	"moduleName" : "Page & External URL",
+    "itemName" : "P2P Module Item",
+    "itemType" : "P2P",
     "feedback":"like"
 } ],
 
