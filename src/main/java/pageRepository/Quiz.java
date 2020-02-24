@@ -1,6 +1,7 @@
 package pageRepository;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Time;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.itextpdf.text.log.SysoCounter;
 
 import junit.framework.Assert;
+import utils.CommonMethods;
 import utils.ObjectFactory;
 import utils.StartUp;
 
@@ -30,6 +32,7 @@ public class Quiz extends StartUp{
 	Map<String,Object> courseObj;
 	WebElement e;
 	WebDriverWait wait = new WebDriverWait(driver,30);
+	CommonMethods cm=new CommonMethods();
 	
 	public Quiz(){
 		System.out.println("Inside Quiz page constructor");
@@ -48,7 +51,7 @@ public class Quiz extends StartUp{
 	 */
 	
 	
-	public boolean verifyQuizLandingPage(Map<String,Object> quizData)
+	public boolean verifyQuizLandingPage(Map<String,Object> quizData) throws IOException
 	{
 
 		System.out.println("Inside verifyQuizLandingPage");
@@ -73,11 +76,14 @@ public class Quiz extends StartUp{
 		}
 		catch(NoSuchElementException ne)
 		{
+			cm.screenShot();
 			Assert.assertNull("Cannot find element in quiz landing page", ne);
+			ne.printStackTrace();
 			return false;
 		}
 		catch(Exception e)
 		{
+			cm.screenShot();
 			e.printStackTrace();
 			Assert.assertNull("General exception in verify quiz landing page", e);
 			return false;
@@ -92,7 +98,7 @@ public class Quiz extends StartUp{
 	 * Description : To play quiz
 	 * Return Value : boolean
 	 */
-	public void playQuiz(String itemName) {
+	public void playQuiz(String itemName) throws IOException {
 		try
 		{
 			System.out.println("Inside play quiz");
@@ -116,10 +122,14 @@ public class Quiz extends StartUp{
 					}
 					catch(NoSuchElementException ne1)
 					{
+						cm.screenShot();
 						Assert.assertNull("Take Quiz button cannot be found for the quiz "+itemName+".For QA-Function to check :playQuiz ", ne1);
+						ne1.printStackTrace();
 					}
 					catch (Exception e1) {
+						cm.screenShot();
 						Assert.assertNull("Error while clicking on Take Quiz button. For QA-Function to check :playQuiz", e1);
+						e1.printStackTrace();
 					}
 					e.click();
 					Thread.sleep(2000);
@@ -136,10 +146,13 @@ public class Quiz extends StartUp{
 		}
 		catch(NoSuchElementException ne)
 		{
+			cm.screenShot();
 			Assert.assertNull("Take Quiz button cannot be found for the quiz "+itemName+".(For QA-Function to check :playQuiz)", ne);
+			ne.printStackTrace();
 		}
 		catch(Exception e)
 		{
+			cm.screenShot();
 			Assert.assertNull("Error while trying to play quiz.(For QA-Function to check :playQuiz)", e);
 			e.printStackTrace();
 		}	
@@ -147,7 +160,7 @@ public class Quiz extends StartUp{
 		
 	}
 	
-	public int answerQuestions(Map<String,Object> quiz)
+	public int answerQuestions(Map<String,Object> quiz) throws IOException
 	{
 		
 		try
@@ -178,13 +191,15 @@ public class Quiz extends StartUp{
 		}
 		catch(Exception e)
 		{
+			cm.screenShot();
 			Assert.assertNull("Error while trying to enter answers for the quiz.(For QA-Function to check :answerQuestions)", e);
+			e.printStackTrace();
 			return 0;
 		}
 		
 	}
 	
-	public String findQuestionFromScreen(int questionNumber)
+	public String findQuestionFromScreen(int questionNumber) throws IOException
 	{
 
         try
@@ -201,19 +216,19 @@ public class Quiz extends StartUp{
 
 		catch(NoSuchElementException ne)
 		{
+			cm.screenShot();
 			Assert.assertNull(""+questionNumber+"st question cannot be found on screen", ne);
 			ne.printStackTrace();
 			return null;
 		}
 		catch(Exception e )
 		{
-			//Assert.assertNull("Cannot find question from screen", e);
 			e.printStackTrace();
 			return null;
 		}
 	}
 	
-	public boolean clickOnAnswer(int questionNumber,String answer)
+	public boolean clickOnAnswer(int questionNumber,String answer) throws IOException
 	{
 		try
 		{
@@ -227,7 +242,7 @@ public class Quiz extends StartUp{
 		}
 		catch(NoSuchElementException ne)
 		{
-			
+			cm.screenShot();
 			Assert.assertNull(""+answer+" for the quiz cannot be found on screen.(For QA-Function to check :clickOnAnswer", ne);
 			ne.printStackTrace();
 			
@@ -235,14 +250,16 @@ public class Quiz extends StartUp{
 		}
 		catch(Exception e)
 		{
+			cm.screenShot();
 			e.printStackTrace();
 			Assert.assertNull("Issue while clicking on an answer in quiz.(For QA-Function to check :clickOnAnswer)",e);
+			e.printStackTrace();
 			return false;
 		
 		}
 	}
 	
-	public boolean submitQuiz()
+	public boolean submitQuiz() throws IOException
 	{
 		System.out.println("inside submitQuiz");
 		try
@@ -254,18 +271,23 @@ public class Quiz extends StartUp{
 		}
 		catch(NoSuchElementException ne )
 		{
+			
+			cm.screenShot();
 			Assert.assertNull("Unable to submit quiz. (For QA-Function to check :submitQuiz)", ne);
+			ne.printStackTrace();
 			return false;
 		}
 		catch(Exception e)
 		{
+			cm.screenShot();
 			Assert.assertNull("Issue while submitting quiz. (For QA-Function to check :submitQuiz)",e);
+			e.printStackTrace();
 			return false;
 		
 		}
 	}
 	
-	public boolean verifyScore(int score)
+	public boolean verifyScore(int score) throws IOException
 	{
 		try
 		{
@@ -290,13 +312,17 @@ public class Quiz extends StartUp{
 		}
 		catch(NoSuchElementException ne)
 		{
+			cm.screenShot();
 			Assert.assertNull("Score not displayed on the platform after quiz. (For QA-Function to check :verifyScore)", ne);
+			ne.printStackTrace();
 			return false;
 		}
 		catch(Exception e)
 		{
+			cm.screenShot();
 			Assert.assertNull("Score Calc issue after quiz. (For QA-Function to check :verifyScore)", e);
 			System.out.println("Issues while matching scores");
+			e.printStackTrace();
 			return false;
 		}
 		
