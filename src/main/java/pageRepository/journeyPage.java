@@ -308,8 +308,6 @@ public class journeyPage extends StartUp {
 		   if(phaseType.equalsIgnoreCase("P2P"))
 		   {
 			   System.out.println("Inside p2p course");
-			   e=wait.until(ExpectedConditions.elementToBeClickable(objmap.getLocator("btn_p2pLaunchContent")));
-			   e.click();
 			   //traverse through the scrom course
 			   dev.traverseThroughP2P_SCORM("p2P Automation");
 		   	
@@ -351,6 +349,7 @@ public class journeyPage extends StartUp {
 					{
 						System.out.println("Inside item feedback");
 						String stars=assessmentDetail.get("ItemFeedbackStars").toString();
+						System.out.println("stars "+stars);
 						fbp.enterItemFeedbackStars(stars);
 					}
 				}

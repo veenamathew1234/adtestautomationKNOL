@@ -49,7 +49,7 @@ public class StartUp {
 				//options.addArguments("window-size=1855x965");
 				//options.addArguments("window-size=1536x754");
 				options.addArguments("window-size=5000x5000");
-				//options.addArguments("headless");
+				options.addArguments("headless");
 				options.setAcceptInsecureCerts(true);
 				options.addArguments("--allow-insecure-localhost");
 				options.addArguments("--ignore-certificate-errors");
