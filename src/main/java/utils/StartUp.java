@@ -50,6 +50,7 @@ public class StartUp {
 				options.addArguments("-incognito");
 				options.addArguments("window-size=5000x5000");
 				options.addArguments("headless");
+                                options.addArguments("--no-sandbox");
 				options.setAcceptInsecureCerts(true);
 				options.addArguments("--allow-insecure-localhost");
 				options.addArguments("--ignore-certificate-errors");
