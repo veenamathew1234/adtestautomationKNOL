@@ -170,7 +170,7 @@ public class assesmentPhase extends StartUp{
 						
 			WebElement detailedanalysis= wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lnk_detailedanalysis")));
 			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", detailedanalysis);
-			Thread.sleep(1000); 
+			Thread.sleep(2000); 
 			detailedanalysis.click();
 			
 			//function to Download report
