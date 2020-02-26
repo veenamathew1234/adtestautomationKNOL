@@ -58,6 +58,7 @@ public class StartUp {
 				capabilities.setAcceptInsecureCerts(true);
 				driver = new ChromeDriver(options);
 				driver.manage().window().maximize(); 
+				
 			 
 		 }
 		 
