@@ -25,7 +25,7 @@ public class loginPageDefinition {
 	loginPage_excel lp=new loginPage_excel();
 	
 	@Given("^User is already in login page$")
-	public void user_is_already_in_login_page(){
+	public void user_is_already_in_login_page() throws IOException{
 	
 		lp.launchPage();
    	}

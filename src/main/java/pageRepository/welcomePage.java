@@ -58,9 +58,10 @@ public welcomePage(){
 			 isNewUser = DataObj.get("isNewUser").toString();
 			 if(isNewUser.equalsIgnoreCase("yes")){
 				 System.out.println("Inside new user");
+				 wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_greetings")));
 				 l=driver.findElements(objmap.getLocator("lbl_greetings"));
 				 Assert.assertEquals("Welcome Page not loaded after clicking on accept invitation",1,l.size());
-				 wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_ContinueLearning"))).click();
+				 wait.until(ExpectedConditions.elementToBeClickable(objmap.getLocator("lbl_ContinueLearning"))).click();
 			 }
 		 }
 		 else
@@ -68,11 +69,13 @@ public welcomePage(){
 	 }
 	 catch(NoSuchElementException ne)
 	 {
+		 cm.screenShot();
 		 Assert.assertNull("Continue/Start learning button not available to click", ne);
 		 ne.printStackTrace();
 	 }
 	 catch(TimeoutException te)
 	 {
+		 cm.screenShot();
 		 Assert.assertNull("Continue/Start learning button not available to click even after waiting for 30 seconds", te);
 		 te.printStackTrace();
 	 }
@@ -90,12 +93,14 @@ public welcomePage(){
 	 }
 		 catch(NoSuchElementException ne)
 			{
+			 	cm.screenShot();
 				Assert.assertNull("Accept Invitation button is not found in Welcome Page", ne);
 				ne.printStackTrace();
 				
 			}
 			catch(TimeoutException te)
 			{
+				cm.screenShot();
 				Assert.assertNull("Accept Invitation button is not found in Welcome Page", te);
 				te.printStackTrace();
 				

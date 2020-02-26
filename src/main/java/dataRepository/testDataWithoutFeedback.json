@@ -1,0 +1,19 @@
+{"url":"https://stg-aktivplatform.knolskape.io","Demographics_url":"https://accounts-test.knolskape.com/user/fill_demographics","email":"sanityuser_139@mailinator.com","password":"password","isNewUser":"yes","journeyDetails":[{"phaseName":"Assessment","phaseType":"Assessment","PhaseFeedback":"Yes"},{"phaseName":"Development","phaseType":"NormalCourse","PhaseFeedback":"Yes"},{"phaseName":"Development","phaseType":"P2P","PhaseFeedback":"Yes"}],"Assessments":[{"AssessmentType":"Test Sim","ItemFeedbackStars":"4"},{"AssessmentType":"Test Sim"},{"AssessmentType":"Test Sim"}],"PhaseFeedbackDetails":[{"phaseName":"Assessment","overallRating":"4","recommendValue":"5"},{"phaseName":"Development","overallRating":"3","recommendValue":"6"},{"phaseName":"P2P","overallRating":"3","recommendValue":"6"}]}
+
+
+//without Normal Course
+
+{"url":"https://stg-aktivplatform.knolskape.io","Demographics_url":"https://accounts-test.knolskape.com/user/fill_demographics","email":"sanityuser_139@mailinator.com","password":"password","isNewUser":"yes","journeyDetails":[{"phaseName":"Assessment","phaseType":"Assessment","PhaseFeedback":"Yes"},{"phaseName":"Development","phaseType":"NormalCourse","PhaseFeedback":"Yes"},{"phaseName":"Development","phaseType":"P2P","PhaseFeedback":"Yes"}],"Assessments":[{"AssessmentType":"Test Sim"},{"AssessmentType":"Test Sim"},{"AssessmentType":"Test Sim"}],"PhaseFeedbackDetails":[{"phaseName":"Assessment","overallRating":"4","recommendValue":"5"},{"phaseName":"Development","overallRating":"3","recommendValue":"6"}]}
+
+//After removing normal course FOR REAL 
+{"url":"https://stg-aktivplatform.knolskape.io","Demographics_url":"https://accounts-test.knolskape.com/user/fill_demographics","email":"sanityuser_139@mailinator.com","password":"password","isNewUser":"yes","journeyDetails":[{"phaseName":"Assessment","phaseType":"Assessment","PhaseFeedback":"Yes"},{"phaseName":"Development","phaseType":"P2P","PhaseFeedback":"Yes"}],"Assessments":[{"AssessmentType":"Test Sim"},{"AssessmentType":"Test Sim"},{"AssessmentType":"Test Sim"}],"PhaseFeedbackDetails":[{"phaseName":"Assessment","overallRating":"4","recommendValue":"5"},{"phaseName":"Development","overallRating":"3","recommendValue":"6"}]}
+
+
+//p2p item 
+,
+ {
+ 	"moduleName" : "Page & External URL",
+    "itemName" : "P2P Module Item",
+    "itemType" : "P2P",
+    "feedback":"like"
+} 

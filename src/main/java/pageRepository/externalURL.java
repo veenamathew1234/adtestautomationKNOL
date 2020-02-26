@@ -1,5 +1,6 @@
 package pageRepository;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import org.openqa.selenium.WebElement;
 
 import junit.framework.Assert;
+import utils.CommonMethods;
 import utils.ObjectFactory;
 import utils.StartUp;
 
@@ -17,6 +19,7 @@ public class externalURL extends StartUp {
 	List externalURLList;
 	WebElement e,e1;
 	Map<String,Object> courseObj;
+	CommonMethods cm=new CommonMethods();
 	
 	public externalURL()
 	{
@@ -26,11 +29,11 @@ public class externalURL extends StartUp {
 		
 	}
 	
-	public void openExternalURL(String itemName)
+	public void openExternalURL(String itemName) throws IOException
 	{
 		try
 		{
-		ArrayList courseDetails=(ArrayList) courseObj.get("Normal Course");
+		ArrayList courseDetails=(ArrayList) courseObj.get(courseObj.get("courseName"));
 		for(int i=0;i<courseDetails.size();i++)
 		{
 			Map<String,Object>q1=(Map<String, Object>) courseDetails.get(i);
@@ -54,6 +57,8 @@ public class externalURL extends StartUp {
 		}
 		catch(Exception e)
 		{
+			cm.screenShot();
+			e.printStackTrace();
 			Assert.assertNull("Unable to open an external URL in development phase. For QA-function to check openExternalURL ", e);
 		}
 	}

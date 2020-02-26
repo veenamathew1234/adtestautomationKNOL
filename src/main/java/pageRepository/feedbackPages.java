@@ -1,5 +1,6 @@
 package pageRepository;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import junit.framework.Assert;
+import utils.CommonMethods;
 import utils.ObjectFactory;
 import utils.StartUp;
 
@@ -22,6 +24,7 @@ public class feedbackPages extends StartUp {
 	List feedbackData;
 	Boolean result=false;
 	WebDriverWait wait = new WebDriverWait(driver,30);
+	CommonMethods cm=new CommonMethods();
 	
 	public feedbackPages(){
 		this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/feedbackPages.properties");
@@ -42,29 +45,34 @@ public class feedbackPages extends StartUp {
 		System.out.println("phase name in f/b function is "+phaseName);
 		System.out.println("inside fill f/b function");
 		Boolean result[]= {false};
-		//Thread.sleep(1000);
-		 wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_feedbackHeading")));
-		feedbackData.forEach((feedback)->{
+		try
+		{
+			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_feedbackHeading")));
+			feedbackData.forEach((feedback)->{
 			 Map<String,Object> fb=(Map<String, Object>) (feedback);
-			if(fb.get("phaseName").toString().equalsIgnoreCase(phaseName))
-			{
+			 if(fb.get("phaseName").toString().equalsIgnoreCase(phaseName))
+			 {
 				System.out.println("Phase names matched");
 				try 
 				{
-				System.out.println("indide f/b try block");	
-				result[0]=enterFeedbackDetailsForm(fb);
-				verifyThankYouFeedbackPage();
-			}
+					System.out.println("indide f/b try block");	
+					result[0]=enterFeedbackDetailsForm(fb);
+					verifyThankYouFeedbackPage();
+				}
+				
 				catch(Exception e)
 				{
 					e.printStackTrace();
-					//return false;
 				}
-				
 				
 			}
 			});
-		
+		}
+		catch(TimeoutException te)
+		{
+			Assert.assertNull("Feedback form not displayed for the phase "+phaseName+".For QA-check the function :fillFeedback", te);
+			return false;
+		}
 		return true;
 		
 	}
@@ -83,8 +91,7 @@ public class feedbackPages extends StartUp {
 	public boolean enterFeedbackDetailsForm( Map<String,Object> fb) throws Exception
 	{
 		System.out.println("phaseName found");
-		//feedbackD[0]=fb;
-		
+				
 		try
 		{
 		String overallRating=fb.get("overallRating").toString();
@@ -103,7 +110,9 @@ public class feedbackPages extends StartUp {
 		
 		catch(NoSuchElementException ne)
 		{
+			cm.screenShot();
 			Assert.assertNull(""+fb.get("phaseName")+" feedback form issue while user enters data.For QA-check the function enterFeedbackDetailsForm", ne);
+			ne.printStackTrace();
 			return false;
 		}
 		catch(Exception e)
@@ -122,7 +131,7 @@ public class feedbackPages extends StartUp {
 	 * Return Value : Boolean
 	 * 
 	 */
-	public boolean verifyThankYouFeedbackPage()
+	public boolean verifyThankYouFeedbackPage() throws IOException
 	{
 		try
 		{
@@ -133,13 +142,16 @@ public class feedbackPages extends StartUp {
 		}
 		catch(NoSuchElementException ne)
 		{
-			Assert.assertNull("Thank You page aftee feedback submission not displayed.For QA-check the function verifyThankYouFeedbackPage", ne);
+			cm.screenShot();
+			Assert.assertNull("Thank You page after feedback submission not displayed.For QA-check the function verifyThankYouFeedbackPage", ne);
+			ne.printStackTrace();
 			return false;
 		}
 		
-		catch(Exception ne)
+		catch(Exception e)
 		{
-			Assert.assertNull("Error in displaying Thank You page aftee feedback submission.For QA-check the function verifyThankYouFeedbackPage", ne);
+			cm.screenShot();
+			Assert.assertNull("Error in displaying Thank You page after feedback submission.For QA-check the function verifyThankYouFeedbackPage", e);
 			return false;
 		}
 	}
@@ -187,7 +199,6 @@ public class feedbackPages extends StartUp {
 			Thread.sleep(1000);
 			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_closeFeedbackPhaseItemDev")));
 			driver.findElement(objmap.getLocator("btn_closeFeedbackPhaseItemDev")).click();
-			//Thread.sleep(3000);
 			System.out.println("closing like dislike");
 			return true;
 			

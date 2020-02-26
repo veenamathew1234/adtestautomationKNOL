@@ -1,17 +1,25 @@
 package pageRepository;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Properties;
 
+import javax.imageio.ImageIO;
+
+import org.apache.commons.io.FileUtils;
 import org.jsoup.helper.HttpConnection.Response;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -37,7 +45,7 @@ public class loginPage_excel extends StartUp{
 		Map<String,Object> DataObj=st.beforeClass("testData.json");
 		
 		try {
-			readexcel.setExcelFile(path, "logindata");
+			readexcel.setExcelFile(path, "logindata");	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -45,9 +53,10 @@ public class loginPage_excel extends StartUp{
 
 	}
 
-	public void launchPage(){
-		
+	public void launchPage() throws IOException{
+
 		driver.get(DataObj.get("url").toString());
+		cm.screenShot();
 	}
 	
 	public void validateLoginPage(){
@@ -74,25 +83,28 @@ public class loginPage_excel extends StartUp{
 }
 	
 	public void clickOnSignButton() throws Exception{
+		
 		System.out.println("User clicks on signin button");
 		e=driver.findElement(objmap.getLocator("btn_Signin"));
 		e.click();
 		Thread.sleep(1000);
 		Assert.assertEquals("Invalid user credentials",0,driver.findElements(By.xpath("//div[contains(@class,'error-box')]")).size());
 		readexcel.deleteRow(path);
-
+		
 		try{
 			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_Skip"))).click();
 			System.out.println("Skip button found");
 		}
 		catch(NoSuchElementException ne)
 		{
+			cm.screenShot();
 			Assert.assertNull("Skip button is not found in Change Password screen", ne);
 			ne.printStackTrace();
 			
 		}
 		catch(TimeoutException te)
 		{
+			cm.screenShot();
 			Assert.assertNull("Skip button is not found in Change Password screen", te);
 			te.printStackTrace();
 		}
