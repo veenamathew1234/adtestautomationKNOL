@@ -200,8 +200,12 @@ public class journeyPage extends StartUp {
 			i++;
 			
 		});
-		verifyCertificate();
-		downloadCertificate();
+		
+		if(driver.findElements(objmap.getLocator("lbl_Certificate")).size()!=0)
+		{
+			verifyCertificate();
+			downloadCertificate();
+		}
 		}
 		catch(Exception e)
 		{
@@ -307,10 +311,12 @@ public class journeyPage extends StartUp {
 		   if(phaseType.equalsIgnoreCase("P2P"))
 		   {
 			   System.out.println("Inside p2p course");
-			   e=wait.until(ExpectedConditions.elementToBeClickable(objmap.getLocator("btn_p2pLaunchContent")));
-			   e.click();
+//			   e=wait.until(ExpectedConditions.elementToBeClickable(objmap.getLocator("btn_p2pLaunchContent")));
+//			   e.click();
 			   //traverse through the scrom course
 			   dev.traverseThroughP2P_SCORM("p2P Automation");
+			   //driver.navigate().refresh();
+			   Thread.sleep(5000);
 		   	
 		   }
 		 
@@ -751,6 +757,10 @@ public boolean playItem(String itemName, String itemType)
     			e=wait.until(ExpectedConditions.elementToBeClickable(objmap.getLocator("btn_p2pLaunchContent")));
  			   	e.click();
     			dev.traverseThroughP2P_SCORM(itemName);
+    			if(wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_scormScore"))).getText().equalsIgnoreCase("100.00"))
+				{
+					System.out.println("Score calculated correctly");
+				}
     			break;
         	
 		}

@@ -113,10 +113,6 @@ public class developmentPhase extends StartUp {
 		System.out.println("Exited SCORM successfully");
 		//Check Score Value
 		
-		if(scormwait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_scormScore"))).getText().equalsIgnoreCase("100.00"))
-		{
-			System.out.println("Score calculated correctly");
-		}
 		
 		return true;
 		}
