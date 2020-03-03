@@ -1,6 +1,7 @@
 {
-"courseName":"Normal D",
-"Normal D":[
+"phaseType" : "Normal Course",
+"courseName":"Normal Course",
+"Normal Course":[
  {
  	"moduleName" : "QUIZ & Assignment",
     "itemName" : "Normal Quiz",

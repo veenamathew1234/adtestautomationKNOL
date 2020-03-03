@@ -55,7 +55,7 @@
                       </goals>
                       <configuration>
                           <name>current.time</name>
-                          <pattern>yyyy-MM-dd_HH:mm:ss</pattern>
+                          <pattern>yyyy-MM-dd_HH_mm_ss</pattern>
                           <timeZone>IST</timeZone>
                       </configuration>
                   </execution>

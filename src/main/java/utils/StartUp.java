@@ -39,37 +39,31 @@ public class StartUp {
 		
 	  protected WebDriver getDriver(){
 		  
-	  
-//		  try
-//		  {
+
 		 if(driver==null){
-			 System.out.println("incongni");
+			 
 				System.setProperty("webdriver.chrome.driver",chromepath);
 				ChromeOptions options = new ChromeOptions();
 				DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 				options.addArguments("-incognito");
+				//options.addArguments("window-size=1855x965");
+				//options.addArguments("window-size=1536x754");
 				options.addArguments("window-size=5000x5000");
 				options.addArguments("headless");
+                options.addArguments("--no-sandbox");
 				options.setAcceptInsecureCerts(true);
 				options.addArguments("--allow-insecure-localhost");
 				options.addArguments("--ignore-certificate-errors");
 				options.addArguments("disable-gpu");
-				System.out.println("inside healdless startup");
 				capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 				capabilities.setAcceptInsecureCerts(true);
 				driver = new ChromeDriver(options);
-				//System.out.println("window size="+ driver.get_);
 				driver.manage().window().maximize(); 
+				
+			 
 		 }
 		 
-		 
-//		  }
-//		 
-//		 finally{
-//             Runtime.getRuntime().addShutdownHook(
-//                 new Thread(new BrowserCleanup()));
-//         }
-		  
+ 
 			return driver;
  
 			

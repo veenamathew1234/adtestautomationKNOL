@@ -29,11 +29,6 @@ import com.github.mkolisnyk.cucumber.runner.ExtendedCucumberOptions;
 
 
 public class ADRunnerTest {
-	
-	 public static void main(String[] args) throws Throwable {
-		 
-		
-		 
-	 }
+
 	
 }

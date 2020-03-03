@@ -1,17 +1,25 @@
 package pageRepository;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Properties;
 
+import javax.imageio.ImageIO;
+
+import org.apache.commons.io.FileUtils;
 import org.jsoup.helper.HttpConnection.Response;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -29,7 +37,7 @@ public class loginPage_excel extends StartUp{
 	String username,password;
 	CommonMethods cm=new CommonMethods();
 	WebDriverWait wait = new WebDriverWait(driver,30);
-	String path = System.getProperty("user.dir")+"/src/main/java/dataRepository/logindatalocal.xlsx";
+	String path = System.getProperty("user.dir")+"/src/main/java/dataRepository/logindata.xlsx";
 	
 	public loginPage_excel(){
 		
@@ -45,18 +53,16 @@ public class loginPage_excel extends StartUp{
 
 	}
 
-	public void launchPage(){
-		
+	public void launchPage() throws IOException{
+
 		driver.get(DataObj.get("url").toString());
+		cm.screenShot();
 	}
 	
 	public void validateLoginPage(){
 		String title=driver.getTitle();
 		System.out.println("Page title :"+title);
-		System.out.println("message from server");
-		System.out.println("Test for git lab connection");
-		System.out.println("shalini veena");
-        Assert.assertEquals("Incorrect Login page","Login to Kompass", title);
+	        Assert.assertEquals("Incorrect Login page","Login to Kompass", title);
 		
 	}
 	
@@ -74,25 +80,28 @@ public class loginPage_excel extends StartUp{
 }
 	
 	public void clickOnSignButton() throws Exception{
+		
 		System.out.println("User clicks on signin button");
 		e=driver.findElement(objmap.getLocator("btn_Signin"));
 		e.click();
 		Thread.sleep(1000);
 		Assert.assertEquals("Invalid user credentials",0,driver.findElements(By.xpath("//div[contains(@class,'error-box')]")).size());
 		readexcel.deleteRow(path);
-
+		
 		try{
 			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_Skip"))).click();
 			System.out.println("Skip button found");
 		}
 		catch(NoSuchElementException ne)
 		{
+			cm.screenShot();
 			Assert.assertNull("Skip button is not found in Change Password screen", ne);
 			ne.printStackTrace();
 			
 		}
 		catch(TimeoutException te)
 		{
+			cm.screenShot();
 			Assert.assertNull("Skip button is not found in Change Password screen", te);
 			te.printStackTrace();
 		}

@@ -72,10 +72,6 @@ public class demographicsPage extends StartUp{
 
     public static List<String> errorList = new ArrayList<String>();
 
-    
-
-    
-
     public demographicsPage(){
 
         
@@ -83,7 +79,6 @@ public class demographicsPage extends StartUp{
         this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/DemographicsPage.properties");
 
         Map<String,Object> DataObj=st.beforeClass("testData.json");
-
     }
 
     
@@ -101,10 +96,8 @@ public class demographicsPage extends StartUp{
         flag=true;
 
         Assert.assertTrue("Demographics page not loading", flag);
-
     }
-
-    
+ 
 
     public void pageRefresh() throws Exception{
 
