@@ -203,8 +203,15 @@ public class journeyPage extends StartUp {
 			i++;
 			
 		});
-		verifyCertificate();
-		downloadCertificate();
+		
+		Thread.sleep(2000);
+		System.out.println("just outside download report");
+		if(driver.findElements(objmap.getLocator("lbl_Certificate")).size()!=0)
+		{
+			System.out.println("found certificate link");
+			verifyCertificate();
+			downloadCertificate();
+		}
 		}
 		catch(Exception e)
 		{
@@ -310,6 +317,8 @@ public class journeyPage extends StartUp {
 			   System.out.println("Inside p2p course");
 			   //traverse through the scrom course
 			   dev.traverseThroughP2P_SCORM("p2P Automation");
+			   //driver.navigate().refresh();
+			   Thread.sleep(5000);
 		   	
 		   }
 		 
@@ -788,6 +797,10 @@ public boolean playItem(String itemName, String itemType) throws IOException
     			e=wait.until(ExpectedConditions.elementToBeClickable(objmap.getLocator("btn_p2pLaunchContent")));
  			   	e.click();
     			dev.traverseThroughP2P_SCORM(itemName);
+    			if(wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_scormScore"))).getText().equalsIgnoreCase("100.00"))
+				{
+					System.out.println("Score calculated correctly");
+				}
     			break;
         	
 		}
@@ -914,6 +927,7 @@ public boolean verifyCertificate() throws IOException
 public void downloadCertificate() throws IOException {
 	try
 	{
+		System.out.println("Inside download certificate");
 		wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_DownloadCertificate"))).click();
 		
 	}
