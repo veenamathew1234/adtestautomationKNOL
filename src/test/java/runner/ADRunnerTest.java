@@ -7,6 +7,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.Scenario;
+import cucumber.api.cli.Main;
 import cucumber.api.java.After;
 import cucumber.api.junit.Cucumber;
 import utils.CommonMethods;
@@ -28,5 +29,11 @@ import com.github.mkolisnyk.cucumber.runner.ExtendedCucumberOptions;
 
 
 public class ADRunnerTest {
+	
+	 public static void main(String[] args) throws Throwable {
+		 
+		
+		 
+	 }
 	
 }
