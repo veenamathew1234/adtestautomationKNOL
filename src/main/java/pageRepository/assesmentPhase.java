@@ -121,7 +121,6 @@ public class assesmentPhase extends StartUp{
 			
 			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_exit"))).click();
 			e=wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_popupexit")));
-			//e=driver.findElement(objmap.getLocator("btn_popupexit"));
 			JavascriptExecutor executor = (JavascriptExecutor)driver;
 			executor.executeScript("arguments[0].click();", e);
 			Thread.sleep(3000);
