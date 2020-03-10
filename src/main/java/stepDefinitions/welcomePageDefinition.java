@@ -3,11 +3,11 @@ package stepDefinitions;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import pageRepository.welcomePage;
+import pageRepository.welcomePage1;
 
 public class welcomePageDefinition {
 	
-	welcomePage wp = new welcomePage();
+	welcomePage1 wp = new welcomePage1();
 	
 	@Given("^User is on welcome Page$")
 	public void user_is_on_welcome_Page() throws Throwable {

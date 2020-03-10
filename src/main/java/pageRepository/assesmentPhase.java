@@ -114,17 +114,17 @@ public class assesmentPhase extends StartUp{
 		try {
 		if(assessmentType.equalsIgnoreCase("Test Sim"))
 		{
-			System.out.println("Inside Test SIm ");
+			System.out.println("Inside Test Sim ");
 			
 				submitTestSim();
 		}
 			
 			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_exit"))).click();
-			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_popupexit")));
-			e=driver.findElement(objmap.getLocator("btn_popupexit"));
-			if(e!=null)
-				e.click();
-			Thread.sleep(2000);
+			e=wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_popupexit")));
+			//e=driver.findElement(objmap.getLocator("btn_popupexit"));
+			JavascriptExecutor executor = (JavascriptExecutor)driver;
+			executor.executeScript("arguments[0].click();", e);
+			Thread.sleep(3000);
 			return true;
 		} 
 		catch (NoSuchElementException ne) {

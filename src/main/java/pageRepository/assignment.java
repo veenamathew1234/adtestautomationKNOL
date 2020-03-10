@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeoutException;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -114,7 +115,11 @@ public class assignment extends StartUp {
 		else if(assignmenttype.equalsIgnoreCase("File Upload")){
 			System.out.println("Inside File upload assignment submission");
 			e=driver.findElement(objmap.getLocator("btn_browse"));
-			e.click();
+			
+			JavascriptExecutor executor = (JavascriptExecutor)driver;
+			executor.executeScript("arguments[0].click();", e);
+			
+			//e.click();
 			Thread.sleep(2000);
 			e.sendKeys(System.getProperty("user.dir")+filetoupload);
 			Thread.sleep(1000);
