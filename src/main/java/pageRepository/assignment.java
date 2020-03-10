@@ -119,7 +119,9 @@ public class assignment extends StartUp {
 			JavascriptExecutor executor = (JavascriptExecutor)driver;
 			executor.executeScript("arguments[0].click();", e);
 			
+			System.out.println("Clicked on browse button");
 			//e.click();
+			
 			Thread.sleep(2000);
 			e.sendKeys(System.getProperty("user.dir")+filetoupload);
 			Thread.sleep(1000);

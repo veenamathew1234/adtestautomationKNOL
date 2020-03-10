@@ -20,13 +20,6 @@ public class phaseCompletionValidations extends StartUp{
 	StartUp st = new StartUp();
 	WebDriverWait wait = new WebDriverWait(driver,50);
 		
-	public phaseCompletionValidations(){
-		
-		System.out.println("Inside phase completed validations");
-		this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/phaseCompletion.properties");
-	}
-
-
 
 //**************Function to verify the status of every phase item*******************//
 	
@@ -39,12 +32,10 @@ public Boolean checkPhaseItemStatus(String phaseType,String itemName) throws Exc
 						
 			switch(phaseType){
 				case "Assessment":
-					//Thread.sleep(3000);
 					e=wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class,'menuItem-module-text-content')]//*[(text()='"+itemName+"')]//following::span[contains(@class,'menuItem-module-completed-status')]")));
 					break;
 				
 				case "Normal Course":
-					//Thread.sleep(3000);
 					e=wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class,'innerListItem-module-text-container')]//*[(text()='"+itemName+"')]//following::span[contains(@class,'innerListItem-module-completed-label')]")));
 					break;
 				
