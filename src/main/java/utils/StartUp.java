@@ -49,7 +49,6 @@ public class StartUp {
 				//options.addArguments("window-size=1855x965");
 				//options.addArguments("window-size=1536x754");
 				options.addArguments("window-size=5000x5000");
-				
 				options.addArguments("headless");
                 //options.addArguments("--no-sandbox");
 				options.setAcceptInsecureCerts(true);
@@ -60,8 +59,7 @@ public class StartUp {
 				capabilities.setAcceptInsecureCerts(true);
 				driver = new ChromeDriver(options);
 				driver.manage().window().maximize(); 
-				
-			 
+		 
 		 }
 		 
  
