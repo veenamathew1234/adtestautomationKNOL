@@ -1,10 +1,10 @@
 package utils;
 
 import cucumber.api.java.After;
-import pageRepository.journeyPage1;
+import pageRepository.journeyPage;
 
 public class Hooks {
-journeyPage1 jp=new journeyPage1();
+journeyPage jp=new journeyPage();
 	
 	@After
     public void afterScenario(){

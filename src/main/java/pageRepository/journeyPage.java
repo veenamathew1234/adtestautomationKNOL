@@ -53,7 +53,7 @@ public class journeyPage extends StartUp {
 	developmentPhase dev=new developmentPhase();
 	Quiz qz=new Quiz();
 	externalURL ext=new externalURL();
-	fileItems1 fl=new fileItems1();
+	fileItems fl=new fileItems();
 	int i=0;
 	
 	public journeyPage(){

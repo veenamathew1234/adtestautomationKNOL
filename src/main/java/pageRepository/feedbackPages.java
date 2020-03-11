@@ -90,7 +90,7 @@ public class feedbackPages extends StartUp {
 	
 	public boolean enterFeedbackDetailsForm( Map<String,Object> fb) throws Exception
 	{
-		System.out.println("phaseName found");
+		System.out.println("Inside enter phase feedback details function");
 				
 		try
 		{

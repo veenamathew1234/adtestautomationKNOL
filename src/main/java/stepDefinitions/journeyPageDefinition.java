@@ -6,12 +6,12 @@ import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import pageRepository.journeyPage1;
+import pageRepository.journeyPage;
 import utils.CommonMethods;
 
 public class journeyPageDefinition {
 	
-	journeyPage1 jp=new journeyPage1();
+	journeyPage jp=new journeyPage();
 	CommonMethods cm=new CommonMethods();
 
 	@Given("^User is already in journey page$")
