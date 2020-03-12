@@ -87,12 +87,11 @@ public class loginPage_excel extends StartUp{
 		Thread.sleep(1000);
 		Assert.assertEquals("Invalid user credentials",0,driver.findElements(By.xpath("//div[contains(@class,'error-box')]")).size());
 		readexcel.deleteRow(path);
-System.out.println("After delete row function");
-System.out.println("After delete row function1");
+		System.out.println("After delete row function");
 
 		
 		try{
-System.out.println("Just before skip button xpath");
+			System.out.println("Just before skip button xpath");
 
 			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_Skip"))).click();
 			System.out.println("Skip button found");
