@@ -37,7 +37,7 @@ public class loginPage_excel extends StartUp{
 	String username,password;
 	CommonMethods cm=new CommonMethods();
 	WebDriverWait wait = new WebDriverWait(driver,30);
-	String path = System.getProperty("user.dir")+"/src/main/java/dataRepository/logindata_localstg.xlsx";
+	String path = System.getProperty("user.dir")+"/src/main/java/dataRepository/logindata.xlsx";
 	
 	public loginPage_excel(){
 		

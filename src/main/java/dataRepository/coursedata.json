@@ -55,6 +55,12 @@
     "itemType" : "Document",
    	"feedback":"like"
 },
+ {
+    "moduleName" : "File",
+    "itemName" : "Sample Video",
+    "itemType" : "Video",
+  	"feedback":"like"
+},
 {
  	"moduleName" : "Simulation",
     "itemName" : "Treasure Trailer",
