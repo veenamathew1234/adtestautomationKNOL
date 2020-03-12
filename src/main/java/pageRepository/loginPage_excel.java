@@ -88,6 +88,7 @@ public class loginPage_excel extends StartUp{
 		Assert.assertEquals("Invalid user credentials",0,driver.findElements(By.xpath("//div[contains(@class,'error-box')]")).size());
 		readexcel.deleteRow(path);
 System.out.println("After delete row function");
+System.out.println("After delete row function1");
 
 		
 		try{
