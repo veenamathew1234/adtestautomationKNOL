@@ -65,6 +65,7 @@ public class journeyPage extends StartUp {
 	}
 	
 	
+
 	/*
 	 * Function Name : validateJourneyPage
 	 * Function Parameters: None
@@ -170,12 +171,20 @@ public class journeyPage extends StartUp {
 					if(phaseType.equalsIgnoreCase("Assessment")){
 						asp.verifyAssessmentReport();
 				}
+					
+//					else{
+//					if(driver.findElements(objmap.getLocator("lbl_Certificate")).size()==0)
+//					{
+////						System.out.println("Inside expecting to click HomeButton when certificate has not appeared");
+//						clickOnHomeButton(phaseType);
+//					}
+//					}
+					
 					else{
-					if(driver.findElements(objmap.getLocator("lbl_Certificate")).size()==0)
-					{
-						System.out.println("Inside expecting to click HomeButton when certificate has not appeared");
-						clickOnHomeButton(phaseType);
-					}
+						if(phaseType.equalsIgnoreCase("NormalCourse")){
+							clickOnHomeButton(phaseType);
+						}
+						
 					}
 					
 					 
@@ -206,7 +215,7 @@ public class journeyPage extends StartUp {
 		});
 		
 		Thread.sleep(2000);
-		System.out.println("just outside download report");
+		System.out.println("just outside download certificate");
 		if(driver.findElements(objmap.getLocator("lbl_Certificate")).size()!=0)
 		{
 			System.out.println("found certificate link");
@@ -896,6 +905,7 @@ public boolean verifyCertificate() throws IOException
 	Boolean flag=false;
 	try
 	{
+		System.out.println("Inside verify certificate");
 		wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_Certificate")));
 		return true;
 	}
@@ -930,6 +940,7 @@ public void downloadCertificate() throws IOException {
 	{
 		System.out.println("Inside download certificate");
 		wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_DownloadCertificate"))).click();
+		System.out.println("Clicked on Download certificate");
 		
 	}
 	
