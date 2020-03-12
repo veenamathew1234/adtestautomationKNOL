@@ -71,8 +71,8 @@ public class loginPage_excel extends StartUp{
 		username = readexcel.getCellData(1,0);
 		password = readexcel.getCellData(1,1);
 		
-		System.out.println("username from excel: "+username);
-		System.out.println("password from excel: "+password);
+		System.out.println("username from excel is: "+username);
+		System.out.println("password from excel is: "+password);
 	    e=driver.findElement(objmap.getLocator("txt_Email"));
 	    e.sendKeys(username);
 	    e=driver.findElement(objmap.getLocator("txt_Password"));
