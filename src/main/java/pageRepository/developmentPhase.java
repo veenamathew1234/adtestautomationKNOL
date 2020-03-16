@@ -77,6 +77,8 @@ public class developmentPhase extends StartUp {
 		
 		//Click on Start Quiz
 	
+		
+		Thread.sleep(2000);
 		scormwait.until(ExpectedConditions.elementToBeClickable(objmap.getLocator("btn_StartQuiz"))).click();
 		System.out.println("Successfully Started Quiz");
 		
