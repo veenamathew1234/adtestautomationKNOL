@@ -77,6 +77,8 @@ public class developmentPhase extends StartUp {
 		
 		//Click on Start Quiz
 	
+		
+		Thread.sleep(2000);
 		scormwait.until(ExpectedConditions.elementToBeClickable(objmap.getLocator("btn_StartQuiz"))).click();
 		System.out.println("Successfully Started Quiz");
 		
@@ -89,6 +91,7 @@ public class developmentPhase extends StartUp {
 		
 		//Answer the second question
 		
+		Thread.sleep(2000);
 		
 		scormwait.until(ExpectedConditions.elementToBeClickable(objmap.getLocator("btn_secondAnswer"))).click();
 		scormwait.until(ExpectedConditions.elementToBeClickable(objmap.getLocator("btn_submit2"))).click();
@@ -103,14 +106,14 @@ public class developmentPhase extends StartUp {
 		//switch back to platform Frame
 		driver.switchTo().defaultContent();
 		
-		
-		
 		//click on Exit
 		
 		scormwait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_ScormExit"))).click();
-		scormwait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_ScormYesExit"))).click();
-		
+		e=scormwait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_ScormYesExit")));
+		JavascriptExecutor ex=(JavascriptExecutor)driver;
+		ex.executeScript("arguments[0].click()", e);
 		System.out.println("Exited SCORM successfully");
+		
 		//Check Score Value
 		
 		

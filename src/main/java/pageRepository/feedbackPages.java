@@ -90,7 +90,7 @@ public class feedbackPages extends StartUp {
 	
 	public boolean enterFeedbackDetailsForm( Map<String,Object> fb) throws Exception
 	{
-		System.out.println("phaseName found");
+		System.out.println("Inside enter phase feedback details function");
 				
 		try
 		{
@@ -183,7 +183,7 @@ public class feedbackPages extends StartUp {
 		try
 		{
 			System.out.println("like Dislike Development Phase Item feedback");
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("lbl_Howdidyoulikethecontent")));
 			switch(feedback)
 			{

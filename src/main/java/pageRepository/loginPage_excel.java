@@ -37,7 +37,7 @@ public class loginPage_excel extends StartUp{
 	String username,password;
 	CommonMethods cm=new CommonMethods();
 	WebDriverWait wait = new WebDriverWait(driver,30);
-	String path = System.getProperty("user.dir")+"/src/main/java/dataRepository/logindata.xlsx";
+	String path = System.getProperty("user.dir")+"/src/main/java/dataRepository/logindata_localstg.xlsx";
 	
 	public loginPage_excel(){
 		
@@ -56,7 +56,7 @@ public class loginPage_excel extends StartUp{
 	public void launchPage() throws IOException{
 
 		driver.get(DataObj.get("url").toString());
-		cm.screenShot();
+		
 	}
 	
 	public void validateLoginPage(){
@@ -71,8 +71,8 @@ public class loginPage_excel extends StartUp{
 		username = readexcel.getCellData(1,0);
 		password = readexcel.getCellData(1,1);
 		
-		System.out.println("username from excel: "+username);
-		System.out.println("password from excel: "+password);
+		System.out.println("username from excel is: "+username);
+		System.out.println("password from excel is: "+password);
 	    e=driver.findElement(objmap.getLocator("txt_Email"));
 	    e.sendKeys(username);
 	    e=driver.findElement(objmap.getLocator("txt_Password"));
@@ -87,8 +87,12 @@ public class loginPage_excel extends StartUp{
 		Thread.sleep(1000);
 		Assert.assertEquals("Invalid user credentials",0,driver.findElements(By.xpath("//div[contains(@class,'error-box')]")).size());
 		readexcel.deleteRow(path);
+		System.out.println("After delete row function");
+
 		
 		try{
+			System.out.println("Just before skip button xpath");
+
 			wait.until(ExpectedConditions.presenceOfElementLocated(objmap.getLocator("btn_Skip"))).click();
 			System.out.println("Skip button found");
 		}

@@ -1,14 +1,14 @@
 package pageRepository;
 
+import junit.framework.Assert;
 import java.util.Map;
-import java.util.NoSuchElementException;
-
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import utils.ObjectFactory;
 import utils.StartUp;
 
@@ -20,16 +20,11 @@ public class phaseCompletionValidations extends StartUp{
 	StartUp st = new StartUp();
 	WebDriverWait wait = new WebDriverWait(driver,50);
 		
-	public phaseCompletionValidations(){
-		
-		System.out.println("Inside phase completed validations");
-		this.objmap=new ObjectFactory(System.getProperty("user.dir")+"/src/main/java/uiMap/phaseCompletion.properties");
-	}
 
-
-	//**************Function to verify the status of every phase item*******************//
+//**************Function to verify the status of every phase item*******************//
 	
-	public Boolean checkPhaseItemStatus(String phaseType,String itemName) throws Exception{
+	
+public Boolean checkPhaseItemStatus(String phaseType,String itemName) throws Exception{
 
 		
 		try{
@@ -37,17 +32,11 @@ public class phaseCompletionValidations extends StartUp{
 						
 			switch(phaseType){
 				case "Assessment":
-					Thread.sleep(2000);
-					e=driver.findElement(By.xpath("//div[contains(@class,'-menuItem-module-product') and contains(text(),'"+itemName+"')]"));
-					Thread.sleep(2000);
-					e=driver.findElement(objmap.getLocator("lbl_assessmentStatus"));
+					e=wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class,'menuItem-module-text-content')]//*[(text()='"+itemName+"')]//following::span[contains(@class,'menuItem-module-completed-status')]")));
 					break;
 				
 				case "Normal Course":
-					Thread.sleep(2000);
-					e=driver.findElement(By.xpath("//div[contains(@class,'innerListItem-module-module-item-title')]//span[contains(text(),'"+itemName+"')]"));	
-					Thread.sleep(2000);	
-					e=driver.findElement(objmap.getLocator("lbl_normalCourseStatus"));
+					e=wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class,'innerListItem-module-text-container')]//*[(text()='"+itemName+"')]//following::span[contains(@class,'innerListItem-module-completed-label')]")));
 					break;
 				
 			}
@@ -55,19 +44,32 @@ public class phaseCompletionValidations extends StartUp{
 			
 				System.out.println("Item Status captured from screen for '"+itemName+"'" +e.getText());
 				status=e.getText();
-				if(status.equalsIgnoreCase("Completed"))
-				System.out.println("Item is completed");
+				if(status.equalsIgnoreCase("Completed")){
+					System.out.println("Item is completed");
+					status="";
+				}
+						
 				
 			return true;
 				
 			}
 			
 			catch(NoSuchElementException ne){
+				Assert.assertNull("Completion state of "+itemName+" is not found", ne);
 				ne.printStackTrace();
 				return false;
 			}
+		catch(TimeoutException te)
+		{
+			
+			Assert.assertNull("Completion state of "+itemName+" is not found", te);
+			te.printStackTrace();
+			return false;
+		}
+
 			
 		}
+
 
 
 }
