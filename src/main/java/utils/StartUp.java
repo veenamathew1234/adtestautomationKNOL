@@ -11,6 +11,8 @@ import java.util.TimeZone;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import com.fasterxml.jackson.core.JsonFactory;
@@ -29,6 +31,7 @@ public class StartUp {
 	  protected static Map<String,Object> CourseDataObj;
 	  protected static WebDriver driver;
 	  String chromepath=System.getProperty("user.dir")+"/chromedriver";
+	  String firepath=System.getProperty("user.dir")+"/geckodriver";
 	  String filename;
 
 	  public StartUp()
@@ -61,8 +64,6 @@ public class StartUp {
 				driver.manage().window().maximize(); 
 		 
 		 }
-		 
- 
 			return driver;
  
 			
